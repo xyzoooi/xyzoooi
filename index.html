@@ -15,10 +15,9 @@
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            text-align: center;
         }
         .container {
             background: rgba(255, 255, 255, 0.05);
@@ -30,6 +29,7 @@
             max-width: 450px;
             width: 90%;
             margin: 30px 0;
+            text-align: center;
         }
         .server-logo {
             width: 120px;
@@ -40,10 +40,16 @@
         }
         h1 {
             font-size: 2.3rem;
-            margin-bottom: 10px;
+            margin: 0 0 10px 0;
             background: linear-gradient(45deg, #ff7b00, #ffae00);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+        }
+        h2 {
+            font-size: 1.5rem;
+            color: #ffae00;
+            margin-top: 10px;
+            margin-bottom: 15px;
         }
         .status-badge {
             display: inline-block;
@@ -73,7 +79,6 @@
             font-weight: bold;
             font-family: 'Courier New', Courier, monospace;
         }
-        /* Style baru untuk List Fitur Server */
         .features-list {
             text-align: left;
             background: rgba(255, 255, 255, 0.03);
@@ -100,17 +105,43 @@
             box-sizing: border-box;
             margin-top: 10px;
         }
-        /* Style Tombol Kedua (Sosmed) */
-        .btn-secondary {
-            background: linear-gradient(45deg, #5865F2, #404eed); /* Warna khas Discord */
-            margin-top: 8px;
-        }
+        .btn-secondary { background: linear-gradient(45deg, #5865F2, #404eed); }
+        .btn-donation { background: linear-gradient(45deg, #2ecc71, #27ae60); }
         .btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(255, 123, 0, 0.3);
         }
-        .btn-secondary:hover {
-            box-shadow: 0 5px 15px rgba(88, 101, 242, 0.3);
+        .btn-secondary:hover { box-shadow: 0 5px 15px rgba(88, 101, 242, 0.3); }
+        .btn-donation:hover { box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3); }
+
+        /* --- STYLE BARU UNTUK GALERI FOTO --- */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        .gallery-item {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s;
+        }
+        .gallery-item:hover {
+            transform: scale(1.03);
+            border-color: #ffae00;
+        }
+
+        /* --- STYLE BARU UNTUK DONASI --- */
+        .donation-box {
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px dashed #2ecc71;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: left;
+            margin-bottom: 15px;
         }
     </style>
 </head>
@@ -118,7 +149,6 @@
 
     <div class="container">
         <img src="logo.png?v=1" alt="Logo Xyzoocraft" class="server-logo">
-        
         <h1>Xyzoocraft 🚀</h1>
         
         <div class="status-badge">
@@ -129,19 +159,43 @@
         
         <div class="server-info">
             <p><strong>IP Address:</strong> <span class="highlight">xyzoocraft.my.id</span></p>
-            <p><strong>Port:</strong> <span class="highlight">19149</span></p>
+            <p><strong>Port:</strong> <span class="highlight">12345</span></p>
         </div>
 
         <div class="features-list">
             <strong>✨ Fitur Server:</strong>
             <div style="margin-top: 8px;">🔹 Survival Semi-Vanilla Basik</div>
             <div>🔹 Ekonomi & Toko Pemain</div>
-            <div>🔹 Costume Enchant & Skin tools</div>
+            <div>🔹 Ramah Pemula & Bebas Griefing</div>
         </div>
         
         <button class="btn" onclick="salinIP()">📋 Salin IP Server</button>
+        <a href="#" target="_blank" class="btn btn-secondary">💬 Gabung Komunitas</a>
+    </div>
+
+    <div class="container">
+        <h2>📸 Galeri Server</h2>
+        <p>Intip keseruan dan mahakarya para pemain di Xyzoocraft!</p>
         
-        <a href="https://discord.gg/rC2kKYzUeW" target="_blank" class="btn btn-secondary">💬 Gabung Komunitas</a>
+        <div class="gallery-grid">
+            <img src="foto1.jpg" alt="Keseruan Server 1" class="gallery-item">
+            <img src="foto2.jpg" alt="Keseruan Server 2" class="gallery-item">
+            <img src="foto3.jpg" alt="Keseruan Server 3" class="gallery-item">
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>💸 Dukung Server</h2>
+        <p>Bantu server tetap online 24 jam dengan berdonasi. Setiap donasi sangat berarti untuk perpanjangan hosting game!</p>
+        
+        <div class="donation-box">
+            <p style="color: #2ecc71; font-weight: bold; margin-bottom: 8px;">🎁 Benefit Donatur:</p>
+            <p>• Custom Tag / Prefix keren di dalam Game</p>
+            <p>• Slot Prioritas saat server penuh</p>
+            <p>• Akses Kit kosmetik khusus</p>
+        </div>
+
+        <a href="https://saweria.co/XyzooCraft" target="_blank" class="btn btn-donation">❤️ Donasi via Saweria</a>
     </div>
 
     <script>
@@ -150,8 +204,6 @@
             alert("IP Server berhasil disalin! Selamat bermain. 🎮");
         }
 
-        // Script otomatis cek status Server Minecraft menggunakan API Gratisan
-        // (Ganti 'play.hypixel.net' di bawah dengan IP server aslimu kalau servernya sudah aktif/dinyalakan)
         const ipServer = "xyzoocraft.my.id"; 
         
         fetch(`https://api.mcsrvstat.us/2/${ipServer}`)
