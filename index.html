@@ -3,20 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Pertamaku</title>
+    <title>Welcome to Xyzoocraft</title>
     <style>
+        /* CSS untuk mempercantik tampilan */
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e1e2f, #2d2d44);
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             text-align: center;
-            background-color: #f4f4f9;
-            margin-top: 50px;
         }
-        h1 { color: #333; }
-        p { color: #666; }
+        .container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 400px;
+            width: 90%;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, #ff7b00, #ffae00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        p {
+            font-size: 1.1rem;
+            color: #ccc;
+            line-height: 1.6;
+        }
+        .btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 24px;
+            background: linear-gradient(45deg, #ff7b00, #ffae00);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 123, 0, 0.4);
+        }
     </style>
 </head>
 <body>
-    <h1>Halo Dunia! 👋</h1>
-    <p>Ini adalah website pertama saya tanpa iklan. Saya sedang belajar membuatnya dari nol.</p>
+
+    <div class="container">
+        <h1>Xyzoocraft 🚀</h1>
+        <p>Selamat datang di ruang belajar coding saya. Website ini dibuat dari nol, tanpa iklan, dan menggunakan GitHub Pages + Cloudflare.</p>
+        
+        <!-- Tombol Interaktif dengan JavaScript -->
+        <button class="btn" onclick="sapaPengunjung()">Klik Saya!</button>
+    </div>
+
+    <script>
+        // JavaScript sederhana untuk memunculkan pop-up
+        function sapaPengunjung() {
+            alert("Halo! Terima kasih sudah berkunjung ke xyzoocraft.my.id. Semangat belajar coding-nya! 💪");
+        }
+    </script>
+
 </body>
 </html>
