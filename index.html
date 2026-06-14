@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xyzoocraft Minecraft Server</title>
+    
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -14,7 +17,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             text-align: center;
         }
         .container {
@@ -26,6 +29,15 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             max-width: 450px;
             width: 90%;
+            margin: 20px 0;
+        }
+        /* Style untuk gambar agar rapi */
+        .server-logo {
+            width: 120px; /* Ukuran lebar gambar, bisa kamu sesuaikan */
+            height: auto;
+            border-radius: 50px; /* Membuat sudut gambar agak melengkung */
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
         h1 {
             font-size: 2.5rem;
@@ -40,23 +52,18 @@
             line-height: 1.6;
             margin: 10px 0;
         }
-        /* Style baru untuk kotak info server */
         .server-info {
             background: rgba(0, 0, 0, 0.3);
             border-left: 4px solid #ff7b00;
             padding: 15px;
             border-radius: 8px;
             margin: 20px 0;
-            text-align: left; /* Teks rata kiri di dalam kotak agar rapi */
-        }
-        .server-info text {
-            display: block;
-            margin-bottom: 5px;
+            text-align: left;
         }
         .highlight {
             color: #ffae00;
             font-weight: bold;
-            font-family: 'Courier New', Courier, monospace; /* Font ala coding agar mudah dibaca */
+            font-family: 'Courier New', Courier, monospace;
         }
         .btn {
             display: inline-block;
@@ -82,14 +89,13 @@
 <body>
 
     <div class="container">
+        <img src="logo.png" alt="Logo Xyzoocraft" class="server-logo">
+        
         <h1>Xyzoocraft 🚀</h1>
         
         <p>Selamat datang di Server Minecraft Xyzoo. Mau join?</p>
         <p>Langsung saja masukkan IP di bawah ini:</p>
         
-    
-        
-        <!-- Kotak Info Server yang sudah dirapikan -->
         <div class="server-info">
             <p><strong>Server Address:</strong> <span class="highlight">xyzoocraft.my.id</span></p>
             <p><strong>Port:</strong> <span class="highlight">12345</span></p>
@@ -99,7 +105,6 @@
     </div>
 
     <script>
-        // Fungsi keren untuk otomatis menyalin IP saat tombol diklik
         function salinIP() {
             navigator.clipboard.writeText("xyzoocraft.my.id");
             alert("IP Server berhasil disalin! Tinggal paste di Minecraft kamu. 🎮");
