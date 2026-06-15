@@ -4,222 +4,1041 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xyzoocraft Minecraft Server</title>
-    
+
     <link rel="icon" type="image/png" href="./logo.png?v=1">
-    
+
     <style>
+        :root {
+            --bg-main: #0f1020;
+            --bg-card: rgba(255, 255, 255, 0.08);
+            --bg-card-dark: rgba(0, 0, 0, 0.28);
+            --orange: #ff8a00;
+            --gold: #ffc247;
+            --green: #2ecc71;
+            --red: #e74c3c;
+            --blue: #5865f2;
+            --text-main: #ffffff;
+            --text-muted: #c8c8d4;
+            --border: rgba(255, 255, 255, 0.13);
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e1e2f, #2d2d44);
-            color: #ffffff;
             margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-main);
+            background:
+                radial-gradient(circle at top left, rgba(255, 138, 0, 0.22), transparent 34%),
+                radial-gradient(circle at top right, rgba(88, 101, 242, 0.18), transparent 32%),
+                linear-gradient(135deg, #10111f, #18192e 45%, #0b0c16);
             min-height: 100vh;
+            overflow-x: hidden;
         }
-        .container {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 35px;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            max-width: 450px;
-            width: 90%;
-            margin: 30px 0;
-            text-align: center;
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 38px 38px;
+            pointer-events: none;
+            z-index: -1;
         }
-        .server-logo {
-            width: 120px;
-            height: auto;
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 99;
+            backdrop-filter: blur(16px);
+            background: rgba(10, 11, 24, 0.78);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: 1180px;
+            margin: auto;
+            padding: 14px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+        }
+
+        .brand img {
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255, 194, 71, 0.5);
         }
-        h1 {
-            font-size: 2.3rem;
-            margin: 0 0 10px 0;
-            background: linear-gradient(45deg, #ff7b00, #ffae00);
+
+        .brand span {
+            background: linear-gradient(45deg, var(--orange), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.15rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-cta {
+            padding: 9px 15px;
+            border-radius: 999px;
+            background: linear-gradient(45deg, var(--orange), var(--gold));
+            color: #171717 !important;
+            font-weight: 800;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: 1px solid var(--border);
+            color: white;
+            border-radius: 10px;
+            padding: 8px 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .section {
+            max-width: 1180px;
+            width: 100%;
+            margin: auto;
+            padding: 80px 22px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 34px;
+            align-items: center;
+            min-height: 82vh;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 13px;
+            border: 1px solid rgba(255, 194, 71, 0.25);
+            background: rgba(255, 138, 0, 0.08);
+            border-radius: 999px;
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.6rem, 6vw, 5.4rem);
+            line-height: 0.95;
+            margin: 0 0 18px;
+            letter-spacing: -2px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, var(--orange), var(--gold), #fff1b8);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        h2 {
-            font-size: 1.5rem;
-            color: #ffae00;
-            margin-top: 10px;
-            margin-bottom: 15px;
-        }
-        .status-badge {
-            display: inline-block;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            border: 1px solid #ff7b00;
-        }
-        p {
-            font-size: 1rem;
-            color: #ccc;
-            line-height: 1.5;
-            margin: 5px 0;
-        }
-        .server-info {
-            background: rgba(0, 0, 0, 0.3);
-            border-left: 4px solid #ff7b00;
-            padding: 12px;
-            border-radius: 8px;
-            margin: 15px 0;
-            text-align: left;
-        }
-        .highlight {
-            color: #ffae00;
-            font-weight: bold;
-            font-family: 'Courier New', Courier, monospace;
-        }
-        .features-list {
-            text-align: left;
-            background: rgba(255, 255, 255, 0.03);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 15px 0;
-            font-size: 0.95rem;
-        }
-        .features-list div {
-            margin-bottom: 8px;
-        }
-        .btn {
-            display: inline-block;
-            padding: 12px 24px;
-            background: linear-gradient(45deg, #ff7b00, #ffae00);
-            color: #fff;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: bold;
-            transition: transform 0.2s, box-shadow 0.2s;
-            cursor: pointer;
-            border: none;
-            width: 100%;
-            box-sizing: border-box;
-            margin-top: 10px;
-        }
-        .btn-secondary { background: linear-gradient(45deg, #5865F2, #404eed); }
-        .btn-donation { background: linear-gradient(45deg, #2ecc71, #27ae60); }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 123, 0, 0.3);
-        }
-        .btn-secondary:hover { box-shadow: 0 5px 15px rgba(88, 101, 242, 0.3); }
-        .btn-donation:hover { box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3); }
 
-        /* --- STYLE BARU UNTUK GALERI FOTO --- */
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.08rem;
+            line-height: 1.7;
+            max-width: 620px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 26px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px 20px;
+            border-radius: 14px;
+            border: 0;
+            cursor: pointer;
+            font-weight: 800;
+            transition: 0.25s ease;
+            color: white;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--orange), var(--gold));
+            color: #181818;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.09);
+            border: 1px solid var(--border);
+        }
+
+        .btn-discord {
+            background: linear-gradient(45deg, #5865F2, #404eed);
+        }
+
+        .btn-donation {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 28px rgba(255, 138, 0, 0.18);
+        }
+
+        .hero-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(16px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card::before {
+            content: "";
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            background: rgba(255, 194, 71, 0.25);
+            border-radius: 50%;
+            top: -60px;
+            right: -50px;
+            filter: blur(6px);
+        }
+
+        .server-logo {
+            width: 128px;
+            height: 128px;
+            object-fit: cover;
+            border-radius: 28px;
+            border: 2px solid rgba(255, 194, 71, 0.55);
+            box-shadow: 0 18px 45px rgba(0,0,0,0.35);
+            display: block;
+            margin-bottom: 18px;
+        }
+
+        .server-title {
+            margin: 0 0 10px;
+            font-size: 1.8rem;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 13px;
+            border-radius: 999px;
+            background: rgba(0,0,0,0.32);
+            border: 1px solid var(--gold);
+            font-size: 0.92rem;
+            margin: 10px 0 18px;
+        }
+
+        .server-info {
+            background: var(--bg-card-dark);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 16px;
+            margin-top: 14px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 9px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .info-row:last-child {
+            border-bottom: 0;
+        }
+
+        .info-label {
+            color: var(--text-muted);
+        }
+
+        .highlight {
+            color: var(--gold);
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 800;
+            text-align: right;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: -30px;
+            padding-top: 0;
+        }
+
+        .stat-card,
+        .content-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 22px;
+            box-shadow: 0 14px 38px rgba(0,0,0,0.25);
+            backdrop-filter: blur(12px);
+        }
+
+        .stat-card h3 {
+            margin: 0;
+            font-size: 1.65rem;
+            color: var(--gold);
+        }
+
+        .stat-card p {
+            margin: 8px 0 0;
+            color: var(--text-muted);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 34px;
+        }
+
+        .section-title h2 {
+            font-size: clamp(2rem, 4vw, 3.1rem);
+            margin: 0 0 12px;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            max-width: 690px;
+            margin: auto;
+            line-height: 1.7;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .content-card {
+            transition: 0.25s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255, 194, 71, 0.5);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 15px;
+            background: rgba(255, 138, 0, 0.12);
+            color: var(--gold);
+            font-size: 1.45rem;
+            margin-bottom: 14px;
+        }
+
+        .content-card h3 {
+            margin: 0 0 10px;
+            font-size: 1.25rem;
+        }
+
+        .content-card p,
+        .content-card li {
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .step-number {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--orange), var(--gold));
+            color: #161616;
+            display: grid;
+            place-items: center;
+            font-weight: 900;
+            margin-bottom: 14px;
+        }
+
+        .rules-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .rules-box ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
         .gallery-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-            margin-top: 10px;
-        }
-        .gallery-item {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s;
-        }
-        .gallery-item:hover {
-            transform: scale(1.03);
-            border-color: #ffae00;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
         }
 
-        /* --- STYLE BARU UNTUK DONASI --- */
-        .donation-box {
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 22px;
+            border: 1px solid var(--border);
+            height: 245px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.35s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 16px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.78));
+            font-weight: 800;
+        }
+
+        .donation-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .benefit-list {
             background: rgba(46, 204, 113, 0.1);
-            border: 1px dashed #2ecc71;
+            border: 1px dashed rgba(46, 204, 113, 0.8);
+            border-radius: 18px;
+            padding: 18px;
+        }
+
+        .rank-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border);
+            border-radius: 16px;
             padding: 15px;
-            border-radius: 8px;
-            text-align: left;
-            margin-bottom: 15px;
+            margin-top: 10px;
+        }
+
+        .rank-card strong {
+            color: var(--gold);
+        }
+
+        .faq details {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 12px;
+        }
+
+        .faq summary {
+            cursor: pointer;
+            font-weight: 800;
+        }
+
+        .faq p {
+            color: var(--text-muted);
+            line-height: 1.65;
+            margin-bottom: 0;
+        }
+
+        .community-box {
+            text-align: center;
+            background:
+                linear-gradient(135deg, rgba(255,138,0,0.13), rgba(88,101,242,0.13)),
+                var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 34px;
+            box-shadow: var(--shadow);
+        }
+
+        footer {
+            text-align: center;
+            padding: 28px 20px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            background: rgba(0,0,0,0.18);
+        }
+
+        .toast {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            background: rgba(15, 16, 32, 0.94);
+            border: 1px solid rgba(255, 194, 71, 0.4);
+            color: white;
+            padding: 13px 16px;
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            transform: translateY(30px);
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.25s ease;
+            z-index: 999;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 900px) {
+            .hero,
+            .donation-layout,
+            .rules-box {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid,
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cards-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 72px;
+                left: 18px;
+                right: 18px;
+                display: none;
+                flex-direction: column;
+                align-items: stretch;
+                background: rgba(10, 11, 24, 0.96);
+                border: 1px solid var(--border);
+                border-radius: 18px;
+                padding: 18px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .section {
+                padding: 58px 16px;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-top: 42px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .stats-grid,
+            .cards-grid,
+            .steps,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-row {
+                flex-direction: column;
+            }
+
+            .highlight {
+                text-align: left;
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <div class="container">
-        <img src="logo.png?v=1" alt="Logo Xyzoocraft" class="server-logo">
-        <h1>Xyzoocraft 🚀</h1>
-        
-        <div class="status-badge">
-            🟢 Server: <span id="server-status">Mengecek...</span>
-        </div>
-        
-        <p>Selamat datang di Server Minecraft Xyzoo. Mau join?</p>
-        
-        <div class="server-info">
-            <p><strong>IP Address:</strong> <span class="highlight">xyzoocraft.my.id</span></p>
-            <p><strong>Port:</strong> <span class="highlight">12345</span></p>
-        </div>
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="#home" class="brand">
+                <img src="logo.png?v=1" alt="Logo Xyzoocraft">
+                <span>Xyzoocraft</span>
+            </a>
 
-        <div class="features-list">
-            <strong>✨ Fitur Server:</strong>
-            <div style="margin-top: 8px;">🔹 Survival Semi-Vanilla Basik</div>
-            <div>🔹 Ekonomi & Toko Pemain</div>
-            <div>🔹 Ramah Pemula & Bebas Griefing</div>
-        </div>
-        
-        <button class="btn" onclick="salinIP()">📋 Salin IP Server</button>
-        <a href="#" target="_blank" class="btn btn-secondary">💬 Gabung Komunitas</a>
-    </div>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
 
-    <div class="container">
-        <h2>📸 Galeri Server</h2>
-        <p>Intip keseruan dan mahakarya para pemain di Xyzoocraft!</p>
-        
-        <div class="gallery-grid">
-            <img src="foto1.png?v=1" alt="" class="gallery-item">
-            <img src="foto2.png?v=1" alt="" class="gallery-item">
-            <img src="foto3.png?v=1" alt="" class="gallery-item">
+            <div class="nav-links" id="navLinks">
+                <a href="#home">Home</a>
+                <a href="#fitur">Fitur</a>
+                <a href="#join">Cara Join</a>
+                <a href="#rules">Rules</a>
+                <a href="#galeri">Galeri</a>
+                <a href="#donasi">Donasi</a>
+                <a href="#faq">FAQ</a>
+                <a href="#komunitas" class="nav-cta">Join Komunitas</a>
+            </div>
         </div>
-    </div>
+    </nav>
 
-    <div class="container">
-        <h2>💸 Dukung Server</h2>
-        <p>Bantu server tetap online 24 jam dengan berdonasi. Setiap donasi sangat berarti untuk perpanjangan hosting game!</p>
-        
-        <div class="donation-box">
-            <p style="color: #2ecc71; font-weight: bold; margin-bottom: 8px;">🎁 Benefit Donatur:</p>
-            <p>• Custom Tag / Prefix keren di dalam Game</p>
-            <p>• Slot Prioritas saat server penuh</p>
-            <p>• Akses Kit kosmetik khusus</p>
-        </div>
+    <main>
+        <section class="section hero" id="home">
+            <div>
+                <div class="eyebrow">🟢 Minecraft Survival Community</div>
 
-        <a href="https://saweria.co/usernamekamu" target="_blank" class="btn btn-donation">❤️ Donasi via Saweria</a>
-    </div>
+                <h1>
+                    Bangun Dunia Baru di
+                    <span class="gradient-text">Xyzoocraft</span>
+                </h1>
+
+                <p>
+                    Server Minecraft yang cocok untuk main santai, survival bareng teman,
+                    bangun base keren, ekonomi pemain, dan komunitas yang ramah untuk pemula.
+                </p>
+
+                <div class="hero-actions">
+                    <button class="btn btn-primary" onclick="salinIPPort()">📋 Salin IP + Port</button>
+                    <a href="#join" class="btn btn-secondary">🎮 Cara Join</a>
+                    <a href="#komunitas" class="btn btn-discord">💬 Komunitas</a>
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <img src="logo.png?v=1" alt="Logo Xyzoocraft" class="server-logo">
+
+                <h2 class="server-title">Xyzoocraft 🚀</h2>
+
+                <div class="status-badge" id="statusBadge">
+                    Server: <span id="server-status">Mengecek...</span>
+                </div>
+
+                <p style="color: var(--text-muted); line-height: 1.6;">
+                    Masuk, survive, grinding, bangun base, dan jadi bagian dari komunitas Xyzoocraft.
+                </p>
+
+                <div class="server-info">
+                    <div class="info-row">
+                        <span class="info-label">IP Address</span>
+                        <span class="highlight">xyzoocraft.my.id</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Port</span>
+                        <span class="highlight">12345</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Mode</span>
+                        <span class="highlight">Survival</span>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" style="width:100%; margin-top:16px;" onclick="salinIP()">
+                    📋 Salin IP Server
+                </button>
+            </div>
+        </section>
+
+        <section class="section stats-grid">
+            <div class="stat-card">
+                <h3 id="playerOnline">-</h3>
+                <p>Player Online</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>24/7</h3>
+                <p>Target Uptime</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Anti</h3>
+                <p>Griefing</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Fun</h3>
+                <p>Community</p>
+            </div>
+        </section>
+
+        <section class="section" id="fitur">
+            <div class="section-title">
+                <h2>✨ Fitur Server</h2>
+                <p>
+                    Beberapa fitur utama yang bikin Xyzoocraft enak dimainkan untuk pemula maupun player lama.
+                </p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="content-card">
+                    <div class="card-icon">🌲</div>
+                    <h3>Survival Semi-Vanilla</h3>
+                    <p>Gameplay survival yang tetap terasa original, tapi diberi sentuhan fitur yang lebih nyaman.</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="card-icon">💰</div>
+                    <h3>Ekonomi Pemain</h3>
+                    <p>Bangun toko, jual beli item, kumpulkan uang, dan jadi player paling tajir di server.</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="card-icon">🛡️</div>
+                    <h3>Proteksi Area</h3>
+                    <p>Base lebih aman dari griefing dengan sistem proteksi dan aturan komunitas yang jelas.</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="card-icon">🎁</div>
+                    <h3>Reward & Event</h3>
+                    <p>Event mingguan, hadiah menarik, dan aktivitas komunitas biar server tidak cepat membosankan.</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="card-icon">🏪</div>
+                    <h3>Player Shop</h3>
+                    <p>Pemain bisa membuat toko sendiri untuk menjual item hasil farming, mining, atau crafting.</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="card-icon">🤝</div>
+                    <h3>Ramah Pemula</h3>
+                    <p>Komunitas santai, cocok buat player baru yang ingin belajar dan main bareng.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="join">
+            <div class="section-title">
+                <h2>🎮 Cara Join</h2>
+                <p>
+                    Ikuti langkah berikut untuk masuk ke server Xyzoocraft.
+                </p>
+            </div>
+
+            <div class="steps">
+                <div class="content-card">
+                    <div class="step-number">1</div>
+                    <h3>Buka Minecraft</h3>
+                    <p>Masuk ke menu Multiplayer atau Server sesuai versi Minecraft kamu.</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="step-number">2</div>
+                    <h3>Tambah Server</h3>
+                    <p>Klik Add Server, lalu isi nama server dengan Xyzoocraft.</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="step-number">3</div>
+                    <h3>Masukkan IP</h3>
+                    <p>Gunakan IP <span class="highlight">xyzoocraft.my.id</span> dan port <span class="highlight">12345</span>.</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="step-number">4</div>
+                    <h3>Join & Enjoy</h3>
+                    <p>Masuk ke server, baca rules, lalu mulai petualangan kamu.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="rules">
+            <div class="section-title">
+                <h2>📜 Rules Server</h2>
+                <p>
+                    Biar mainnya tetap nyaman, semua player wajib mengikuti aturan dasar server.
+                </p>
+            </div>
+
+            <div class="rules-box">
+                <div class="content-card">
+                    <h3>✅ Yang Boleh</h3>
+                    <ul>
+                        <li>Bangun base dan kota bersama player lain.</li>
+                        <li>Trading item secara jujur.</li>
+                        <li>Ikut event komunitas.</li>
+                        <li>Membantu player baru.</li>
+                    </ul>
+                </div>
+
+                <div class="content-card">
+                    <h3>❌ Yang Dilarang</h3>
+                    <ul>
+                        <li>Cheat, x-ray, bug abuse, atau exploit.</li>
+                        <li>Griefing dan mencuri item player lain.</li>
+                        <li>Spam chat, toxic, atau menghina player.</li>
+                        <li>Mengganggu kenyamanan komunitas.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="galeri">
+            <div class="section-title">
+                <h2>📸 Galeri Server</h2>
+                <p>
+                    Intip keseruan dan karya para pemain di dunia Xyzoocraft.
+                </p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="foto1.png?v=1" alt="Galeri Xyzoocraft 1">
+                    <div class="gallery-caption">Base Player</div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="foto2.png?v=1" alt="Galeri Xyzoocraft 2">
+                    <div class="gallery-caption">Area Spawn</div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="foto3.png?v=1" alt="Galeri Xyzoocraft 3">
+                    <div class="gallery-caption">Build Komunitas</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="donasi">
+            <div class="section-title">
+                <h2>💸 Dukung Server</h2>
+                <p>
+                    Donasi membantu server tetap aktif, stabil, dan bisa terus berkembang.
+                </p>
+            </div>
+
+            <div class="donation-layout">
+                <div class="content-card">
+                    <h3>🎁 Benefit Donatur</h3>
+
+                    <div class="benefit-list">
+                        <p>✅ Custom Tag / Prefix keren di dalam game</p>
+                        <p>✅ Slot prioritas saat server penuh</p>
+                        <p>✅ Kit kosmetik khusus</p>
+                        <p>✅ Role spesial di komunitas</p>
+                    </div>
+
+                    <a href="https://saweria.co/usernamekamu" target="_blank" class="btn btn-donation" style="width:100%; margin-top:16px;">
+                        ❤️ Donasi via Saweria
+                    </a>
+                </div>
+
+                <div class="content-card">
+                    <h3>🏆 Rank Donatur</h3>
+
+                    <div class="rank-card">
+                        <strong>VIP</strong>
+                        <p>Prefix VIP, kosmetik basic, dan role Discord.</p>
+                    </div>
+
+                    <div class="rank-card">
+                        <strong>MVP</strong>
+                        <p>Prefix MVP, slot prioritas, dan kit kosmetik tambahan.</p>
+                    </div>
+
+                    <div class="rank-card">
+                        <strong>Legend</strong>
+                        <p>Prefix Legend, benefit lengkap, dan nama masuk Hall of Fame.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section faq" id="faq">
+            <div class="section-title">
+                <h2>❓ FAQ</h2>
+                <p>
+                    Pertanyaan yang sering ditanyakan sebelum masuk ke server.
+                </p>
+            </div>
+
+            <details>
+                <summary>Server ini Java atau Bedrock?</summary>
+                <p>
+                    Default script status di bawah disiapkan untuk Java. Kalau server kamu Bedrock, ubah bagian
+                    <span class="highlight">type: "java"</span> menjadi <span class="highlight">type: "bedrock"</span> di JavaScript.
+                </p>
+            </details>
+
+            <details>
+                <summary>Apakah server aman untuk pemula?</summary>
+                <p>
+                    Ya, server dibuat ramah untuk pemula. Player tetap wajib mengikuti rules agar komunitas nyaman.
+                </p>
+            </details>
+
+            <details>
+                <summary>Apakah boleh membuat toko sendiri?</summary>
+                <p>
+                    Boleh. Xyzoocraft mendukung sistem ekonomi dan toko pemain.
+                </p>
+            </details>
+
+            <details>
+                <summary>Bagaimana kalau ada player toxic atau griefing?</summary>
+                <p>
+                    Laporkan ke admin/moderator melalui komunitas agar bisa ditindak sesuai rules.
+                </p>
+            </details>
+        </section>
+
+        <section class="section" id="komunitas">
+            <div class="community-box">
+                <h2>💬 Gabung Komunitas Xyzoocraft</h2>
+                <p style="color: var(--text-muted); line-height: 1.7; max-width: 700px; margin: 12px auto 22px;">
+                    Masuk ke grup komunitas untuk info update, event, laporan bug, pengumuman maintenance,
+                    dan ngobrol bareng player lain.
+                </p>
+
+                <a href="#" target="_blank" class="btn btn-discord">
+                    💬 Gabung Discord / WhatsApp
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 Xyzoocraft Minecraft Server. Dibuat untuk komunitas survival yang santai dan seru.</p>
+    </footer>
+
+    <div class="toast" id="toast">Berhasil disalin!</div>
 
     <script>
-        function salinIP() {
-            navigator.clipboard.writeText("xyzoocraft.my.id");
-            alert("IP Server berhasil disalin! Selamat bermain. 🎮");
+        const SERVER_CONFIG = {
+            ip: "xyzoocraft.my.id",
+            port: "12345",
+
+            // Ganti ke "bedrock" kalau server kamu Bedrock.
+            // Biarkan "java" kalau server kamu Java Edition.
+            type: "java"
+        };
+
+        function toggleMenu() {
+            document.getElementById("navLinks").classList.toggle("active");
         }
 
-        const ipServer = "xyzoocraft.my.id"; 
-        
-        fetch(`https://api.mcsrvstat.us/2/${ipServer}`)
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.classList.add("show");
+
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 2200);
+        }
+
+        function copyText(text, message) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast(message);
+                });
+            } else {
+                const tempInput = document.createElement("input");
+                tempInput.value = text;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempInput);
+                showToast(message);
+            }
+        }
+
+        function salinIP() {
+            copyText(SERVER_CONFIG.ip, "IP server berhasil disalin! 🎮");
+        }
+
+        function salinIPPort() {
+            copyText(`${SERVER_CONFIG.ip}:${SERVER_CONFIG.port}`, "IP + Port berhasil disalin! 🚀");
+        }
+
+        function getStatusUrl() {
+            if (SERVER_CONFIG.type === "bedrock") {
+                return `https://api.mcsrvstat.us/bedrock/3/${SERVER_CONFIG.ip}:${SERVER_CONFIG.port}`;
+            }
+
+            return `https://api.mcsrvstat.us/3/${SERVER_CONFIG.ip}:${SERVER_CONFIG.port}`;
+        }
+
+        fetch(getStatusUrl())
             .then(response => response.json())
             .then(data => {
                 const statusElement = document.getElementById("server-status");
-                if(data.online) {
-                    statusElement.innerHTML = `<span style="color: #2ecc71;">Online (${data.players.online}/${data.players.max})</span>`;
-                    document.querySelector(".status-badge").style.borderColor = "#2ecc71";
+                const statusBadge = document.getElementById("statusBadge");
+                const playerOnline = document.getElementById("playerOnline");
+
+                if (data.online) {
+                    const online = data.players?.online ?? 0;
+                    const max = data.players?.max ?? "-";
+
+                    statusElement.innerHTML = `<span style="color:#2ecc71; font-weight:800;">Online ${online}/${max}</span>`;
+                    statusBadge.style.borderColor = "#2ecc71";
+                    playerOnline.textContent = online;
                 } else {
-                    statusElement.innerHTML = `<span style="color: #e74c3c;">Offline</span>`;
-                    document.querySelector(".status-badge").style.borderColor = "#e74c3c";
+                    statusElement.innerHTML = `<span style="color:#e74c3c; font-weight:800;">Offline</span>`;
+                    statusBadge.style.borderColor = "#e74c3c";
+                    playerOnline.textContent = "0";
                 }
             })
-            .catch(err => {
-                document.getElementById("server-status").innerText = "Offline / Maintenance";
+            .catch(() => {
+                document.getElementById("server-status").innerHTML =
+                    `<span style="color:#e74c3c; font-weight:800;">Offline / Maintenance</span>`;
+                document.getElementById("statusBadge").style.borderColor = "#e74c3c";
+                document.getElementById("playerOnline").textContent = "-";
             });
     </script>
 
