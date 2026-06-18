@@ -1,1405 +1,1046 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Website resmi Creator Anime One: komunitas kreator, editor, reviewer, dan pecinta anime." />
-  <title>Creator Anime One — Official Community Hub</title>
-  <link rel="icon" type="image/png" href="./favicon.png?v=2" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #05000c;
-      --bg-2: #0e0520;
-      --surface: rgba(255,255,255,.075);
-      --surface-2: rgba(255,255,255,.115);
-      --surface-3: rgba(255,255,255,.16);
-      --line: rgba(236, 213, 255, .16);
-      --line-strong: rgba(236, 213, 255, .28);
-      --text: #ffffff;
-      --muted: #d8ccff;
-      --soft: #aaa0ca;
-      --primary: #a855f7;
-      --primary-2: #7e22ce;
-      --blue: #38bdf8;
-      --pink: #f472b6;
-      --green: #86efac;
-      --yellow: #fde047;
-      --danger: #fb7185;
-      --shadow: 0 28px 80px rgba(0,0,0,.38);
-      --radius-xl: 34px;
-      --radius-lg: 26px;
-      --radius-md: 18px;
-      --nav-h: 76px;
-    }
-
-    body[data-theme="light"] {
-      color-scheme: light;
-      --bg: #f7f2ff;
-      --bg-2: #ffffff;
-      --surface: rgba(255,255,255,.82);
-      --surface-2: rgba(255,255,255,.94);
-      --surface-3: rgba(126,34,206,.12);
-      --line: rgba(76, 29, 149, .12);
-      --line-strong: rgba(76, 29, 149, .24);
-      --text: #130820;
-      --muted: #4c3769;
-      --soft: #735f91;
-      --shadow: 0 24px 70px rgba(76,29,149,.13);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
-
-    body {
-      min-height: 100vh;
-      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(ellipse at 50% -10%, rgba(192,132,252,.58), transparent 38%),
-        radial-gradient(circle at 12% 18%, rgba(126,34,206,.42), transparent 34%),
-        radial-gradient(circle at 88% 22%, rgba(56,189,248,.24), transparent 28%),
-        radial-gradient(circle at 76% 82%, rgba(244,114,182,.18), transparent 29%),
-        linear-gradient(180deg, var(--bg) 0%, #110021 45%, #030006 100%);
-      overflow-x: hidden;
-    }
-
-    body[data-theme="light"] {
-      background:
-        radial-gradient(ellipse at 50% -10%, rgba(168,85,247,.20), transparent 40%),
-        radial-gradient(circle at 12% 22%, rgba(56,189,248,.16), transparent 30%),
-        radial-gradient(circle at 88% 22%, rgba(244,114,182,.16), transparent 30%),
-        linear-gradient(180deg, #fbf8ff 0%, #f1e7ff 100%);
-    }
-
-    body::before, body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -2;
-    }
-
-    body::before {
-      background-image:
-        radial-gradient(circle at 12% 18%, rgba(255,255,255,.75) 0 1px, transparent 1.7px),
-        radial-gradient(circle at 72% 16%, rgba(255,255,255,.52) 0 1px, transparent 1.8px),
-        radial-gradient(circle at 32% 68%, rgba(233,213,255,.48) 0 1px, transparent 1.8px),
-        radial-gradient(circle at 90% 72%, rgba(255,255,255,.42) 0 1px, transparent 1.8px);
-      background-size: 150px 150px, 220px 220px, 180px 180px, 260px 260px;
-      opacity: .52;
-      mask-image: radial-gradient(ellipse at 50% 20%, #000 0%, rgba(0,0,0,.85) 50%, transparent 96%);
-    }
-
-    body::after {
-      z-index: -1;
-      background:
-        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
-      background-size: 44px 44px;
-      opacity: .42;
-      mask-image: linear-gradient(to bottom, #000 0%, transparent 82%);
-    }
-
-    body[data-theme="light"]::before { opacity: .35; filter: invert(.25); }
-    body[data-theme="light"]::after { opacity: .25; filter: invert(1); }
-
-    a { color: inherit; text-decoration: none; }
-    img { max-width: 100%; display: block; }
-    button, input, select, textarea { font: inherit; }
-
-    .container { width: min(1180px, calc(100% - 40px)); margin: 0 auto; }
-    .hide { display: none !important; }
-
-    .progress-bar {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 0;
-      height: 3px;
-      z-index: 9999;
-      background: linear-gradient(90deg, var(--blue), var(--primary), var(--pink));
-      box-shadow: 0 0 18px rgba(168,85,247,.65);
-    }
-
-    .preloader {
-      position: fixed;
-      inset: 0;
-      z-index: 99999;
-      display: grid;
-      place-items: center;
-      background: radial-gradient(circle at 50% 0%, #3b0764, #07000d 62%);
-      transition: opacity .5s ease, visibility .5s ease;
-    }
-    .preloader.done { opacity: 0; visibility: hidden; }
-    .loader-card {
-      width: min(360px, calc(100% - 36px));
-      padding: 28px;
-      text-align: center;
-      border: 1px solid rgba(255,255,255,.16);
-      border-radius: 28px;
-      background: rgba(255,255,255,.08);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
-    }
-    .loader-logo {
-      width: 78px;
-      height: 78px;
-      margin: 0 auto 16px;
-      border-radius: 24px;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-      background: linear-gradient(135deg, var(--primary), var(--pink));
-      box-shadow: 0 18px 48px rgba(168,85,247,.38);
-    }
-    .loader-logo img { width: 100%; height: 100%; object-fit: contain; padding: 8px; }
-    .loader-logo img.broken { display: none; }
-    .loader-logo::after { content: "CAO"; font-weight: 900; color: #fff; }
-    .loader-logo:has(img:not(.broken))::after { display: none; }
-    .loader-track { height: 8px; margin-top: 22px; border-radius: 999px; overflow: hidden; background: rgba(255,255,255,.10); }
-    .loader-fill { height: 100%; width: 40%; border-radius: inherit; background: linear-gradient(90deg, var(--blue), var(--primary), var(--pink)); animation: loadMove 1.2s ease-in-out infinite alternate; }
-    @keyframes loadMove { from { transform: translateX(-70%); } to { transform: translateX(180%); } }
-
-    .navbar {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      min-height: var(--nav-h);
-      display: flex;
-      align-items: center;
-      background: rgba(8,0,18,.66);
-      border-bottom: 1px solid var(--line);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-    }
-    body[data-theme="light"] .navbar { background: rgba(255,255,255,.74); }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 18px; }
-    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 900; letter-spacing: -.4px; }
-    .brand-mark {
-      width: 42px;
-      height: 42px;
-      border-radius: 16px;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-      background: linear-gradient(135deg, var(--blue), var(--primary) 55%, #111827);
-      border: 1px solid var(--line);
-      box-shadow: 0 14px 32px rgba(168,85,247,.28);
-      font-size: .82rem;
-    }
-    .brand-mark img { width: 100%; height: 100%; object-fit: contain; padding: 5px; }
-    .brand-mark img.broken { display: none; }
-    .brand-mark::after { content: "CAO"; color: #fff; font-weight: 900; }
-    .brand-mark:has(img:not(.broken))::after { display: none; }
-    .nav-menu { display: flex; align-items: center; gap: 4px; color: var(--muted); font-size: .92rem; }
-    .nav-menu a { padding: 10px 12px; border-radius: 999px; transition: .22s ease; }
-    .nav-menu a:hover, .nav-menu a.active { color: var(--text); background: var(--surface-2); }
-    .nav-actions { display: flex; align-items: center; gap: 10px; }
-    .icon-btn {
-      width: 42px; height: 42px; border: 1px solid var(--line); border-radius: 15px;
-      display: grid; place-items: center; color: var(--text); background: var(--surface); cursor: pointer;
-      transition: .24s ease;
-    }
-    .icon-btn:hover { transform: translateY(-2px); border-color: var(--line-strong); background: var(--surface-2); }
-    .menu-btn { display: none; }
-
-    .mobile-panel {
-      position: fixed;
-      top: calc(var(--nav-h) + 8px);
-      left: 50%;
-      transform: translateX(-50%) translateY(-10px);
-      width: min(420px, calc(100% - 28px));
-      z-index: 999;
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      background: rgba(14, 5, 32, .92);
-      backdrop-filter: blur(18px);
-      box-shadow: var(--shadow);
-      padding: 12px;
-      opacity: 0;
-      pointer-events: none;
-      transition: .24s ease;
-    }
-    body[data-theme="light"] .mobile-panel { background: rgba(255,255,255,.92); }
-    .mobile-panel.open { opacity: 1; pointer-events: auto; transform: translateX(-50%) translateY(0); }
-    .mobile-panel a { display: block; padding: 14px 16px; border-radius: 16px; color: var(--muted); }
-    .mobile-panel a:hover { background: var(--surface-2); color: var(--text); }
-
-    .hero { min-height: calc(100vh - var(--nav-h)); display: grid; align-items: center; padding: 80px 0 72px; position: relative; }
-    .hero-grid { display: grid; grid-template-columns: 1.06fr .94fr; gap: 48px; align-items: center; }
-    .eyebrow {
-      display: inline-flex; align-items: center; gap: 8px; width: fit-content;
-      padding: 8px 13px; border-radius: 999px; color: #f3e8ff;
-      background: rgba(168,85,247,.15); border: 1px solid rgba(233,213,255,.18);
-      font-weight: 800; font-size: .84rem;
-    }
-    body[data-theme="light"] .eyebrow { color: #581c87; background: rgba(168,85,247,.10); }
-    .hero h1 { margin: 18px 0 18px; font-size: clamp(3.2rem, 8vw, 7rem); line-height: .88; letter-spacing: -4px; font-weight: 900; }
-    .gradient-text { background: linear-gradient(90deg, #fff 0%, #f3e8ff 28%, #c084fc 58%, #fff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    body[data-theme="light"] .gradient-text { background: linear-gradient(90deg, #12051f, #6d28d9 48%, #be185d); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero-copy { max-width: 680px; color: var(--muted); line-height: 1.85; font-size: clamp(1rem, 1.6vw, 1.18rem); }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 32px 0 28px; }
-    .btn {
-      min-height: 50px; display: inline-flex; align-items: center; justify-content: center; gap: 9px;
-      padding: 13px 20px; border-radius: 16px; border: 1px solid transparent; cursor: pointer;
-      color: var(--text); font-weight: 900; transition: .24s ease;
-    }
-    .btn-primary { background: linear-gradient(135deg, #c084fc, #9333ea 48%, #4c1d95); color: #fff; box-shadow: 0 18px 40px rgba(147,51,234,.32); }
-    .btn-secondary { background: var(--surface); border-color: var(--line); }
-    .btn:hover { transform: translateY(-3px); filter: brightness(1.04); }
-    .micro-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; max-width: 610px; }
-    .micro-stat { padding: 16px; border-radius: 20px; background: var(--surface); border: 1px solid var(--line); backdrop-filter: blur(14px); }
-    .micro-stat b { display: block; font-size: 1.5rem; margin-bottom: 4px; }
-    .micro-stat span { color: var(--soft); font-size: .82rem; }
-
-    .hero-visual { position: relative; min-height: 540px; display: grid; place-items: center; }
-    .portal {
-      position: absolute;
-      width: min(560px, 90vw);
-      aspect-ratio: 1;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle, rgba(255,255,255,.18) 0 3%, transparent 4%),
-        conic-gradient(from 190deg, rgba(56,189,248,.0), rgba(56,189,248,.52), rgba(168,85,247,.78), rgba(244,114,182,.45), rgba(56,189,248,.0));
-      filter: blur(.2px) drop-shadow(0 0 38px rgba(168,85,247,.34));
-      animation: rotateSlow 18s linear infinite;
-      opacity: .76;
-    }
-    @keyframes rotateSlow { to { transform: rotate(360deg); } }
-    .anime-stack { position: relative; width: 390px; height: 500px; }
-    .anime-card {
-      position: absolute; width: 220px; height: 310px; border-radius: 30px; overflow: hidden;
-      background: linear-gradient(160deg, rgba(168,85,247,.38), rgba(255,255,255,.07));
-      border: 1px solid var(--line-strong); box-shadow: 0 30px 80px rgba(0,0,0,.38);
-      transition: transform .35s ease;
-    }
-    .anime-card::before { content: ""; position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(255,255,255,.18), transparent 34%); z-index: 1; pointer-events: none; }
-    .anime-card img { width: 100%; height: 100%; object-fit: cover; }
-    .anime-card img.broken { display: none; }
-    .anime-card .fallback { position: absolute; inset: 0; display: grid; place-items: center; font-weight: 900; font-size: 1.3rem; color: #fff; }
-    .anime-card .tag { position: absolute; left: 16px; bottom: 16px; z-index: 2; padding: 7px 11px; border-radius: 999px; background: rgba(0,0,0,.42); border: 1px solid rgba(255,255,255,.14); color: #fff; font-size: .78rem; font-weight: 900; }
-    .anime-card:nth-child(1) { left: 6px; top: 80px; transform: rotate(-13deg); z-index: 1; }
-    .anime-card:nth-child(2) { left: 88px; top: 34px; transform: rotate(0deg); z-index: 3; }
-    .anime-card:nth-child(3) { right: 0; top: 112px; transform: rotate(13deg); z-index: 2; }
-    .hero-visual:hover .anime-card:nth-child(1) { transform: rotate(-18deg) translateX(-16px); }
-    .hero-visual:hover .anime-card:nth-child(2) { transform: translateY(-12px) scale(1.04); }
-    .hero-visual:hover .anime-card:nth-child(3) { transform: rotate(18deg) translateX(16px); }
-    .floating-chip { position: absolute; z-index: 5; padding: 12px 14px; border-radius: 17px; background: rgba(255,255,255,.10); border: 1px solid var(--line); backdrop-filter: blur(16px); box-shadow: 0 16px 44px rgba(0,0,0,.22); font-weight: 900; animation: floaty 4s ease-in-out infinite; }
-    .chip-1 { left: 8%; top: 18%; }
-    .chip-2 { right: 4%; bottom: 22%; animation-delay: -1.4s; }
-    .chip-3 { left: 14%; bottom: 12%; animation-delay: -2.2s; }
-    @keyframes floaty { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
-
-    section { padding: 88px 0; position: relative; }
-    .section-head { text-align: center; margin-bottom: 34px; }
-    .section-head h2 { margin: 12px 0 12px; font-size: clamp(2rem, 4vw, 3.4rem); line-height: 1; letter-spacing: -1.6px; }
-    .section-head p { max-width: 720px; margin: 0 auto; color: var(--muted); line-height: 1.75; }
-
-    .panel, .cardish {
-      background: linear-gradient(180deg, var(--surface-2), rgba(255,255,255,.045));
-      border: 1px solid var(--line);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-    }
-    body[data-theme="light"] .panel, body[data-theme="light"] .cardish { background: var(--surface); }
-
-    .info-layout { display: grid; grid-template-columns: 1.08fr .92fr; gap: 20px; align-items: stretch; }
-    .info-main { padding: 34px; min-height: 360px; display: flex; flex-direction: column; justify-content: center; }
-    .info-main h3 { margin: 16px 0 12px; font-size: clamp(2rem, 4vw, 4rem); line-height: .98; letter-spacing: -1.8px; }
-    .info-main p { color: var(--muted); line-height: 1.8; }
-    .info-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 28px; }
-    .info-mini { padding: 18px; border-radius: 22px; background: rgba(255,255,255,.06); border: 1px solid var(--line); }
-    .info-mini b { display: block; margin-bottom: 6px; }
-    .info-mini span { color: var(--soft); font-size: .88rem; line-height: 1.55; }
-    .join-panel { padding: 28px; display: grid; place-items: center; text-align: center; overflow: hidden; position: relative; }
-    .join-panel::before { content: ""; position: absolute; inset: -40%; background: conic-gradient(from 70deg, transparent, rgba(168,85,247,.32), transparent, rgba(56,189,248,.20), transparent); animation: rotateSlow 20s linear infinite; }
-    .join-inner { position: relative; z-index: 1; }
-    .join-logo { width: 190px; aspect-ratio: 1; margin: 0 auto 22px; display: grid; place-items: center; border-radius: 34px; background: rgba(255,255,255,.08); border: 1px solid var(--line); box-shadow: 0 26px 68px rgba(0,0,0,.28); overflow: hidden; }
-    .join-logo img { width: 100%; height: 100%; object-fit: contain; padding: 12px; }
-    .join-logo img.broken { display: none; }
-    .join-logo::after { content: "CAO"; font-size: 2.6rem; font-weight: 900; color: #fff; }
-    body[data-theme="light"] .join-logo::after { color: #4c1d95; }
-    .join-logo:has(img:not(.broken))::after { display: none; }
-
-    .filter-row { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
-    .pill { border: 1px solid var(--line); background: var(--surface); color: var(--muted); padding: 10px 14px; border-radius: 999px; cursor: pointer; font-weight: 800; transition: .22s ease; }
-    .pill.active, .pill:hover { color: var(--text); background: var(--surface-3); border-color: var(--line-strong); transform: translateY(-2px); }
-    .generation-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-    .gen-card { padding: 18px; overflow: hidden; transition: .24s ease; position: relative; }
-    .gen-card:hover { transform: translateY(-7px); border-color: var(--line-strong); }
-    .gen-img { position: relative; width: 100%; aspect-ratio: 16 / 10; border-radius: 24px; overflow: hidden; background: linear-gradient(135deg, rgba(168,85,247,.25), rgba(56,189,248,.10)); border: 1px solid var(--line); margin-bottom: 18px; }
-    .gen-img img { width: 100%; height: 100%; object-fit: cover; }
-    .gen-img img.broken { display: none; }
-    .gen-img::after { content: attr(data-fallback); position: absolute; inset: 0; display: grid; place-items: center; font-size: 1.2rem; font-weight: 900; color: var(--muted); }
-    .gen-card h3 { font-size: 1.35rem; margin: 10px 0 8px; }
-    .gen-card p { color: var(--muted); line-height: 1.65; }
-    .gen-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
-    .meta-chip { padding: 7px 10px; border-radius: 999px; background: rgba(255,255,255,.07); color: var(--soft); border: 1px solid var(--line); font-size: .78rem; font-weight: 800; }
-
-    .stats-layout { display: grid; grid-template-columns: .92fr 1.08fr; gap: 18px; }
-    .big-number { min-height: 336px; display: grid; place-items: center; text-align: center; padding: 34px; }
-    .count-number { font-size: clamp(4.4rem, 11vw, 8rem); line-height: 1; font-weight: 900; background: linear-gradient(135deg, #fff, #c084fc); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    body[data-theme="light"] .count-number { background: linear-gradient(135deg, #4c1d95, #db2777); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hashtag-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
-    .hash-card { padding: 28px; }
-    .hash-card strong { display: block; font-size: 1.26rem; margin-bottom: 18px; word-break: break-word; }
-    .hash-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .metric { padding: 16px; border-radius: 20px; background: rgba(255,255,255,.06); border: 1px solid var(--line); }
-    .metric b { display: block; font-size: clamp(1.1rem, 2vw, 1.5rem); }
-    .metric span { color: var(--soft); font-size: .82rem; }
-
-    .founder-stage { display: grid; grid-template-columns: 1fr 1.18fr 1fr; gap: 20px; align-items: center; }
-    .person-card { padding: 22px; position: relative; overflow: hidden; transition: .24s ease; }
-    .person-card:hover { transform: translateY(-6px); border-color: var(--line-strong); }
-    .person-card.owner { transform: translateY(-18px); border-color: rgba(192,132,252,.38); background: radial-gradient(circle at 50% 0%, rgba(168,85,247,.24), transparent 36%), var(--surface); }
-    .person-card.owner:hover { transform: translateY(-26px); }
-    .person-photo { position: relative; aspect-ratio: 16 / 11; border-radius: 24px; overflow: hidden; background: linear-gradient(135deg, rgba(168,85,247,.25), rgba(56,189,248,.10)); border: 1px solid var(--line); margin-bottom: 18px; }
-    .person-photo img { width: 100%; height: 100%; object-fit: cover; }
-    .person-photo img.broken { display: none; }
-    .person-photo::after { content: attr(data-name); position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-weight: 900; font-size: 1.2rem; }
-    .role { display: inline-flex; padding: 7px 11px; border-radius: 999px; background: rgba(168,85,247,.16); border: 1px solid rgba(233,213,255,.18); color: var(--muted); font-size: .78rem; font-weight: 900; margin-bottom: 12px; }
-    .person-card h3 { font-size: 1.35rem; margin-bottom: 8px; }
-    .person-card.owner h3 { font-size: clamp(1.8rem, 3vw, 2.6rem); letter-spacing: -1px; }
-    .person-card p { color: var(--muted); line-height: 1.6; padding-bottom: 74px; }
-    .social-bubble { position: absolute; right: 18px; bottom: 18px; width: 62px; height: 62px; border-radius: 50%; display: grid; place-items: center; overflow: hidden; border: 1px solid var(--line); background: rgba(255,255,255,.10); transition: .22s ease; }
-    .social-bubble:hover { transform: translateY(-4px) scale(1.06); }
-    .social-bubble img { width: 100%; height: 100%; object-fit: contain; padding: 5px; }
-    .social-bubble img.broken { display: none; }
-    .social-bubble::after { content: "♪"; font-weight: 900; font-size: 1.5rem; }
-    .social-bubble:has(img:not(.broken))::after { display: none; }
-
-    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
-    .search-box { position: relative; flex: 1; max-width: 380px; }
-    .search-box input { width: 100%; min-height: 50px; border-radius: 17px; border: 1px solid var(--line); background: var(--surface); color: var(--text); outline: none; padding: 0 16px 0 44px; }
-    .search-box span { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--soft); }
-    .admin-scroller { overflow-x: auto; overflow-y: hidden; scroll-snap-type: x proximity; padding: 6px 4px 18px; cursor: grab; }
-    .admin-scroller.dragging { cursor: grabbing; user-select: none; }
-    .admin-track { display: flex; gap: 16px; width: max-content; }
-    .admin-card { width: 230px; min-height: 300px; flex: 0 0 230px; scroll-snap-align: center; padding: 20px; text-align: center; }
-    .admin-photo { width: 112px; height: 112px; margin: 0 auto 16px; border-radius: 30px; overflow: hidden; background: linear-gradient(135deg, rgba(168,85,247,.25), rgba(56,189,248,.10)); border: 1px solid var(--line); position: relative; }
-    .admin-photo img { width: 100%; height: 100%; object-fit: cover; }
-    .admin-photo img.broken { display: none; }
-    .admin-photo::after { content: attr(data-initial); position: absolute; inset: 0; display: grid; place-items: center; font-size: 2rem; font-weight: 900; color: var(--muted); }
-    .admin-card h3 { margin-bottom: 7px; }
-    .admin-card small { color: var(--soft); }
-    .admin-scroller::-webkit-scrollbar { height: 10px; }
-    .admin-scroller::-webkit-scrollbar-track { background: rgba(255,255,255,.06); border-radius: 999px; }
-    .admin-scroller::-webkit-scrollbar-thumb { background: rgba(192,132,252,.42); border-radius: 999px; }
-
-    .roadmap-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
-    .road-card { padding: 22px; position: relative; min-height: 220px; }
-    .road-card::before { content: attr(data-step); position: absolute; right: 18px; top: 18px; color: rgba(255,255,255,.09); font-size: 3rem; font-weight: 900; }
-    body[data-theme="light"] .road-card::before { color: rgba(76,29,149,.10); }
-    .road-card h3 { margin: 16px 0 10px; }
-    .road-card p { color: var(--muted); line-height: 1.65; font-size: .94rem; }
-
-    .feature-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
-    .feature-card { padding: 24px; min-height: 230px; }
-    .feature-icon { width: 48px; height: 48px; display: grid; place-items: center; border-radius: 17px; background: rgba(168,85,247,.16); border: 1px solid var(--line); margin-bottom: 18px; font-size: 1.3rem; }
-    .feature-card h3 { margin-bottom: 10px; }
-    .feature-card p { color: var(--muted); line-height: 1.65; }
-
-    .absen-layout { display: grid; grid-template-columns: .92fr 1.08fr; gap: 20px; align-items: start; }
-    .absen-card, .leaderboard-card, .id-card-panel { padding: 28px; }
-    .absen-card h3, .leaderboard-card h3, .id-card-panel h3 { font-size: clamp(1.5rem, 3vw, 2.2rem); margin-bottom: 10px; letter-spacing: -.8px; }
-    .absen-card p, .leaderboard-card p, .id-card-panel p { color: var(--muted); line-height: 1.65; }
-    .form-grid { display: grid; gap: 12px; margin-top: 20px; }
-    .label { color: var(--muted); font-size: .9rem; font-weight: 900; }
-    .input, .select, .textarea { width: 100%; min-height: 54px; border: 1px solid var(--line); border-radius: 18px; color: var(--text); background: var(--surface); outline: none; padding: 0 16px; transition: .22s ease; }
-    .textarea { min-height: 110px; padding-top: 14px; resize: vertical; }
-    .select option { color: #111827; }
-    .input:focus, .select:focus, .textarea:focus { border-color: rgba(192,132,252,.70); box-shadow: 0 0 0 4px rgba(168,85,247,.13); }
-    .button-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-    .status { margin-top: 16px; padding: 15px; border-radius: 19px; background: rgba(255,255,255,.055); border: 1px solid var(--line); color: var(--muted); line-height: 1.55; min-height: 54px; }
-    .status.success { color: var(--green); background: rgba(34,197,94,.08); border-color: rgba(134,239,172,.26); }
-    .status.warning { color: var(--yellow); background: rgba(250,204,21,.08); border-color: rgba(250,204,21,.28); }
-    .status.danger { color: var(--danger); background: rgba(251,113,133,.08); border-color: rgba(251,113,133,.28); }
-    .absen-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
-    .absen-stat { padding: 14px; border-radius: 18px; background: rgba(255,255,255,.06); border: 1px solid var(--line); }
-    .absen-stat b { display: block; font-size: 1.25rem; }
-    .absen-stat span { color: var(--soft); font-size: .78rem; }
-    .leader-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
-    .leader-list { display: grid; gap: 10px; }
-    .rank-item { min-height: 70px; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 14px; border-radius: 20px; background: rgba(255,255,255,.055); border: 1px solid var(--line); }
-    .rank-left { display: flex; align-items: center; gap: 12px; min-width: 0; }
-    .rank-num { width: 42px; height: 42px; flex: 0 0 42px; display: grid; place-items: center; border-radius: 15px; font-weight: 900; color: #fff; background: linear-gradient(135deg, #9333ea, #4c1d95); }
-    .rank-name { min-width: 0; }
-    .rank-name strong { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .rank-name small { display: block; color: var(--soft); font-size: .78rem; margin-top: 4px; }
-    .rank-count { flex: 0 0 auto; text-align: right; }
-    .rank-count b { display: block; font-size: 1.2rem; }
-    .rank-count span { color: var(--soft); font-size: .76rem; }
-    .empty { padding: 28px; border: 1px dashed var(--line-strong); border-radius: 22px; text-align: center; color: var(--muted); line-height: 1.65; }
-    .tool-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
-    .mini-btn { min-height: 42px; border: 1px solid var(--line); color: var(--muted); background: var(--surface); border-radius: 14px; padding: 9px 12px; cursor: pointer; font-weight: 800; transition: .22s ease; }
-    .mini-btn:hover { color: var(--text); background: var(--surface-2); transform: translateY(-2px); }
-
-    .identity-layout { display: grid; grid-template-columns: .9fr 1.1fr; gap: 20px; align-items: stretch; }
-    .id-preview-wrap { min-height: 420px; display: grid; place-items: center; padding: 24px; }
-    .id-preview { width: min(520px, 100%); aspect-ratio: 16 / 10; border-radius: 30px; position: relative; overflow: hidden; background:
-      radial-gradient(circle at 20% 18%, rgba(56,189,248,.33), transparent 24%),
-      radial-gradient(circle at 80% 20%, rgba(244,114,182,.28), transparent 26%),
-      linear-gradient(135deg, #13001f, #4c1d95 48%, #05000c); border: 1px solid rgba(255,255,255,.22); box-shadow: 0 30px 90px rgba(0,0,0,.38); color: #fff; padding: 26px; display: flex; flex-direction: column; justify-content: space-between; }
-    .id-preview::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.055) 1px, transparent 1px); background-size: 32px 32px; opacity: .45; }
-    .id-preview > * { position: relative; z-index: 1; }
-    .id-top { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
-    .id-logo { width: 64px; height: 64px; border-radius: 20px; background: rgba(255,255,255,.13); border: 1px solid rgba(255,255,255,.18); display: grid; place-items: center; overflow: hidden; }
-    .id-logo img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
-    .id-logo img.broken { display: none; }
-    .id-logo::after { content: "CAO"; font-weight: 900; }
-    .id-logo:has(img:not(.broken))::after { display: none; }
-    .id-code { padding: 8px 11px; border-radius: 999px; background: rgba(255,255,255,.10); border: 1px solid rgba(255,255,255,.16); font-size: .78rem; font-weight: 900; }
-    .id-name { font-size: clamp(2rem, 4vw, 3.6rem); line-height: .95; font-weight: 900; letter-spacing: -1.5px; text-transform: uppercase; }
-    .id-role { margin-top: 10px; color: #e9d5ff; font-weight: 800; }
-    .id-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; color: #d8b4fe; }
-    .id-bottom small { display: block; margin-bottom: 4px; color: #fff; opacity: .72; }
-
-    .faq-layout { display: grid; grid-template-columns: .85fr 1.15fr; gap: 22px; align-items: start; }
-    .faq-card { padding: 28px; }
-    .faq-card p { color: var(--muted); line-height: 1.7; }
-    .accordion { display: grid; gap: 12px; }
-    .faq-item { border: 1px solid var(--line); border-radius: 22px; background: var(--surface); overflow: hidden; }
-    .faq-question { width: 100%; min-height: 64px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border: 0; background: transparent; color: var(--text); cursor: pointer; padding: 16px 18px; text-align: left; font-weight: 900; }
-    .faq-answer { display: grid; grid-template-rows: 0fr; transition: .25s ease; }
-    .faq-answer > div { overflow: hidden; }
-    .faq-answer p { padding: 0 18px 18px; color: var(--muted); line-height: 1.65; }
-    .faq-item.open .faq-answer { grid-template-rows: 1fr; }
-    .faq-item.open .faq-question span:last-child { transform: rotate(45deg); }
-    .faq-question span:last-child { transition: .22s ease; }
-
-    .contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    .contact-card { padding: 30px; }
-    .contact-card p { color: var(--muted); line-height: 1.7; }
-    .contact-links { display: grid; gap: 12px; margin-top: 22px; }
-    .contact-link { padding: 16px; border-radius: 19px; background: rgba(255,255,255,.06); border: 1px solid var(--line); display: flex; align-items: center; justify-content: space-between; gap: 16px; transition: .22s ease; }
-    .contact-link:hover { transform: translateY(-3px); background: var(--surface-2); }
-    .toast { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px); z-index: 9999; width: min(520px, calc(100% - 28px)); padding: 14px 16px; border-radius: 18px; background: rgba(10,0,20,.92); border: 1px solid rgba(233,213,255,.22); box-shadow: var(--shadow); color: #fff; opacity: 0; pointer-events: none; transition: .25s ease; text-align: center; font-weight: 800; }
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-    body[data-theme="light"] .toast { background: rgba(255,255,255,.94); color: #1f1230; }
-
-    footer { padding: 52px 0 70px; border-top: 1px solid var(--line); text-align: center; color: var(--soft); }
-    .footer-brand { display: inline-flex; align-items: center; gap: 10px; color: var(--text); font-weight: 900; margin-bottom: 12px; }
-    .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
-    .footer-links a { color: var(--muted); padding: 8px 10px; border-radius: 999px; }
-    .footer-links a:hover { color: var(--text); background: var(--surface); }
-
-    .reveal { opacity: 0; transform: translateY(22px); transition: .6s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-
-    /* fallback text stays behind valid images */
-    .anime-card img, .gen-img img, .person-photo img, .admin-photo img { position: relative; z-index: 2; }
-    .anime-card .fallback, .gen-img::after, .person-photo::after, .admin-photo::after { z-index: 1; }
-    .anime-card .tag { z-index: 3; }
-
-    @media (max-width: 980px) {
-      .nav-menu { display: none; }
-      .menu-btn { display: grid; }
-      .hero-grid, .info-layout, .stats-layout, .absen-layout, .identity-layout, .faq-layout, .contact-layout { grid-template-columns: 1fr; }
-      .hero { padding-top: 60px; }
-      .hero-visual { min-height: 440px; order: -1; }
-      .founder-stage { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 18px max(20px, calc((100vw - 340px) / 2)) 28px; margin-inline: calc((100vw - min(1180px, calc(100% - 40px))) / -2); }
-      .person-card { flex: 0 0 min(330px, 82vw); scroll-snap-align: center; transform: none !important; }
-      .person-card.owner { order: -1; }
-      .roadmap-grid, .feature-grid, .generation-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 640px) {
-      .container { width: min(100% - 26px, 1180px); }
-      .brand span:last-child { display: none; }
-      .hero h1 { letter-spacing: -2.4px; }
-      .micro-stats, .info-grid, .hashtag-grid, .hash-metrics, .button-grid, .absen-stats, .roadmap-grid, .feature-grid, .generation-grid { grid-template-columns: 1fr; }
-      .hero-visual { min-height: 360px; }
-      .portal { width: 330px; }
-      .anime-stack { width: 300px; height: 360px; }
-      .anime-card { width: 160px; height: 230px; border-radius: 24px; }
-      .anime-card:nth-child(1) { left: 4px; top: 72px; }
-      .anime-card:nth-child(2) { left: 70px; top: 26px; }
-      .anime-card:nth-child(3) { right: 0; top: 96px; }
-      .floating-chip { font-size: .82rem; padding: 9px 11px; }
-      .chip-1 { left: 2%; top: 12%; }
-      .chip-2 { right: 1%; bottom: 20%; }
-      .chip-3 { left: 6%; bottom: 8%; }
-      section { padding: 66px 0; }
-      .panel, .cardish { border-radius: 26px; }
-      .info-main, .join-panel, .absen-card, .leaderboard-card, .id-card-panel, .contact-card, .faq-card { padding: 20px; }
-      .id-preview { border-radius: 24px; padding: 18px; }
-      .id-logo { width: 52px; height: 52px; border-radius: 17px; }
-      .id-bottom { display: block; }
-      .id-bottom > div:last-child { margin-top: 12px; }
-      .leader-head, .toolbar { display: block; }
-      .search-box { max-width: none; margin-top: 12px; }
-    }
-  </style>
-</head>
-<body data-theme="dark">
-  <div class="progress-bar" id="progressBar"></div>
-
-  <div class="preloader" id="preloader" aria-label="Memuat website">
-    <div class="loader-card">
-      <div class="loader-logo"><img src="cao-logo.png?v=2" alt="Logo Creator Anime One" onerror="markBroken(this)" /></div>
-      <h2>Creator Anime One</h2>
-      <p style="color:#d8ccff;margin-top:8px;line-height:1.6">Mempersiapkan portal komunitas...</p>
-      <div class="loader-track"><div class="loader-fill"></div></div>
-    </div>
-  </div>
-
-  <nav class="navbar" aria-label="Navigasi utama">
-    <div class="container nav-inner">
-      <a class="brand" href="#home" aria-label="Kembali ke halaman utama">
-        <span class="brand-mark"><img src="cao-logo.png?v=2" alt="Logo CAO" onerror="markBroken(this)" /></span>
-        <span>Creator Anime One</span>
-      </a>
-      <div class="nav-menu" id="navMenu">
-        <a href="#info">Info</a>
-        <a href="#generation">Gen</a>
-        <a href="#stats">Statistik</a>
-        <a href="#founders">Pendiri</a>
-        <a href="#admin">Admin</a>
-        <a href="#absen">Absen</a>
-        <a href="#idcard">ID Card</a>
-        <a href="#contact">Join</a>
-      </div>
-      <div class="nav-actions">
-        <button class="icon-btn" id="soundToggle" aria-label="Ubah mode visual">✦</button>
-        <button class="icon-btn" id="themeToggle" aria-label="Ubah tema warna">☾</button>
-        <button class="icon-btn menu-btn" id="menuBtn" aria-label="Buka menu">☰</button>
-      </div>
-    </div>
-  </nav>
-
-  <div class="mobile-panel" id="mobilePanel">
-    <a href="#info">Info</a>
-    <a href="#generation">Daftar Gen</a>
-    <a href="#stats">Statistik</a>
-    <a href="#founders">Pendiri</a>
-    <a href="#admin">Admin</a>
-    <a href="#absen">Bot Absen</a>
-    <a href="#idcard">ID Card Generator</a>
-    <a href="#contact">Join</a>
-  </div>
-
-  <main class="hero" id="home">
-    <div class="container hero-grid">
-      <div class="hero-text reveal">
-        <span class="eyebrow">✦ Marga sepuh anime editor</span>
-        <h1 class="gradient-text">Creator<br/>Anime One</h1>
-        <p class="hero-copy">Tempat kreator, editor, reviewer, dan pecinta anime berkumpul buat berkarya bareng, saling support, adu ide, dan naik level tanpa kehilangan rasa solid sebagai satu marga.</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="https://chat.whatsapp.com/E2Ow1ygwDq1KdPKIqfgD6A?utm_medium=social&utm_source=heylink.me" target="_blank" rel="noopener noreferrer">Join CAO</a>
-          <a class="btn btn-secondary" href="https://www.tiktok.com/@officialanimeone" target="_blank" rel="noopener noreferrer">TikTok Official</a>
-          <a class="btn btn-secondary" href="#absen">Absen Member</a>
-        </div>
-        <div class="micro-stats">
-          <div class="micro-stat"><b class="counter" data-target="400">0</b><span>Member aktif</span></div>
-          <div class="micro-stat"><b>Gen V1–V3</b><span>Struktur komunitas</span></div>
-          <div class="micro-stat"><b>16.00 WIB</b><span>Reset absen harian</span></div>
-        </div>
-      </div>
-
-      <div class="hero-visual reveal" aria-label="Visual kartu generasi CAO">
-        <div class="portal"></div>
-        <div class="anime-stack">
-          <figure class="anime-card"><span class="fallback">GEN V2</span><img src="gen2.jpg" alt="CAOFAMS Gen V2" onerror="markBroken(this)" /><span class="tag">V2</span></figure>
-          <figure class="anime-card"><span class="fallback">GEN V1</span><img src="gen1.jpg" alt="CAOFAMS Gen V1" onerror="markBroken(this)" /><span class="tag">V1</span></figure>
-          <figure class="anime-card"><span class="fallback">GEN V3</span><img src="gen3.jpg" alt="CAOFAMS Gen V3" onerror="markBroken(this)" /><span class="tag">V3</span></figure>
-        </div>
-        <div class="floating-chip chip-1">⚡ Editor Squad</div>
-        <div class="floating-chip chip-2">🎬 Content Lab</div>
-        <div class="floating-chip chip-3">🏆 Big Three</div>
-      </div>
-    </div>
-  </main>
-
-  <section id="info">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Informasi Komunitas</span>
-        <h2>Rumah buat kreator anime yang mau aktif.</h2>
-        <p>Website ini dirancang sebagai pusat informasi, absen, leaderboard, dan identitas digital Creator Anime One.</p>
-      </div>
-      <div class="info-layout">
-        <article class="panel info-main reveal">
-          <span class="eyebrow">Open Member</span>
-          <h3>Gas join, marga CAO!</h3>
-          <p>Creator Anime One berisi editor, content creator, reviewer, dan pecinta anime. Fokus komunitas ini adalah membangun ruang yang aktif, rapi, saling bantu, dan punya semangat berkarya.</p>
-          <div class="info-grid">
-            <div class="info-mini"><b>Creative Support</b><span>Tempat sharing ide konten, referensi edit, dan format posting.</span></div>
-            <div class="info-mini"><b>Community Rank</b><span>Absen harian dan leaderboard untuk member aktif.</span></div>
-            <div class="info-mini"><b>Gen System</b><span>Struktur Gen V1, V2, dan V3 agar komunitas terlihat rapi.</span></div>
-            <div class="info-mini"><b>Creator Identity</b><span>Bikin kartu identitas CAO langsung dari website.</span></div>
-          </div>
-        </article>
-        <aside class="panel join-panel reveal">
-          <div class="join-inner">
-            <div class="join-logo"><img src="cao-logo.png" alt="Logo CAO" onerror="markBroken(this)" /></div>
-            <h3 style="font-size:clamp(1.8rem,3vw,2.6rem);letter-spacing:-1px;margin-bottom:10px">CAO Hub</h3>
-            <p style="color:var(--muted);line-height:1.7;margin-bottom:20px">Satu halaman untuk info, admin, gen, absen, dan identitas member.</p>
-            <a class="btn btn-primary" href="#idcard">Buat ID Card</a>
-          </div>
-        </aside>
-      </div>
-    </div>
-  </section>
-
-  <section id="generation">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Daftar Gen-V</span>
-        <h2>Generasi Creator Anime One</h2>
-        <p>Pilih status Gen untuk melihat daftar generasi yang sudah aktif atau masih disiapkan.</p>
-      </div>
-      <div class="filter-row reveal" id="genFilters"></div>
-      <div class="generation-grid" id="generationGrid"></div>
-    </div>
-  </section>
-
-  <section id="stats">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Statistik</span>
-        <h2>Member & Hashtag</h2>
-        <p>Ringkasan angka komunitas dan hashtag utama yang bisa dipakai untuk memperkuat identitas Creator Anime One.</p>
-      </div>
-      <div class="stats-layout">
-        <article class="panel big-number reveal">
-          <div>
-            <div class="count-number"><span class="counter" data-target="400">0</span>+</div>
-            <h3>Jumlah Member</h3>
-            <p style="color:var(--muted);margin-top:8px">Anggota aktif saat ini</p>
-          </div>
-        </article>
-        <div class="hashtag-grid reveal">
-          <article class="panel hash-card">
-            <strong>#creatoranimeone</strong>
-            <div class="hash-metrics">
-              <div class="metric"><b>2,3M+</b><span>Penonton</span></div>
-              <div class="metric"><b>28,6RB+</b><span>Video</span></div>
-            </div>
-          </article>
-          <article class="panel hash-card">
-            <strong>#caofams</strong>
-            <div class="hash-metrics">
-              <div class="metric"><b>956JT+</b><span>Penonton</span></div>
-              <div class="metric"><b>8RB+</b><span>Video</span></div>
-            </div>
-          </article>
-          <article class="panel hash-card">
-            <strong>#animeeditor</strong>
-            <div class="hash-metrics">
-              <div class="metric"><b>Daily</b><span>Konten</span></div>
-              <div class="metric"><b>Collab</b><span>Gerakan</span></div>
-            </div>
-          </article>
-          <article class="panel hash-card">
-            <strong>Reset Absen</strong>
-            <div class="hash-metrics">
-              <div class="metric"><b id="resetClock">--:--:--</b><span>Sisa waktu</span></div>
-              <div class="metric"><b id="wibClock">--:--</b><span>WIB sekarang</span></div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="founders">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Core Team</span>
-        <h2>Pendiri Creator Anime One</h2>
-        <p>Tiga figur utama yang menjadi pusat struktur dan arah komunitas.</p>
-      </div>
-      <div class="founder-stage" id="founderStage"></div>
-    </div>
-  </section>
-
-  <section id="admin">
-    <div class="container">
-      <div class="toolbar reveal">
-        <div>
-          <span class="eyebrow">Admin Team</span>
-          <h2 style="font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-1.4px;margin-top:12px">Admin of Creator Anime One</h2>
-          <p style="color:var(--muted);line-height:1.7;margin-top:10px">Cari admin berdasarkan nama atau tugasnya.</p>
-        </div>
-        <div class="search-box"><span>⌕</span><input id="adminSearch" type="search" placeholder="Cari admin..." autocomplete="off" /></div>
-      </div>
-      <div class="admin-scroller reveal" id="adminScroller"><div class="admin-track" id="adminTrack"></div></div>
-    </div>
-  </section>
-
-  <section id="roadmap">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Roadmap</span>
-        <h2>Alur member baru</h2>
-        <p>Dibuat supaya calon member paham cara masuk, aktif, dan naik level di CAO.</p>
-      </div>
-      <div class="roadmap-grid">
-        <article class="panel road-card reveal" data-step="01"><span class="eyebrow">Join</span><h3>Masuk grup resmi</h3><p>Member baru masuk melalui link yang disediakan, lalu membaca arahan dasar komunitas.</p></article>
-        <article class="panel road-card reveal" data-step="02"><span class="eyebrow">Verify</span><h3>Nama disetujui admin</h3><p>Admin menambahkan nickname ke daftar izin agar member bisa memakai fitur absen.</p></article>
-        <article class="panel road-card reveal" data-step="03"><span class="eyebrow">Active</span><h3>Absen dan berkarya</h3><p>Member mulai aktif, absen harian, sharing konten, dan ikut support karya sesama.</p></article>
-        <article class="panel road-card reveal" data-step="04"><span class="eyebrow">Level Up</span><h3>Naik reputasi</h3><p>Aktivitas konsisten membantu member lebih mudah dikenal dalam komunitas.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section id="features">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Fitur Website</span>
-        <h2>Fitur tambahan yang aku masukin</h2>
-        <p>Bagian ini bisa dipertahankan sebagai showcase fitur atau dihapus kalau website mau terlihat lebih formal.</p>
-      </div>
-      <div class="feature-grid">
-        <article class="cardish feature-card reveal"><div class="feature-icon">🪪</div><h3>ID Card Generator</h3><p>Member bisa membuat kartu identitas CAO dan mengunduhnya dalam bentuk gambar PNG.</p></article>
-        <article class="cardish feature-card reveal"><div class="feature-icon">🏆</div><h3>Leaderboard Absen</h3><p>Absen harian memakai localStorage, reset pukul 16.00 WIB, dan menampilkan peringkat member.</p></article>
-        <article class="cardish feature-card reveal"><div class="feature-icon">🔎</div><h3>Search Admin</h3><p>Daftar admin bisa dicari cepat berdasarkan nama atau peran.</p></article>
-        <article class="cardish feature-card reveal"><div class="feature-icon">🌗</div><h3>Theme Toggle</h3><p>Pengunjung bisa mengganti tampilan dark dan light sesuai kenyamanan.</p></article>
-        <article class="cardish feature-card reveal"><div class="feature-icon">📦</div><h3>Export Data</h3><p>Data absen lokal dapat diekspor dan diimpor lagi sebagai file JSON.</p></article>
-        <article class="cardish feature-card reveal"><div class="feature-icon">📱</div><h3>Responsive</h3><p>Tampilan sudah disusun ulang agar rapi di HP, tablet, dan laptop.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <section id="absen">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Bot Absen CAO</span>
-        <h2>Absen Member</h2>
-        <p>Masukkan nama yang sudah disetujui admin. Setiap nama hanya bisa absen satu kali per periode, lalu terbuka lagi setelah reset pukul 16.00 WIB.</p>
-      </div>
-      <div class="absen-layout">
-        <article class="panel absen-card reveal">
-          <h3>Isi Absen</h3>
-          <p>Nama harus ada di daftar izin admin agar leaderboard tetap bersih.</p>
-          <div class="form-grid">
-            <label class="label" for="absenNama">Nama Member</label>
-            <input class="input" id="absenNama" maxlength="32" placeholder="Contoh: Ridhz" autocomplete="off" />
-            <div class="button-grid">
-              <button class="btn btn-primary" type="button" id="btnAbsen">Absen Sekarang</button>
-              <button class="btn btn-secondary" type="button" id="btnCekCooldown">Cek Cooldown</button>
-            </div>
-          </div>
-          <div class="status" id="absenStatus">Masukkan nama yang sudah disetujui admin, lalu klik absen.</div>
-          <div class="absen-stats">
-            <div class="absen-stat"><b id="totalNamaAbsen">0</b><span>Nama absen</span></div>
-            <div class="absen-stat"><b id="totalAbsenMasuk">0</b><span>Total absen</span></div>
-            <div class="absen-stat"><b id="nextResetMini">--:--</b><span>Reset berikutnya</span></div>
-          </div>
-          <div class="tool-row">
-            <button class="mini-btn" type="button" id="btnExport">Export JSON</button>
-            <label class="mini-btn" for="importFile" style="cursor:pointer">Import JSON</label>
-            <input class="hide" type="file" id="importFile" accept="application/json" />
-            <button class="mini-btn" type="button" id="btnClearLocal">Reset Browser</button>
-          </div>
-        </article>
-        <article class="panel leaderboard-card reveal">
-          <div class="leader-head">
-            <div><h3>Leaderboard</h3><p>Top member bulan ini berdasarkan jumlah absen valid.</p></div>
-            <span class="eyebrow" id="absenModeBadge">Browser • Reset 16.00 WIB</span>
-          </div>
-          <div class="leader-list" id="leaderboardList"></div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="idcard">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Identity Tool</span>
-        <h2>CAO ID Card Generator</h2>
-        <p>Buat kartu identitas member secara langsung dari browser. Gambar bisa diunduh tanpa server.</p>
-      </div>
-      <div class="identity-layout">
-        <article class="panel id-card-panel reveal">
-          <h3>Data ID Card</h3>
-          <p>Isi nickname, pilih gen, lalu download kartu member.</p>
-          <div class="form-grid">
-            <label class="label" for="cardName">Nickname</label>
-            <input class="input" id="cardName" placeholder="Contoh: Xyzoo" maxlength="20" />
-            <label class="label" for="cardGen">Gen</label>
-            <select class="select" id="cardGen">
-              <option>Gen V1</option>
-              <option>Gen V2</option>
-              <option>Gen V3</option>
-              <option>Admin Team</option>
-              <option>Founder Team</option>
-            </select>
-            <label class="label" for="cardRole">Role</label>
-            <select class="select" id="cardRole">
-              <option>Anime Editor</option>
-              <option>Content Creator</option>
-              <option>Reviewer</option>
-              <option>Admin</option>
-              <option>Member</option>
-            </select>
-            <button class="btn btn-primary" type="button" id="btnDownloadCard">Download PNG</button>
-          </div>
-        </article>
-        <article class="panel id-preview-wrap reveal">
-          <div class="id-preview" id="idPreview">
-            <div class="id-top">
-              <div class="id-logo"><img src="cao-logo.png" alt="Logo CAO" onerror="markBroken(this)" /></div>
-              <div class="id-code" id="idCode">CAO-0001</div>
-            </div>
-            <div>
-              <div class="id-name" id="previewName">NICKNAME</div>
-              <div class="id-role" id="previewRole">Anime Editor • Gen V1</div>
-            </div>
-            <div class="id-bottom">
-              <div><small>Community</small><b>Creator Anime One</b></div>
-              <div><small>Tagline</small><b>Marganya Sepuh Anime</b></div>
-            </div>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <section id="faq">
-    <div class="container">
-      <div class="faq-layout">
-        <article class="panel faq-card reveal">
-          <span class="eyebrow">FAQ</span>
-          <h2 style="font-size:clamp(2rem,4vw,3.2rem);letter-spacing:-1.3px;margin:14px 0 12px">Pertanyaan cepat</h2>
-          <p>Bagian ini membantu pengunjung baru paham cara join dan aturan dasar sebelum masuk komunitas.</p>
-        </article>
-        <div class="accordion reveal" id="faqList"></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="contact">
-    <div class="container">
-      <div class="section-head reveal">
-        <span class="eyebrow">Join & Contact</span>
-        <h2>Masuk ke gerakan CAO</h2>
-        <p>Pilih channel yang tersedia, lalu ikuti arahan admin.</p>
-      </div>
-      <div class="contact-layout">
-        <article class="panel contact-card reveal">
-          <h3 style="font-size:clamp(1.8rem,3vw,2.6rem);letter-spacing:-1px;margin-bottom:10px">Link resmi</h3>
-          <p>Gunakan link berikut untuk masuk atau melihat aktivitas Creator Anime One.</p>
-          <div class="contact-links">
-            <a class="contact-link" href="https://chat.whatsapp.com/E2Ow1ygwDq1KdPKIqfgD6A?utm_medium=social&utm_source=heylink.me" target="_blank" rel="noopener noreferrer"><span>WhatsApp Group</span><b>JOIN →</b></a>
-            <a class="contact-link" href="https://www.tiktok.com/@officialanimeone" target="_blank" rel="noopener noreferrer"><span>TikTok Official</span><b>OPEN →</b></a>
-            <a class="contact-link" href="#absen"><span>Absen Member</span><b>ISI →</b></a>
-          </div>
-        </article>
-        <article class="panel contact-card reveal">
-          <h3 style="font-size:clamp(1.8rem,3vw,2.6rem);letter-spacing:-1px;margin-bottom:10px">Kirim pesan cepat</h3>
-          <p>Form ini membuat teks pesan otomatis. Cocok untuk calon member yang mau memperkenalkan diri.</p>
-          <div class="form-grid">
-            <input class="input" id="contactName" placeholder="Nama / nickname" />
-            <select class="select" id="contactInterest">
-              <option>Ingin join sebagai member</option>
-              <option>Ingin collab konten</option>
-              <option>Ingin tanya rules</option>
-              <option>Ingin jadi creator aktif</option>
-            </select>
-            <textarea class="textarea" id="contactMessage" placeholder="Tulis pesan singkat..."></textarea>
-            <button class="btn btn-primary" type="button" id="btnCopyMessage">Copy Pesan</button>
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="container">
-      <div class="footer-brand"><span class="brand-mark" style="width:34px;height:34px;border-radius:13px"><img src="cao-logo.png?v=2" alt="Logo CAO" onerror="markBroken(this)" /></span> Creator Anime One</div>
-      <p>2026 © Creator Anime One. All rights reserved.</p>
-      <p style="margin-top:8px">Made with care by <a href="https://www.tiktok.com/@jojojocijoo" target="_blank" rel="noopener noreferrer">Xyzoo✦</a></p>
-      <div class="footer-links">
-        <a href="#home">Home</a><a href="#generation">Gen</a><a href="#admin">Admin</a><a href="#absen">Absen</a><a href="#idcard">ID Card</a>
-      </div>
-    </div>
-  </footer>
-
-  <div class="toast" id="toast"></div>
-
-  <script>
-    function markBroken(img) { img.classList.add('broken'); img.removeAttribute('src'); }
-
-    const data = {
-      generations: [
-        { id: 'v1', status: 'aktif', badge: 'V1', title: 'Gen V1', member: '166 Member', desc: 'Generasi awal yang menjadi pondasi komunitas CAO.', img: 'gen1.jpg', tags: ['Aktif', 'Founder Era', 'Core Member'] },
-        { id: 'v2', status: 'aktif', badge: 'V2', title: 'Gen V2', member: '210 Member', desc: 'Generasi lanjutan dengan member aktif dan ruang karya yang semakin ramai.', img: 'gen2.jpg', tags: ['Aktif', 'Creative Era', 'High Energy'] },
-        { id: 'v3', status: 'soon', badge: 'V3', title: 'Gen V3', member: 'Coming Soon', desc: 'Slot generasi baru yang bisa dipakai untuk open member berikutnya.', img: 'gen3.jpg', tags: ['Soon', 'New Wave', 'Open Slot'] }
-      ],
-      founders: [
-        { name: 'RIDHZ', role: 'Co-Owner', desc: 'Yang Paling Berkuasa', img: 'chibiridhz.png', url: 'https://www.tiktok.com/@ridhztempesto' },
-        { name: 'ARMY', role: 'Owner', desc: 'Pendiri sekaligus tetua Creator Anime One.', img: 'chibiarmy.png', url: 'https://www.tiktok.com/@armyone100', owner: true },
-        { name: 'CELZ', role: 'Admin', desc: 'Leader of Admin', img: 'chibicelz.png', url: 'https://www.tiktok.com/@celzpreset' }
-      ],
-      admins: [
-        { name: 'Zenn', role: 'Sesepuh ML', img: 'zen1.png' },
-        { name: 'Xyzoo', role: 'Admin Website', img: 'xyzoo.png' },
-        { name: 'Reyy', role: 'Admin Bot', img: 'rey1.png' },
-        { name: 'Caine', role: 'Admin Live', img: 'caine1.png' },
-        { name: 'Rem', role: 'Admin Meme', img: 'rem.png' },
-        { name: 'Nazz', role: 'Admin Meme', img: 'naz1.png' },
-        { name: 'Karumi', role: 'Admin Collab', img: 'karumi1.png' },
-        { name: 'Nano', role: 'Admin Collab2', img: 'nano.png' },
-        { name: 'Kaishi', role: 'Admin Collab3', img: 'kaishi1.png' },
-        { name: 'Nixara', role: 'Admin Seleksi', img: 'nixa2.png' },
-        { name: 'Men', role: 'Admin Seleksi', img: 'men1.png' }
-      ],
-      approvedNames: ['RixCihuyy','Blezx','Joulezy','riq','Kaziroo','Febzz','Sero','Roop','Zell','Ridhz','Xyzoo','Men','Caine','Nano','Rem','Karumi','Reyy','Nixara','Ayase'],
-      faq: [
-        { q: 'Bagaimana cara join CAO?', a: 'Klik tombol Join CAO, masuk ke grup resmi, lalu ikuti arahan admin yang bertugas.' },
-        { q: 'Kenapa nama saya tidak bisa absen?', a: 'Fitur absen hanya menerima nama yang sudah masuk daftar izin admin. Minta admin menambahkan nickname kamu ke daftar APPROVED_MEMBER_NAMES.' },
-        { q: 'Kapan absen bisa diisi lagi?', a: 'Absen dibuka lagi setiap reset harian pukul 16.00 WIB. Countdown reset tersedia di bagian statistik.' },
-        { q: 'Apakah data absen ini global?', a: 'Versi ini memakai localStorage browser agar aman dan praktis dalam satu file HTML. Data bisa diekspor atau diimpor lewat tombol JSON.' },
-        { q: 'Apakah ID Card langsung tersimpan?', a: 'ID Card dibuat di browser dan bisa diunduh sebagai PNG. Website tidak menyimpan data kartu member.' }
-      ]
-    };
-
-    const $ = (selector, root = document) => root.querySelector(selector);
-    const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
-
-    function toast(message) {
-      const box = $('#toast');
-      box.textContent = message;
-      box.classList.add('show');
-      clearTimeout(window.__toastTimer);
-      window.__toastTimer = setTimeout(() => box.classList.remove('show'), 2500);
-    }
-
-    window.addEventListener('load', () => {
-      setTimeout(() => $('#preloader')?.classList.add('done'), 550);
-    });
-
-    function initNavigation() {
-      const menuBtn = $('#menuBtn');
-      const mobilePanel = $('#mobilePanel');
-      menuBtn.addEventListener('click', () => mobilePanel.classList.toggle('open'));
-      $$('#mobilePanel a').forEach(a => a.addEventListener('click', () => mobilePanel.classList.remove('open')));
-
-      const progress = $('#progressBar');
-      const navLinks = $$('.nav-menu a');
-      const sections = navLinks.map(a => $(a.getAttribute('href'))).filter(Boolean);
-
-      window.addEventListener('scroll', () => {
-        const max = document.documentElement.scrollHeight - innerHeight;
-        progress.style.width = max > 0 ? `${(scrollY / max) * 100}%` : '0%';
-        let current = '';
-        sections.forEach(section => {
-          if (scrollY >= section.offsetTop - 130) current = `#${section.id}`;
-        });
-        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === current));
-      }, { passive: true });
-    }
-
-    function initTheme() {
-      const saved = localStorage.getItem('cao_theme') || 'dark';
-      document.body.dataset.theme = saved;
-      $('#themeToggle').textContent = saved === 'light' ? '☀' : '☾';
-      $('#themeToggle').addEventListener('click', () => {
-        const next = document.body.dataset.theme === 'light' ? 'dark' : 'light';
-        document.body.dataset.theme = next;
-        localStorage.setItem('cao_theme', next);
-        $('#themeToggle').textContent = next === 'light' ? '☀' : '☾';
-      });
-
-      $('#soundToggle').addEventListener('click', () => {
-        document.body.classList.toggle('calm-mode');
-        const calm = document.body.classList.contains('calm-mode');
-        document.querySelectorAll('.portal, .loader-fill').forEach(el => el.style.animationPlayState = calm ? 'paused' : 'running');
-        toast(calm ? 'Mode visual tenang aktif.' : 'Mode visual galaxy aktif lagi.');
-      });
-    }
-
-    function initReveal() {
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) entry.target.classList.add('visible');
-        });
-      }, { threshold: .12 });
-      $$('.reveal').forEach(el => io.observe(el));
-    }
-
-    function animateCounters() {
-      const counters = $$('.counter');
-      const io = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (!entry.isIntersecting || entry.target.dataset.done) return;
-          entry.target.dataset.done = 'true';
-          const target = Number(entry.target.dataset.target || 0);
-          const start = performance.now();
-          const duration = 1100;
-          function tick(now) {
-            const p = Math.min(1, (now - start) / duration);
-            const eased = 1 - Math.pow(1 - p, 3);
-            entry.target.textContent = Math.round(target * eased).toLocaleString('id-ID');
-            if (p < 1) requestAnimationFrame(tick);
-          }
-          requestAnimationFrame(tick);
-        });
-      }, { threshold: .5 });
-      counters.forEach(c => io.observe(c));
-    }
-
-    function renderGenerations(filter = 'all') {
-      const grid = $('#generationGrid');
-      const items = filter === 'all' ? data.generations : data.generations.filter(g => g.status === filter);
-      grid.innerHTML = items.map(g => `
-        <article class="cardish gen-card reveal visible">
-          <div class="gen-img" data-fallback="${g.title}"><img src="${g.img}" alt="${g.title}" onerror="markBroken(this)" /></div>
-          <span class="role">${g.badge}</span>
-          <h3>${g.title}</h3>
-          <p>${g.desc}</p>
-          <div class="gen-meta">
-            <span class="meta-chip">${g.member}</span>
-            ${g.tags.map(t => `<span class="meta-chip">${t}</span>`).join('')}
-          </div>
-        </article>
-      `).join('');
-    }
-
-    function initGenerationFilters() {
-      const filters = [
-        { key: 'all', label: 'Semua Gen' },
-        { key: 'aktif', label: 'Aktif' },
-        { key: 'soon', label: 'Coming Soon' }
-      ];
-      const wrap = $('#genFilters');
-      wrap.innerHTML = filters.map((f, i) => `<button class="pill ${i === 0 ? 'active' : ''}" type="button" data-filter="${f.key}">${f.label}</button>`).join('');
-      wrap.addEventListener('click', e => {
-        const btn = e.target.closest('[data-filter]');
-        if (!btn) return;
-        $$('.pill', wrap).forEach(p => p.classList.remove('active'));
-        btn.classList.add('active');
-        renderGenerations(btn.dataset.filter);
-      });
-      renderGenerations();
-    }
-
-    function renderFounders() {
-      $('#founderStage').innerHTML = data.founders.map(f => `
-        <article class="panel person-card ${f.owner ? 'owner' : ''}">
-          <div class="person-photo" data-name="${f.name}"><img src="${f.img}" alt="Foto ${f.name}" onerror="markBroken(this)" /></div>
-          <span class="role">${f.role}</span>
-          <h3>${f.name}</h3>
-          <p>${f.desc}</p>
-          <a class="social-bubble" href="${f.url}" target="_blank" rel="noopener noreferrer" aria-label="TikTok ${f.name}"><img src="tiktok-logo.png?v=1" alt="TikTok" onerror="markBroken(this)" /></a>
-        </article>
-      `).join('');
-    }
-
-    function renderAdmins(keyword = '') {
-      const q = keyword.trim().toLowerCase();
-      const items = data.admins.filter(a => `${a.name} ${a.role}`.toLowerCase().includes(q));
-      $('#adminTrack').innerHTML = items.length ? items.map(a => `
-        <article class="cardish admin-card">
-          <div class="admin-photo" data-initial="${a.name.charAt(0)}"><img src="${a.img}" alt="Foto ${a.name}" onerror="markBroken(this)" /></div>
-          <h3>${a.name}</h3>
-          <small>${a.role}</small>
-        </article>
-      `).join('') : `<div class="empty" style="width:min(520px,calc(100vw - 48px))">Admin tidak ditemukan.</div>`;
-    }
-
-    function initAdminSearch() {
-      const input = $('#adminSearch');
-      input.addEventListener('input', () => renderAdmins(input.value));
-      renderAdmins();
-
-      const slider = $('#adminScroller');
-      let isDown = false, startX = 0, scrollLeft = 0;
-      slider.addEventListener('mousedown', e => {
-        isDown = true; slider.classList.add('dragging');
-        startX = e.pageX - slider.offsetLeft; scrollLeft = slider.scrollLeft;
-      });
-      slider.addEventListener('mouseleave', () => { isDown = false; slider.classList.remove('dragging'); });
-      slider.addEventListener('mouseup', () => { isDown = false; slider.classList.remove('dragging'); });
-      slider.addEventListener('mousemove', e => {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - slider.offsetLeft;
-        slider.scrollLeft = scrollLeft - (x - startX) * 1.35;
-      });
-    }
-
-    function initFAQ() {
-      const list = $('#faqList');
-      list.innerHTML = data.faq.map((item, i) => `
-        <article class="faq-item ${i === 0 ? 'open' : ''}">
-          <button class="faq-question" type="button"><span>${item.q}</span><span>＋</span></button>
-          <div class="faq-answer"><div><p>${item.a}</p></div></div>
-        </article>
-      `).join('');
-      list.addEventListener('click', e => {
-        const button = e.target.closest('.faq-question');
-        if (!button) return;
-        button.closest('.faq-item').classList.toggle('open');
-      });
-    }
-
-    const WIB_OFFSET_MS = 7 * 60 * 60 * 1000;
-    const RESET_HOUR_WIB = 16;
-    const STORE_KEY = 'cao_absen_rombak_v1';
-
-    function getWibDate(date = new Date()) { return new Date(date.getTime() + WIB_OFFSET_MS); }
-    function getMonthKey(date = new Date()) {
-      const w = getWibDate(date);
-      return `${w.getUTCFullYear()}-${String(w.getUTCMonth() + 1).padStart(2, '0')}`;
-    }
-    function getPeriodKey(date = new Date()) {
-      const w = getWibDate(date);
-      if (w.getUTCHours() < RESET_HOUR_WIB) w.setUTCDate(w.getUTCDate() - 1);
-      return `${w.getUTCFullYear()}-${String(w.getUTCMonth()+1).padStart(2,'0')}-${String(w.getUTCDate()).padStart(2,'0')}`;
-    }
-    function getNextReset(date = new Date()) {
-      const w = getWibDate(date);
-      const resetWib = new Date(Date.UTC(w.getUTCFullYear(), w.getUTCMonth(), w.getUTCDate(), RESET_HOUR_WIB, 0, 0));
-      if (w >= resetWib) resetWib.setUTCDate(resetWib.getUTCDate() + 1);
-      return new Date(resetWib.getTime() - WIB_OFFSET_MS);
-    }
-    function formatDuration(ms) {
-      const total = Math.max(0, Math.floor(ms / 1000));
-      const h = Math.floor(total / 3600);
-      const m = Math.floor((total % 3600) / 60);
-      const s = total % 60;
-      return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-    }
-    function normalizeName(value) { return String(value || '').trim().replace(/\s+/g, ' '); }
-    function nameKey(value) { return normalizeName(value).toLowerCase(); }
-    function approvedName(value) {
-      const key = nameKey(value);
-      return data.approvedNames.find(n => nameKey(n) === key) || null;
-    }
-    function readAbsen() {
-      const month = getMonthKey();
-      try {
-        const parsed = JSON.parse(localStorage.getItem(STORE_KEY) || '{}');
-        if (parsed.month === month && Array.isArray(parsed.items)) return parsed.items;
-      } catch (e) {}
-      return [];
-    }
-    function writeAbsen(items) {
-      localStorage.setItem(STORE_KEY, JSON.stringify({ month: getMonthKey(), items }));
-    }
-    function sortedAbsen() {
-      return readAbsen().sort((a,b) => (b.count || 0) - (a.count || 0) || (a.firstAt || 0) - (b.firstAt || 0));
-    }
-    function setAbsenStatus(message, type = '') {
-      const box = $('#absenStatus');
-      box.className = 'status';
-      if (type) box.classList.add(type);
-      box.textContent = message;
-    }
-    function renderLeaderboard() {
-      const list = $('#leaderboardList');
-      const items = sortedAbsen().slice(0, 99);
-      $('#totalNamaAbsen').textContent = items.length;
-      $('#totalAbsenMasuk').textContent = items.reduce((sum, item) => sum + Number(item.count || 0), 0);
-      if (!items.length) {
-        list.innerHTML = `<div class="empty">Belum ada absen bulan ini. Nama harus masuk daftar izin admin dulu sebelum tampil di leaderboard.</div>`;
-        return;
-      }
-      list.innerHTML = items.map((item, index) => `
-        <div class="rank-item">
-          <div class="rank-left">
-            <div class="rank-num">${index + 1}</div>
-            <div class="rank-name"><strong>${escapeHTML(item.name)}</strong><small>Terakhir: ${formatTime(item.lastAt)}</small></div>
-          </div>
-          <div class="rank-count"><b>${item.count}</b><span>absen</span></div>
-        </div>
-      `).join('');
-    }
-    function formatTime(ts) {
-      if (!ts) return '-';
-      return new Date(ts).toLocaleString('id-ID', { timeZone: 'Asia/Jakarta', day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' });
-    }
-    function escapeHTML(value) {
-      return String(value).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
-    }
-    function getCooldownInfo(name) {
-      const approved = approvedName(name);
-      if (!approved) return { approved: null, item: null, can: false, remaining: 0, notApproved: true };
-      const key = nameKey(approved);
-      const item = readAbsen().find(x => x.key === key);
-      if (!item || item.lastPeriod !== getPeriodKey()) return { approved, item, can: true, remaining: 0 };
-      return { approved, item, can: false, remaining: getNextReset().getTime() - Date.now() };
-    }
-    function handleAbsen() {
-      const raw = $('#absenNama').value;
-      const info = getCooldownInfo(raw);
-      if (!normalizeName(raw)) return setAbsenStatus('Nama belum diisi. Ketik nama dulu untuk absen.', 'danger');
-      if (info.notApproved) return setAbsenStatus(`Nama "${normalizeName(raw)}" belum disetujui admin. Minta admin menambahkannya ke daftar izin.`, 'danger');
-      if (!info.can) return setAbsenStatus(`${info.approved} sudah absen periode ini. Bisa absen lagi setelah reset 16.00 WIB, sisa ${formatDuration(info.remaining)}.`, 'warning');
-
-      const items = readAbsen();
-      const key = nameKey(info.approved);
-      let item = items.find(x => x.key === key);
-      if (!item) {
-        item = { key, name: info.approved, count: 0, firstAt: Date.now(), lastAt: 0, lastPeriod: '' };
-        items.push(item);
-      }
-      item.count += 1;
-      item.lastAt = Date.now();
-      item.lastPeriod = getPeriodKey();
-      writeAbsen(items);
-      setAbsenStatus(`Berhasil! ${info.approved} masuk absen. Absen berikutnya terbuka setelah reset pukul 16.00 WIB.`, 'success');
-      renderLeaderboard();
-    }
-    function handleCek() {
-      const raw = $('#absenNama').value;
-      const info = getCooldownInfo(raw);
-      if (!normalizeName(raw)) return setAbsenStatus('Ketik nama dulu untuk cek cooldown.', 'danger');
-      if (info.notApproved) return setAbsenStatus(`Nama "${normalizeName(raw)}" belum masuk daftar izin admin.`, 'danger');
-      if (info.can) return setAbsenStatus(`${info.approved} bisa absen sekarang.`, 'success');
-      setAbsenStatus(`${info.approved} sudah absen periode ini. Sisa cooldown ${formatDuration(info.remaining)}.`, 'warning');
-    }
-    function initAbsen() {
-      $('#btnAbsen').addEventListener('click', handleAbsen);
-      $('#btnCekCooldown').addEventListener('click', handleCek);
-      $('#absenNama').addEventListener('keydown', e => { if (e.key === 'Enter') handleAbsen(); });
-      $('#btnExport').addEventListener('click', () => {
-        const blob = new Blob([JSON.stringify({ month: getMonthKey(), items: readAbsen() }, null, 2)], { type: 'application/json' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url; a.download = `cao-absen-${getMonthKey()}.json`; a.click();
-        URL.revokeObjectURL(url);
-      });
-      $('#importFile').addEventListener('change', async e => {
-        const file = e.target.files[0];
-        if (!file) return;
-        try {
-          const text = await file.text();
-          const parsed = JSON.parse(text);
-          const items = Array.isArray(parsed.items) ? parsed.items : [];
-          writeAbsen(items.filter(x => approvedName(x.name)));
-          renderLeaderboard();
-          toast('Data absen berhasil diimpor.');
-        } catch (err) { toast('File JSON tidak valid.'); }
-        e.target.value = '';
-      });
-      $('#btnClearLocal').addEventListener('click', () => {
-        if (!confirm('Reset data absen di browser ini?')) return;
-        localStorage.removeItem(STORE_KEY);
-        renderLeaderboard();
-        setAbsenStatus('Data absen lokal sudah direset.', 'warning');
-      });
-      renderLeaderboard();
-    }
-    function updateClock() {
-      const now = new Date();
-      $('#resetClock').textContent = formatDuration(getNextReset(now).getTime() - now.getTime());
-      $('#wibClock').textContent = now.toLocaleTimeString('id-ID', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit' });
-      $('#nextResetMini').textContent = getNextReset(now).toLocaleTimeString('id-ID', { timeZone: 'Asia/Jakarta', hour: '2-digit', minute: '2-digit' });
-      const raw = $('#absenNama')?.value;
-      if (raw && $('#absenStatus')?.classList.contains('warning')) handleCek();
-    }
-
-    function initIDCard() {
-      const nameInput = $('#cardName');
-      const genInput = $('#cardGen');
-      const roleInput = $('#cardRole');
-      function update() {
-        const name = normalizeName(nameInput.value) || 'NICKNAME';
-        $('#previewName').textContent = name;
-        $('#previewRole').textContent = `${roleInput.value} • ${genInput.value}`;
-        $('#idCode').textContent = `CAO-${Math.abs(hashCode(name + genInput.value)).toString().slice(0,4).padStart(4,'0')}`;
-      }
-      [nameInput, genInput, roleInput].forEach(el => el.addEventListener('input', update));
-      [genInput, roleInput].forEach(el => el.addEventListener('change', update));
-      update();
-      $('#btnDownloadCard').addEventListener('click', downloadIDCard);
-    }
-    function hashCode(str) {
-      let hash = 0;
-      for (let i = 0; i < str.length; i++) hash = ((hash << 5) - hash) + str.charCodeAt(i) | 0;
-      return hash;
-    }
-    function downloadIDCard() {
-      const name = normalizeName($('#cardName').value) || 'NICKNAME';
-      const gen = $('#cardGen').value;
-      const role = $('#cardRole').value;
-      const code = $('#idCode').textContent;
-      const canvas = document.createElement('canvas');
-      canvas.width = 1600; canvas.height = 1000;
-      const ctx = canvas.getContext('2d');
-      const grad = ctx.createLinearGradient(0,0,1600,1000);
-      grad.addColorStop(0, '#13001f'); grad.addColorStop(.48, '#4c1d95'); grad.addColorStop(1, '#05000c');
-      ctx.fillStyle = grad; ctx.fillRect(0,0,1600,1000);
-      drawCircle(ctx, 300, 170, 420, 'rgba(56,189,248,.28)');
-      drawCircle(ctx, 1280, 210, 430, 'rgba(244,114,182,.24)');
-      drawCircle(ctx, 980, 800, 560, 'rgba(168,85,247,.26)');
-      ctx.strokeStyle = 'rgba(255,255,255,.08)'; ctx.lineWidth = 2;
-      for (let x = 0; x < 1600; x += 64) { ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,1000); ctx.stroke(); }
-      for (let y = 0; y < 1000; y += 64) { ctx.beginPath(); ctx.moveTo(0,y); ctx.lineTo(1600,y); ctx.stroke(); }
-      roundRect(ctx, 70, 70, 1460, 860, 70, 'rgba(255,255,255,.07)', 'rgba(255,255,255,.25)');
-      ctx.fillStyle = '#ffffff'; ctx.font = '900 54px Plus Jakarta Sans, Arial'; ctx.fillText('CREATOR ANIME ONE', 160, 190);
-      roundRect(ctx, 1210, 130, 230, 64, 32, 'rgba(255,255,255,.13)', 'rgba(255,255,255,.25)');
-      ctx.font = '900 32px Plus Jakarta Sans, Arial'; ctx.fillText(code, 1240, 173);
-      ctx.font = '900 128px Plus Jakarta Sans, Arial'; wrapText(ctx, name.toUpperCase(), 160, 520, 1220, 132);
-      ctx.fillStyle = '#e9d5ff'; ctx.font = '800 48px Plus Jakarta Sans, Arial'; ctx.fillText(`${role} • ${gen}`, 164, 650);
-      ctx.fillStyle = 'rgba(255,255,255,.72)'; ctx.font = '700 30px Plus Jakarta Sans, Arial'; ctx.fillText('Community', 164, 800);
-      ctx.fillStyle = '#ffffff'; ctx.font = '900 44px Plus Jakarta Sans, Arial'; ctx.fillText('Marganya Sepuh Anime', 164, 855);
-      ctx.fillStyle = 'rgba(255,255,255,.72)'; ctx.font = '700 30px Plus Jakarta Sans, Arial'; ctx.fillText('Official Member Card', 1090, 800);
-      ctx.fillStyle = '#ffffff'; ctx.font = '900 44px Plus Jakarta Sans, Arial'; ctx.fillText('CAO FAMS', 1090, 855);
-      const a = document.createElement('a');
-      a.download = `cao-id-card-${name.toLowerCase().replace(/[^a-z0-9]+/g,'-') || 'member'}.png`;
-      a.href = canvas.toDataURL('image/png');
-      a.click();
-    }
-    function drawCircle(ctx, x, y, r, fill) { ctx.beginPath(); ctx.arc(x,y,r,0,Math.PI*2); ctx.fillStyle = fill; ctx.fill(); }
-    function roundRect(ctx, x, y, w, h, r, fill, stroke) {
-      ctx.beginPath();
-      ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.quadraticCurveTo(x+w,y,x+w,y+r); ctx.lineTo(x+w,y+h-r); ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h); ctx.lineTo(x+r,y+h); ctx.quadraticCurveTo(x,y+h,x,y+h-r); ctx.lineTo(x,y+r); ctx.quadraticCurveTo(x,y,x+r,y); ctx.closePath();
-      if (fill) { ctx.fillStyle = fill; ctx.fill(); }
-      if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = 2; ctx.stroke(); }
-    }
-    function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
-      const words = text.split(' '); let line = '';
-      for (let n = 0; n < words.length; n++) {
-        const test = line + words[n] + ' ';
-        if (ctx.measureText(test).width > maxWidth && n > 0) { ctx.fillText(line, x, y); line = words[n] + ' '; y += lineHeight; }
-        else line = test;
-      }
-      ctx.fillText(line, x, y);
-    }
-
-    function initContact() {
-      $('#btnCopyMessage').addEventListener('click', async () => {
-        const name = normalizeName($('#contactName').value) || 'Calon Member';
-        const interest = $('#contactInterest').value;
-        const message = normalizeName($('#contactMessage').value) || 'Halo admin, saya ingin bergabung dan mengenal komunitas Creator Anime One.';
-        const text = `Halo Admin CAO, saya ${name}.\nKeperluan: ${interest}.\nPesan: ${message}`;
-        try {
-          await navigator.clipboard.writeText(text);
-          toast('Pesan berhasil dicopy. Tinggal paste ke admin atau grup.');
-        } catch (e) {
-          toast('Browser tidak mengizinkan copy otomatis. Salin manual dari pesan yang sudah dibuat.');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xyzoocraft Minecraft Server</title>
+
+    <link rel="icon" type="image/png" href="./logo.png?v=1">
+
+    <style>
+        :root {
+            --bg-main: #0f1020;
+            --bg-card: rgba(255, 255, 255, 0.08);
+            --bg-card-dark: rgba(0, 0, 0, 0.28);
+            --orange: #ff8a00;
+            --gold: #ffc247;
+            --green: #2ecc71;
+            --red: #e74c3c;
+            --blue: #5865f2;
+            --text-main: #ffffff;
+            --text-muted: #c8c8d4;
+            --border: rgba(255, 255, 255, 0.13);
+            --shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
         }
-      });
-    }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      initNavigation();
-      initTheme();
-      initReveal();
-      animateCounters();
-      initGenerationFilters();
-      renderFounders();
-      initAdminSearch();
-      initFAQ();
-      initAbsen();
-      initIDCard();
-      initContact();
-      updateClock();
-      setInterval(updateClock, 1000);
-    });
-  </script>
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-main);
+            background:
+                radial-gradient(circle at top left, rgba(255, 138, 0, 0.22), transparent 34%),
+                radial-gradient(circle at top right, rgba(88, 101, 242, 0.18), transparent 32%),
+                linear-gradient(135deg, #10111f, #18192e 45%, #0b0c16);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 38px 38px;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 99;
+            backdrop-filter: blur(16px);
+            background: rgba(10, 11, 24, 0.78);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            max-width: 1180px;
+            margin: auto;
+            padding: 14px 22px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            letter-spacing: 0.3px;
+        }
+
+        .brand img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            border: 2px solid rgba(255, 194, 71, 0.5);
+        }
+
+        .brand span {
+            background: linear-gradient(45deg, var(--orange), var(--gold));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-size: 1.15rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-cta {
+            padding: 9px 15px;
+            border-radius: 999px;
+            background: linear-gradient(45deg, var(--orange), var(--gold));
+            color: #171717 !important;
+            font-weight: 800;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: 1px solid var(--border);
+            color: white;
+            border-radius: 10px;
+            padding: 8px 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .section {
+            max-width: 1180px;
+            width: 100%;
+            margin: auto;
+            padding: 80px 22px;
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 34px;
+            align-items: center;
+            min-height: 82vh;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 13px;
+            border: 1px solid rgba(255, 194, 71, 0.25);
+            background: rgba(255, 138, 0, 0.08);
+            border-radius: 999px;
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-bottom: 18px;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.6rem, 6vw, 5.4rem);
+            line-height: 0.95;
+            margin: 0 0 18px;
+            letter-spacing: -2px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, var(--orange), var(--gold), #fff1b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.08rem;
+            line-height: 1.7;
+            max-width: 620px;
+        }
+
+        .hero-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 26px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 13px 20px;
+            border-radius: 14px;
+            border: 0;
+            cursor: pointer;
+            font-weight: 800;
+            transition: 0.25s ease;
+            color: white;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--orange), var(--gold));
+            color: #181818;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.09);
+            border: 1px solid var(--border);
+        }
+
+        .btn-discord {
+            background: linear-gradient(45deg, #5865F2, #404eed);
+        }
+
+        .btn-donation {
+            background: linear-gradient(45deg, #2ecc71, #27ae60);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 28px rgba(255, 138, 0, 0.18);
+        }
+
+        .hero-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(16px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-card::before {
+            content: "";
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            background: rgba(255, 194, 71, 0.25);
+            border-radius: 50%;
+            top: -60px;
+            right: -50px;
+            filter: blur(6px);
+        }
+
+        .server-logo {
+            width: 128px;
+            height: 128px;
+            object-fit: cover;
+            border-radius: 28px;
+            border: 2px solid rgba(255, 194, 71, 0.55);
+            box-shadow: 0 18px 45px rgba(0,0,0,0.35);
+            display: block;
+            margin-bottom: 18px;
+        }
+
+        .server-title {
+            margin: 0 0 10px;
+            font-size: 1.8rem;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 13px;
+            border-radius: 999px;
+            background: rgba(0,0,0,0.32);
+            border: 1px solid var(--gold);
+            font-size: 0.92rem;
+            margin: 10px 0 18px;
+        }
+
+        .server-info {
+            background: var(--bg-card-dark);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 16px;
+            margin-top: 14px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 9px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .info-row:last-child {
+            border-bottom: 0;
+        }
+
+        .info-label {
+            color: var(--text-muted);
+        }
+
+        .highlight {
+            color: var(--gold);
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 800;
+            text-align: right;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: -30px;
+            padding-top: 0;
+        }
+
+        .stat-card,
+        .content-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 22px;
+            padding: 22px;
+            box-shadow: 0 14px 38px rgba(0,0,0,0.25);
+            backdrop-filter: blur(12px);
+        }
+
+        .stat-card h3 {
+            margin: 0;
+            font-size: 1.65rem;
+            color: var(--gold);
+        }
+
+        .stat-card p {
+            margin: 8px 0 0;
+            color: var(--text-muted);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 34px;
+        }
+
+        .section-title h2 {
+            font-size: clamp(2rem, 4vw, 3.1rem);
+            margin: 0 0 12px;
+        }
+
+        .section-title p {
+            color: var(--text-muted);
+            max-width: 690px;
+            margin: auto;
+            line-height: 1.7;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .content-card {
+            transition: 0.25s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(255, 194, 71, 0.5);
+        }
+
+        .card-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 15px;
+            background: rgba(255, 138, 0, 0.12);
+            color: var(--gold);
+            font-size: 1.45rem;
+            margin-bottom: 14px;
+        }
+
+        .content-card h3 {
+            margin: 0 0 10px;
+            font-size: 1.25rem;
+        }
+
+        .content-card p,
+        .content-card li {
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+        }
+
+        .step-number {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--orange), var(--gold));
+            color: #161616;
+            display: grid;
+            place-items: center;
+            font-weight: 900;
+            margin-bottom: 14px;
+        }
+
+        .rules-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .rules-box ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 22px;
+            border: 1px solid var(--border);
+            height: 245px;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.35s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 16px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.78));
+            font-weight: 800;
+        }
+
+        .donation-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .benefit-list {
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px dashed rgba(46, 204, 113, 0.8);
+            border-radius: 18px;
+            padding: 18px;
+        }
+
+        .rank-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .rank-card strong {
+            color: var(--gold);
+        }
+
+        .faq details {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 16px 18px;
+            margin-bottom: 12px;
+        }
+
+        .faq summary {
+            cursor: pointer;
+            font-weight: 800;
+        }
+
+        .faq p {
+            color: var(--text-muted);
+            line-height: 1.65;
+            margin-bottom: 0;
+        }
+
+        .community-box {
+            text-align: center;
+            background:
+                linear-gradient(135deg, rgba(255,138,0,0.13), rgba(88,101,242,0.13)),
+                var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            padding: 34px;
+            box-shadow: var(--shadow);
+        }
+
+        footer {
+            text-align: center;
+            padding: 28px 20px;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            background: rgba(0,0,0,0.18);
+        }
+
+        .toast {
+            position: fixed;
+            right: 18px;
+            bottom: 18px;
+            background: rgba(15, 16, 32, 0.94);
+            border: 1px solid rgba(255, 194, 71, 0.4);
+            color: white;
+            padding: 13px 16px;
+            border-radius: 14px;
+            box-shadow: var(--shadow);
+            transform: translateY(30px);
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.25s ease;
+            z-index: 999;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 900px) {
+            .hero,
+            .donation-layout,
+            .rules-box {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid,
+            .steps {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cards-grid,
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 72px;
+                left: 18px;
+                right: 18px;
+                display: none;
+                flex-direction: column;
+                align-items: stretch;
+                background: rgba(10, 11, 24, 0.96);
+                border: 1px solid var(--border);
+                border-radius: 18px;
+                padding: 18px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .section {
+                padding: 58px 16px;
+            }
+
+            .hero {
+                min-height: auto;
+                padding-top: 42px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .stats-grid,
+            .cards-grid,
+            .steps,
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .info-row {
+                flex-direction: column;
+            }
+
+            .highlight {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="#home" class="brand">
+                <img src="logo.png?v=1" alt="Logo Xyzoocraft">
+                <span>Xyzoocraft</span>
+            </a>
+
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+
+            <div class="nav-links" id="navLinks">
+                <a href="#home">Home</a>
+                <a href="#fitur">Fitur</a>
+                <a href="#join">Cara Join</a>
+                <a href="#rules">Rules</a>
+                <a href="#galeri">Galeri</a>
+                <a href="#donasi">Donasi</a>
+                <a href="#faq">FAQ</a>
+                <a href="#komunitas" class="nav-cta">Join Komunitas</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <section class="section hero" id="home">
+            <div>
+                <div class="eyebrow">🟢 Minecraft Survival Community</div>
+
+                <h1>
+                    Bangun Dunia Baru di
+                    <span class="gradient-text">Xyzoocraft</span>
+                </h1>
+
+                <p>
+                    Server Minecraft yang cocok untuk main santai, survival bareng teman,
+                    bangun base keren, ekonomi pemain, dan komunitas yang ramah untuk pemula.
+                </p>
+
+                <div class="hero-actions">
+                    <button class="btn btn-primary" onclick="salinIPPort()">📋 Salin IP + Port</button>
+                    <a href="#join" class="btn btn-secondary">🎮 Cara Join</a>
+                    <a href="#komunitas" class="btn btn-discord">💬 Komunitas</a>
+                </div>
+            </div>
+
+            <div class="hero-card">
+                <img src="logo.png?v=1" alt="Logo Xyzoocraft" class="server-logo">
+
+                <h2 class="server-title">Xyzoocraft 🚀</h2>
+
+                <div class="status-badge" id="statusBadge">
+                    Server: <span id="server-status">Mengecek...</span>
+                </div>
+
+                <p style="color: var(--text-muted); line-height: 1.6;">
+                    Masuk, survive, grinding, bangun base, dan jadi bagian dari komunitas Xyzoocraft.
+                </p>
+
+                <div class="server-info">
+                    <div class="info-row">
+                        <span class="info-label">IP Address</span>
+                        <span class="highlight">xyzoocraft.my.id</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Port</span>
+                        <span class="highlight">12345</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Mode</span>
+                        <span class="highlight">Survival</span>
+                    </div>
+                </div>
+
+                <button class="btn btn-primary" style="width:100%; margin-top:16px;" onclick="salinIP()">
+                    📋 Salin IP Server
+                </button>
+            </div>
+        </section>
+
+        <section class="section stats-grid">
+            <div class="stat-card">
+                <h3 id="playerOnline">-</h3>
+                <p>Player Online</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>24/7</h3>
+                <p>Target Uptime</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Anti</h3>
+                <p>Griefing</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Fun</h3>
+                <p>Community</p>
+            </div>
+        </section>
+
+        <section class="section" id="fitur">
+            <div class="section-title">
+                <h2>✨ Fitur Server</h2>
+                <p>
+                    Beberapa fitur utama yang bikin Xyzoocraft enak dimainkan untuk pemula maupun player lama.
+                </p>
+            </div>
+
+            <div class="cards-grid">
+                <div class="content-card">
+                    <div class="card-icon">🌲</div>
+                    <h3>Survival Semi-Vanilla</h3>
+                    <p>Gameplay survival yang tetap terasa original, tapi diberi sentuhan fitur yang lebih nyaman.</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="card-icon">💰</div>
+                    <h3>Ekonomi Pemain</h3>
+                    <p>Bangun toko, jual beli item, kumpulkan uang, dan jadi player paling tajir di server.</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="card-icon">🛡️</div>
+                    <h3>Proteksi Area</h3>
+                    <p>Base lebih aman dari griefing dengan sistem proteksi dan aturan komunitas yang jelas.</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="card-icon">🎁</div>
+                    <h3>Reward & Event</h3>
+                    <p>Event mingguan, hadiah menarik, dan aktivitas komunitas biar server tidak cepat membosankan.</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="card-icon">🏪</div>
+                    <h3>Player Shop</h3>
+                    <p>Pemain bisa membuat toko sendiri untuk menjual item hasil farming, mining, atau crafting.</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="card-icon">🤝</div>
+                    <h3>Ramah Pemula</h3>
+                    <p>Komunitas santai, cocok buat player baru yang ingin belajar dan main bareng.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="join">
+            <div class="section-title">
+                <h2>🎮 Cara Join</h2>
+                <p>
+                    Ikuti langkah berikut untuk masuk ke server Xyzoocraft.
+                </p>
+            </div>
+
+            <div class="steps">
+                <div class="content-card">
+                    <div class="step-number">1</div>
+                    <h3>Buka Minecraft</h3>
+                    <p>Masuk ke menu Multiplayer atau Server sesuai versi Minecraft kamu.</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="step-number">2</div>
+                    <h3>Tambah Server</h3>
+                    <p>Klik Add Server, lalu isi nama server dengan Xyzoocraft.</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="step-number">3</div>
+                    <h3>Masukkan IP</h3>
+                    <p>Gunakan IP <span class="highlight">xyzoocraft.my.id</span> dan port <span class="highlight">12345</span>.</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="step-number">4</div>
+                    <h3>Join & Enjoy</h3>
+                    <p>Masuk ke server, baca rules, lalu mulai petualangan kamu.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="rules">
+            <div class="section-title">
+                <h2>📜 Rules Server</h2>
+                <p>
+                    Biar mainnya tetap nyaman, semua player wajib mengikuti aturan dasar server.
+                </p>
+            </div>
+
+            <div class="rules-box">
+                <div class="content-card">
+                    <h3>✅ Yang Boleh</h3>
+                    <ul>
+                        <li>Bangun base dan kota bersama player lain.</li>
+                        <li>Trading item secara jujur.</li>
+                        <li>Ikut event komunitas.</li>
+                        <li>Membantu player baru.</li>
+                    </ul>
+                </div>
+
+                <div class="content-card">
+                    <h3>❌ Yang Dilarang</h3>
+                    <ul>
+                        <li>Cheat, x-ray, bug abuse, atau exploit.</li>
+                        <li>Griefing dan mencuri item player lain.</li>
+                        <li>Spam chat, toxic, atau menghina player.</li>
+                        <li>Mengganggu kenyamanan komunitas.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="galeri">
+            <div class="section-title">
+                <h2>📸 Galeri Server</h2>
+                <p>
+                    Intip keseruan dan karya para pemain di dunia Xyzoocraft.
+                </p>
+            </div>
+
+            <div class="gallery-grid">
+                <div class="gallery-item">
+                    <img src="foto1.png?v=1" alt="Galeri Xyzoocraft 1">
+                    <div class="gallery-caption">Base Player</div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="foto2.png?v=1" alt="Galeri Xyzoocraft 2">
+                    <div class="gallery-caption">Area Spawn</div>
+                </div>
+
+                <div class="gallery-item">
+                    <img src="foto3.png?v=1" alt="Galeri Xyzoocraft 3">
+                    <div class="gallery-caption">Build Komunitas</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="donasi">
+            <div class="section-title">
+                <h2>💸 Dukung Server</h2>
+                <p>
+                    Donasi membantu server tetap aktif, stabil, dan bisa terus berkembang.
+                </p>
+            </div>
+
+            <div class="donation-layout">
+                <div class="content-card">
+                    <h3>🎁 Benefit Donatur</h3>
+
+                    <div class="benefit-list">
+                        <p>✅ Custom Tag / Prefix keren di dalam game</p>
+                        <p>✅ Slot prioritas saat server penuh</p>
+                        <p>✅ Kit kosmetik khusus</p>
+                        <p>✅ Role spesial di komunitas</p>
+                    </div>
+
+                    <a href="https://saweria.co/usernamekamu" target="_blank" class="btn btn-donation" style="width:100%; margin-top:16px;">
+                        ❤️ Donasi via Saweria
+                    </a>
+                </div>
+
+                <div class="content-card">
+                    <h3>🏆 Rank Donatur</h3>
+
+                    <div class="rank-card">
+                        <strong>VIP</strong>
+                        <p>Prefix VIP, kosmetik basic, dan role Discord.</p>
+                    </div>
+
+                    <div class="rank-card">
+                        <strong>MVP</strong>
+                        <p>Prefix MVP, slot prioritas, dan kit kosmetik tambahan.</p>
+                    </div>
+
+                    <div class="rank-card">
+                        <strong>Legend</strong>
+                        <p>Prefix Legend, benefit lengkap, dan nama masuk Hall of Fame.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section faq" id="faq">
+            <div class="section-title">
+                <h2>❓ FAQ</h2>
+                <p>
+                    Pertanyaan yang sering ditanyakan sebelum masuk ke server.
+                </p>
+            </div>
+
+            <details>
+                <summary>Server ini Java atau Bedrock?</summary>
+                <p>
+                    Default script status di bawah disiapkan untuk Java. Kalau server kamu Bedrock, ubah bagian
+                    <span class="highlight">type: "java"</span> menjadi <span class="highlight">type: "bedrock"</span> di JavaScript.
+                </p>
+            </details>
+
+            <details>
+                <summary>Apakah server aman untuk pemula?</summary>
+                <p>
+                    Ya, server dibuat ramah untuk pemula. Player tetap wajib mengikuti rules agar komunitas nyaman.
+                </p>
+            </details>
+
+            <details>
+                <summary>Apakah boleh membuat toko sendiri?</summary>
+                <p>
+                    Boleh. Xyzoocraft mendukung sistem ekonomi dan toko pemain.
+                </p>
+            </details>
+
+            <details>
+                <summary>Bagaimana kalau ada player toxic atau griefing?</summary>
+                <p>
+                    Laporkan ke admin/moderator melalui komunitas agar bisa ditindak sesuai rules.
+                </p>
+            </details>
+        </section>
+
+        <section class="section" id="komunitas">
+            <div class="community-box">
+                <h2>💬 Gabung Komunitas Xyzoocraft</h2>
+                <p style="color: var(--text-muted); line-height: 1.7; max-width: 700px; margin: 12px auto 22px;">
+                    Masuk ke grup komunitas untuk info update, event, laporan bug, pengumuman maintenance,
+                    dan ngobrol bareng player lain.
+                </p>
+
+                <a href="#" target="_blank" class="btn btn-discord">
+                    💬 Gabung Discord / WhatsApp
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>© 2026 Xyzoocraft Minecraft Server. Dibuat untuk komunitas survival yang santai dan seru.</p>
+    </footer>
+
+    <div class="toast" id="toast">Berhasil disalin!</div>
+
+    <script>
+        const SERVER_CONFIG = {
+            ip: "xyzoocraft.my.id",
+            port: "12345",
+
+            // Ganti ke "bedrock" kalau server kamu Bedrock.
+            // Biarkan "java" kalau server kamu Java Edition.
+            type: "java"
+        };
+
+        function toggleMenu() {
+            document.getElementById("navLinks").classList.toggle("active");
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById("toast");
+            toast.textContent = message;
+            toast.classList.add("show");
+
+            setTimeout(() => {
+                toast.classList.remove("show");
+            }, 2200);
+        }
+
+        function copyText(text, message) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast(message);
+                });
+            } else {
+                const tempInput = document.createElement("input");
+                tempInput.value = text;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempInput);
+                showToast(message);
+            }
+        }
+
+        function salinIP() {
+            copyText(SERVER_CONFIG.ip, "IP server berhasil disalin! 🎮");
+        }
+
+        function salinIPPort() {
+            copyText(`${SERVER_CONFIG.ip}:${SERVER_CONFIG.port}`, "IP + Port berhasil disalin! 🚀");
+        }
+
+        function getStatusUrl() {
+            if (SERVER_CONFIG.type === "bedrock") {
+                return `https://api.mcsrvstat.us/bedrock/3/${SERVER_CONFIG.ip}:${SERVER_CONFIG.port}`;
+            }
+
+            return `https://api.mcsrvstat.us/3/${SERVER_CONFIG.ip}:${SERVER_CONFIG.port}`;
+        }
+
+        fetch(getStatusUrl())
+            .then(response => response.json())
+            .then(data => {
+                const statusElement = document.getElementById("server-status");
+                const statusBadge = document.getElementById("statusBadge");
+                const playerOnline = document.getElementById("playerOnline");
+
+                if (data.online) {
+                    const online = data.players?.online ?? 0;
+                    const max = data.players?.max ?? "-";
+
+                    statusElement.innerHTML = `<span style="color:#2ecc71; font-weight:800;">Online ${online}/${max}</span>`;
+                    statusBadge.style.borderColor = "#2ecc71";
+                    playerOnline.textContent = online;
+                } else {
+                    statusElement.innerHTML = `<span style="color:#e74c3c; font-weight:800;">Offline</span>`;
+                    statusBadge.style.borderColor = "#e74c3c";
+                    playerOnline.textContent = "0";
+                }
+            })
+            .catch(() => {
+                document.getElementById("server-status").innerHTML =
+                    `<span style="color:#e74c3c; font-weight:800;">Offline / Maintenance</span>`;
+                document.getElementById("statusBadge").style.borderColor = "#e74c3c";
+                document.getElementById("playerOnline").textContent = "-";
+            });
+    </script>
+
 </body>
 </html>
