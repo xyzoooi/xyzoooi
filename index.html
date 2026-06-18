@@ -3844,6 +3844,43 @@
             .float-btn { width: 50px; height: 50px; border-radius: 17px; }
         }
 
+
+/* UPDATE: section fitur cepat dihapus, ganti tema tetap lewat tombol floating/dock */
+.mobile-dock button,
+.dock-theme-btn {
+    appearance: none;
+    -webkit-appearance: none;
+    border: 0;
+    color: inherit;
+    background: transparent;
+    font: inherit;
+    cursor: pointer;
+}
+
+.dock-theme-btn {
+    display: grid;
+    place-items: center;
+    gap: 2px;
+    min-width: 0;
+    padding: 8px 10px;
+    border-radius: 18px;
+}
+
+.dock-theme-btn span {
+    font-size: 1.08rem;
+    line-height: 1;
+}
+
+.dock-theme-btn small {
+    font-size: .68rem;
+    font-weight: 800;
+    color: var(--text-muted);
+}
+
+.dock-theme-btn:active {
+    transform: scale(.96);
+}
+
 </style>
 </head>
 <body oncontextmenu="return false">
@@ -3856,7 +3893,7 @@
 </a>
 <div class="nav-menu">
 <a href="#info">Info</a>
-<a href="#fitur">Fitur</a>
+<button class="dock-theme-btn" id="dockThemeBtn" type="button"><span>◐</span><small>Tema</small></button>
 <a href="#generation">Generasi</a>
 <a href="#member">Pendiri</a>
 <a href="#admin">Admin</a>
@@ -3911,57 +3948,6 @@
 <div class="info-visual">
 <img alt="Logo CAO" class="join-visual-img" src="cao-logo.png"/>
 </div>
-</div>
-</div>
-</section>
-
-<section id="fitur">
-<div class="container">
-<div class="section-head">
-<span class="eyebrow">✦ Fitur Tambahan</span>
-<h2>Panel Cepat CAO</h2>
-<p>Beberapa fitur kecil untuk membuat website terasa lebih hidup: tema bisa diganti, link join bisa disalin, dan ada motto random untuk member.</p>
-</div>
-<div class="feature-grid">
-<article class="glass-card feature-card">
-<div>
-<div class="feature-icon">🎨</div>
-<h3>Ganti Tema</h3>
-<p>Pilih vibe tampilan sesuai mood: Galaxy, Neon, atau Midnight. Pilihan akan tersimpan otomatis di browser.</p>
-</div>
-<div class="theme-pills" aria-label="Pilihan tema website">
-<button class="theme-pill active" type="button" data-theme="galaxy">Galaxy</button>
-<button class="theme-pill" type="button" data-theme="neon">Neon</button>
-<button class="theme-pill" type="button" data-theme="midnight">Midnight</button>
-</div>
-</article>
-<article class="glass-card feature-card">
-<div>
-<div class="feature-icon">🔗</div>
-<h3>Link Join Cepat</h3>
-<p>Salin link grup tanpa harus scroll ulang. Cocok kalau mau share ke calon member baru.</p>
-</div>
-<div>
-<div class="feature-actions">
-<button class="mini-btn" id="copyJoinLink" type="button">Copy Link Join</button>
-<a class="mini-btn ghost" href="https://chat.whatsapp.com/E2Ow1ygwDq1KdPKIqfgD6A?utm_medium=social&utm_source=heylink.me" target="_blank" rel="noopener noreferrer">Buka Grup</a>
-</div>
-<p class="feature-status" id="copyJoinStatus">Link siap disalin.</p>
-</div>
-</article>
-<article class="glass-card feature-card">
-<div>
-<div class="feature-icon">⚡</div>
-<h3>Motto Random</h3>
-<p>Tekan tombol untuk memunculkan kalimat semangat pendek buat member CAO.</p>
-</div>
-<div>
-<div class="quote-box" id="caoQuote">Satu edit kecil hari ini bisa jadi karya besar besok.</div>
-<div class="feature-actions" style="margin-top: 12px;">
-<button class="mini-btn" id="shuffleQuote" type="button">Acak Motto</button>
-</div>
-</div>
-</article>
 </div>
 </div>
 </section>
@@ -4217,7 +4203,7 @@
 </div>
 <nav class="mobile-dock" aria-label="Menu cepat mobile">
 <a href="#home"><span>⌂</span>Home</a>
-<a href="#fitur"><span>✦</span>Fitur</a>
+<a href="#generation"><span>✦</span>Fitur</a>
 <a href="#generation"><span>V</span>Gen</a>
 <a href="#absen"><span>✓</span>Absen</a>
 </nav>
@@ -5074,6 +5060,18 @@
             const next = themeOrder[(themeOrder.indexOf(current) + 1) % themeOrder.length];
             applyTheme(next);
             const rect = themeCycleBtn.getBoundingClientRect();
+            burstSparkles(rect.left + rect.width / 2, rect.top + rect.height / 2);
+        });
+    }
+
+
+    const dockThemeBtn = document.getElementById("dockThemeBtn");
+    if (dockThemeBtn) {
+        dockThemeBtn.addEventListener("click", function () {
+            const current = localStorage.getItem("cao_theme") || "galaxy";
+            const next = themeOrder[(themeOrder.indexOf(current) + 1) % themeOrder.length];
+            applyTheme(next);
+            const rect = dockThemeBtn.getBoundingClientRect();
             burstSparkles(rect.left + rect.width / 2, rect.top + rect.height / 2);
         });
     }
