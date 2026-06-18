@@ -3555,6 +3555,206 @@
             }
         }
 
+
+
+        /* =========================================================
+           UPDATE V6: MOBILE PAGER CLEAN
+           - Mengganti full horizontal page yang terasa kaku.
+           - HP memakai tombol Prev/Next + swipe kiri-kanan.
+           - Section tidak lagi dipaksa full-height, jadi tampilan lebih rapi.
+        ========================================================= */
+        .mobile-pager-bar {
+            display: none;
+        }
+
+        @media (max-width: 640px) {
+            body {
+                overflow-x: hidden !important;
+            }
+
+            .hero.hero-v2 {
+                min-height: auto !important;
+                padding: 28px 0 34px !important;
+            }
+
+            .hero-v2 .hero-v2-content {
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                width: min(100% - 26px, 1120px) !important;
+                gap: 0 !important;
+            }
+
+            .hero-v2 .hero-visual {
+                order: 1 !important;
+                width: 100% !important;
+                min-height: 342px !important;
+                transform: scale(.92) !important;
+                margin: -18px 0 -2px !important;
+            }
+
+            .hero-v2 .hero-copy {
+                order: 2 !important;
+                width: 100% !important;
+                max-width: 520px !important;
+                text-align: center !important;
+                margin: -8px auto 0 !important;
+            }
+
+            .hero-v2 .eyebrow {
+                margin: 0 auto 14px !important;
+            }
+
+            .hero-v2 h1 {
+                font-size: clamp(2.8rem, 13vw, 4.2rem) !important;
+                line-height: .95 !important;
+                letter-spacing: -2px !important;
+            }
+
+            .hero-v2 p {
+                margin: 16px auto 22px !important;
+                font-size: .96rem !important;
+                line-height: 1.62 !important;
+            }
+
+            .hero-v2 .hero-buttons {
+                width: 100% !important;
+                justify-content: center !important;
+                gap: 10px !important;
+            }
+
+            .hero-v2 .btn {
+                width: 100% !important;
+                min-height: 50px !important;
+            }
+
+            .hero-mini-stats {
+                width: 100% !important;
+                margin-top: 16px !important;
+                grid-template-columns: 1fr !important;
+                gap: 10px !important;
+            }
+
+            .hero-stat-card {
+                min-height: 68px !important;
+                padding: 14px 15px !important;
+                text-align: left !important;
+            }
+
+            .mobile-pager-bar {
+                position: sticky;
+                top: 68px;
+                z-index: 90;
+                width: min(100% - 26px, 520px);
+                min-height: 62px;
+                margin: 0 auto 10px;
+                padding: 8px;
+                display: grid;
+                grid-template-columns: 46px minmax(0, 1fr) 46px;
+                align-items: center;
+                gap: 8px;
+                border-radius: 22px;
+                background: rgba(20, 0, 39, .76);
+                border: 1px solid rgba(233, 213, 255, .20);
+                box-shadow: 0 18px 44px rgba(0,0,0,.30), 0 0 34px rgba(168,85,247,.16);
+                backdrop-filter: blur(18px);
+                -webkit-backdrop-filter: blur(18px);
+            }
+
+            .mobile-pager-btn {
+                width: 46px;
+                height: 46px;
+                border: 0;
+                border-radius: 16px;
+                color: #fff;
+                cursor: pointer;
+                font-size: 1.35rem;
+                font-weight: 900;
+                background: linear-gradient(135deg, rgba(192,132,252,.42), rgba(76,29,149,.64));
+                border: 1px solid rgba(255,255,255,.13);
+                box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
+            }
+
+            .mobile-pager-info {
+                min-width: 0;
+                text-align: center;
+                line-height: 1.2;
+            }
+
+            .mobile-pager-info strong {
+                display: block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                color: #fff;
+                font-size: .94rem;
+                letter-spacing: -.2px;
+            }
+
+            .mobile-pager-info span {
+                display: block;
+                margin-top: 4px;
+                color: var(--text-soft);
+                font-size: .72rem;
+                font-weight: 800;
+            }
+
+            .mobile-page-track {
+                width: 100% !important;
+                display: block !important;
+                overflow: visible !important;
+                gap: 0 !important;
+            }
+
+            .mobile-page-track > section {
+                flex: none !important;
+                width: 100% !important;
+                min-height: auto !important;
+                max-height: none !important;
+                overflow: visible !important;
+                padding: 46px 0 !important;
+                scroll-snap-align: none !important;
+            }
+
+            body.mobile-pager-ready .mobile-page-track > section {
+                display: none !important;
+            }
+
+            body.mobile-pager-ready .mobile-page-track > section.mobile-page-active {
+                display: block !important;
+                animation: mobilePageIn .28s ease both;
+            }
+
+            .mobile-page-track > section > .container {
+                width: min(100% - 26px, 1120px) !important;
+            }
+
+            .mobile-page-track .section-head {
+                margin-bottom: 22px !important;
+            }
+
+            .mobile-page-track .section-head h2 {
+                font-size: clamp(1.7rem, 8vw, 2.35rem) !important;
+                line-height: 1.08 !important;
+            }
+
+            .mobile-page-track .section-head p {
+                font-size: .92rem !important;
+                line-height: 1.58 !important;
+            }
+
+            @keyframes mobilePageIn {
+                from {
+                    opacity: 0;
+                    transform: translateX(18px) scale(.985);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0) scale(1);
+                }
+            }
+        }
+
 </style>
 </head>
 <body oncontextmenu="return false">
@@ -3612,6 +3812,15 @@
 </div>
 </div>
 </main>
+
+<nav class="mobile-pager-bar" aria-label="Navigasi halaman mobile">
+<button class="mobile-pager-btn" id="mobilePagerPrev" type="button" aria-label="Halaman sebelumnya">‹</button>
+<div class="mobile-pager-info">
+<strong id="mobilePagerTitle">Info</strong>
+<span id="mobilePagerCount">1/6 • swipe kiri/kanan</span>
+</div>
+<button class="mobile-pager-btn" id="mobilePagerNext" type="button" aria-label="Halaman berikutnya">›</button>
+</nav>
 <div class="mobile-page-track" aria-label="Halaman lanjutan Creator Anime One">
 <section id="info">
 <div class="container">
@@ -4655,7 +4864,127 @@ Catatan custom TikTok:
 <script>
 /* =========================================================
    PROTEKSI ANTI COPY RINGAN - Creator Anime One
-   Ditempel sebelum </body>.
+   Ditempel sebelum 
+
+<script>
+/* =========================================================
+   MOBILE PAGER CLEAN - Prev/Next + Swipe
+========================================================= */
+(function () {
+    const track = document.querySelector(".mobile-page-track");
+    const pages = Array.from(document.querySelectorAll(".mobile-page-track > section"));
+    const prevBtn = document.getElementById("mobilePagerPrev");
+    const nextBtn = document.getElementById("mobilePagerNext");
+    const titleBox = document.getElementById("mobilePagerTitle");
+    const countBox = document.getElementById("mobilePagerCount");
+    const pagerBar = document.querySelector(".mobile-pager-bar");
+    const media = window.matchMedia("(max-width: 640px)");
+
+    if (!track || !pages.length || !prevBtn || !nextBtn || !titleBox || !countBox || !pagerBar) return;
+
+    let activeIndex = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    function getTitle(page) {
+        const heading = page.querySelector(".section-head h2, h2, h3");
+        return heading ? heading.textContent.trim() : (page.id || "Halaman");
+    }
+
+    function getIndexFromHash() {
+        const hash = (window.location.hash || "").replace("#", "");
+        const found = pages.findIndex(function (page) {
+            return page.id === hash;
+        });
+        return found >= 0 ? found : activeIndex;
+    }
+
+    function showPage(index, options) {
+        options = options || {};
+        activeIndex = (index + pages.length) % pages.length;
+
+        pages.forEach(function (page, pageIndex) {
+            page.classList.toggle("mobile-page-active", pageIndex === activeIndex);
+        });
+
+        titleBox.textContent = getTitle(pages[activeIndex]);
+        countBox.textContent = (activeIndex + 1) + "/" + pages.length + " • swipe kiri/kanan";
+
+        if (options.updateHash) {
+            history.replaceState(null, "", "#" + pages[activeIndex].id);
+        }
+
+        if (options.scrollTop) {
+            window.setTimeout(function () {
+                pagerBar.scrollIntoView({ behavior: "smooth", block: "start" });
+            }, 40);
+        }
+    }
+
+    function enableMobilePager() {
+        document.body.classList.add("mobile-pager-ready");
+        showPage(getIndexFromHash(), { scrollTop: false });
+    }
+
+    function disableMobilePager() {
+        document.body.classList.remove("mobile-pager-ready");
+        pages.forEach(function (page) {
+            page.classList.remove("mobile-page-active");
+        });
+    }
+
+    function syncMode() {
+        if (media.matches) {
+            enableMobilePager();
+        } else {
+            disableMobilePager();
+        }
+    }
+
+    prevBtn.addEventListener("click", function () {
+        showPage(activeIndex - 1, { updateHash: true, scrollTop: true });
+    });
+
+    nextBtn.addEventListener("click", function () {
+        showPage(activeIndex + 1, { updateHash: true, scrollTop: true });
+    });
+
+    track.addEventListener("touchstart", function (event) {
+        if (!media.matches || !event.touches || !event.touches.length) return;
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+    }, { passive: true });
+
+    track.addEventListener("touchend", function (event) {
+        if (!media.matches || !event.changedTouches || !event.changedTouches.length) return;
+        const dx = event.changedTouches[0].clientX - touchStartX;
+        const dy = event.changedTouches[0].clientY - touchStartY;
+
+        if (Math.abs(dx) < 56 || Math.abs(dx) < Math.abs(dy) * 1.25) return;
+
+        if (dx < 0) {
+            showPage(activeIndex + 1, { updateHash: true, scrollTop: true });
+        } else {
+            showPage(activeIndex - 1, { updateHash: true, scrollTop: true });
+        }
+    }, { passive: true });
+
+    window.addEventListener("hashchange", function () {
+        if (!media.matches) return;
+        showPage(getIndexFromHash(), { scrollTop: true });
+    });
+
+    if (typeof media.addEventListener === "function") {
+        media.addEventListener("change", syncMode);
+    } else if (typeof media.addListener === "function") {
+        media.addListener(syncMode);
+    }
+
+    syncMode();
+})();
+</script>
+
+</body>.
    Tetap ingat: HTML/CSS/JS publik tidak bisa 100% anti salin.
 ========================================================= */
 (function () {
