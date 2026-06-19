@@ -5,10 +5,14 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Creator Anime One | CAO Fams</title>
+<link rel="preload" as="image" href="gen1.jpg" fetchpriority="high">
 
 <link rel="icon" type="image/png" href="./favicon.png?v=1">
 
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&amp;display=swap" rel="stylesheet"/>
 <style>
         :root {
             --primary: #8b5cf6;
@@ -4595,14 +4599,113 @@
     }
 }
 
+
+
+/* =========================================================
+   PERFORMANCE PATCH MOBILE - diterapkan untuk menaikkan skor HP
+   Fokus: rendering lebih ringan, layout stabil, dan area bawah layar tidak langsung dirender.
+========================================================= */
+img,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+section,
+.spa-page {
+    content-visibility: auto;
+    contain-intrinsic-size: 800px;
+}
+
+.card img,
+.gen-card-img,
+.founder-photo img,
+.admin-photo img,
+.view-thumb img,
+.view-thumb video,
+.brand-mark img,
+.join-visual-img,
+.founder-social img {
+    height: 100%;
+}
+
+@media (max-width: 768px) {
+    .navbar,
+    .glass-card,
+    .founder-card,
+    .admin-card,
+    .panel,
+    .btn-secondary,
+    .copy-protection-toast {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    .cards,
+    .join-visual-img,
+    .founder-social img {
+        filter: none !important;
+    }
+
+    .glass-card,
+    .founder-card,
+    .admin-card,
+    .panel,
+    .rank-item,
+    .mini-stat,
+    .event-card,
+    .top-view-card {
+        box-shadow: 0 12px 28px rgba(0,0,0,.22) !important;
+    }
+
+    body::before,
+    body::after {
+        opacity: .22 !important;
+    }
+
+    .join-visual-img,
+    .sparkle-dot,
+    .reveal-ready {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .reveal-ready {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    html,
+    body,
+    body *:not(input):not(textarea):not([contenteditable="true"]) {
+        -webkit-user-select: auto !important;
+        -moz-user-select: auto !important;
+        -ms-user-select: auto !important;
+        user-select: auto !important;
+        -webkit-touch-callout: default !important;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: .001ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: .001ms !important;
+    }
+}
+
 </style>
+<!-- CATATAN OPTIMASI GAMBAR: HTML ini sudah diberi lazy-load/size hint. Untuk skor lebih tinggi, convert file JPG/PNG menjadi WebP/AVIF lalu sesuaikan nama file di src. -->
 </head>
-<body oncontextmenu="return false">
+<body>
 <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 <nav class="navbar">
 <div class="container nav-inner">
 <a class="brand spa-link active" href="#home" data-route="home">
-<span class="brand-mark"><img src="cao-logo.png?v=1" alt="Logo CAO"></span>
+<span class="brand-mark"><img src="cao-logo.png?v=1" alt="Logo CAO" decoding="async" width="34" height="34" loading="eager" fetchpriority="auto"></span>
 <span>Creator Anime One</span>
 </a>
 <div class="nav-menu" aria-label="Menu utama">
@@ -4619,21 +4722,21 @@
 <div class="container hero-content">
 <div aria-label="Kartu generasi Creator Anime One" class="cards">
 <figure class="card card-1" data-label="Gen 2">
-<img alt="CAOFAMS Gen 2" src="gen2.jpg"/>
+<img alt="CAOFAMS Gen 2" src="gen2.jpg" decoding="async" width="190" height="255" loading="eager" fetchpriority="auto"/>
 <span>V2</span>
 </figure>
 <figure class="card card-2" data-label="Gen 1">
-<img alt="CAOFAMS Gen 1" src="gen1.jpg"/>
+<img alt="CAOFAMS Gen 1" src="gen1.jpg" decoding="async" width="190" height="255" loading="eager" fetchpriority="high"/>
 <span>V1</span>
 </figure>
 <figure class="card card-3" data-label="gen3">
-<img alt="CAOFAMS Gen 3" src="gen3.jpg"/>
+<img alt="CAOFAMS Gen 3" src="gen3.jpg" decoding="async" width="190" height="255" loading="eager" fetchpriority="auto"/>
 <span>V3</span>
 </figure>
 </div>
 <div class="eyebrow">✦ Komunitas Anime Editor</div>
 <h1>Creator Anime One</h1>
-<p>Rumah kreator, editor, dan pecinta anime untuk berkarya bareng, saling support, dan naik level bersama dalam satu marga yang solid.</p>
+<p>Rumah kreator, editor, dan pecinta anime selalu saling support, dan mendapatkan teman bersama dalam satu marga yang solid.</p>
 <div class="buttons">
 <a class="btn btn-primary spa-link" href="#home" data-route="home">Explore CAO</a>
 <a class="btn btn-secondary" href="https://www.tiktok.com/@officialanimeone" target="_blank">TikTok</a>
@@ -4650,7 +4753,7 @@
 <div class="info-copy">
 <span class="eyebrow">Open Member</span>
 <h3>Gas Join Marga CAO!</h3>
-<p>Creator Anime One berisi editor, content creator, reviewer, dan pecinta anime. Fokusnya sederhana: komunitas yang aktif, rapi, solid, dan punya semangat berkarya.</p>
+<p>Creator Anime One berisi editor, content creator, reviewer, dan pecinta anime. Fokusnya sederhana: komunitas yang aktif, saling support, dan solid.</p>
 <div class="buttons" style="justify-content: flex-start;">
 <div class="cta-actions">
     <a class="btn btn-primary" href="https://chat.whatsapp.com/E2Ow1ygwDq1KdPKIqfgD6A?utm_medium=social&utm_source=heylink.me" target="_blank" rel="noopener noreferrer">JOIN</a>
@@ -4658,7 +4761,7 @@
 </div>
 </div>
 <div class="info-visual">
-<img alt="Logo CAO" class="join-visual-img" src="cao-logo.png"/>
+<img alt="Logo CAO" class="join-visual-img" src="cao-logo.png" decoding="async" width="320" height="320" loading="lazy" fetchpriority="low"/>
 </div>
 </div>
 </div>
@@ -4667,24 +4770,24 @@
 <section id="generation">
 <div class="container">
 <div class="section-head">
-<h2>Daftar Gen-V</h2>
+<h2>Daftar Gen</h2>
 
 </div>
 <div class="grid-3">
 <article class="glass-card">
-<img alt="CAOFAMS V2" class="gen-card-img" src="gen1.jpg"/>
+<img alt="CAOFAMS V2" class="gen-card-img" src="gen1.jpg" decoding="async" width="320" height="200" loading="lazy" fetchpriority="low"/>
 <span class="badge">V1</span>
 <h3>GenV1</h3>
 <p>Berisi 166 Member</p>
 </article>
 <article class="glass-card">
-<img alt="CAOFAMS V1" class="gen-card-img" src="gen2.jpg"/>
+<img alt="CAOFAMS V1" class="gen-card-img" src="gen2.jpg" decoding="async" width="320" height="200" loading="lazy" fetchpriority="low"/>
 <span class="badge">V2</span>
 <h3>GenV2</h3>
 <p>Berisi 210 Member</p>
 </article>
 <article class="glass-card">
-<img alt="CAOFAMS V3" class="gen-card-img" src="gen3.jpg"/>
+<img alt="CAOFAMS V3" class="gen-card-img" src="gen3.jpg" decoding="async" width="320" height="200" loading="lazy" fetchpriority="low"/>
 <span class="badge">V3</span>
 <h3>GenV3</h3>
 <p>Coming Soon</p>
@@ -4696,7 +4799,7 @@
 <div class="container">
 <div class="section-head">
 <h2>Jumlah Member &amp; Hashtag</h2>
-<p>Ringkasan pertumbuhan komunitas dan hashtag utama untuk memperkuat identitas Creator Anime One.</p>
+<p> </p>
 </div>
 <div class="stats-grid">
 <div class="panel count-card">
@@ -4733,39 +4836,39 @@
 <div class="founder-podium">
 <article class="glass-card founder-card co-owner">
 <div class="founder-photo">
-<img alt="Foto Co-Owner" onerror="this.remove()" src="chibiridhz.png"/>
+<img alt="Foto Co-Owner" onerror="this.remove()" src="chibiridhz.png" decoding="async" width="600" height="375" loading="lazy" fetchpriority="low"/>
 <span class="founder-placeholder">+ Add<br/>Image</span>
 </div>
 <span class="founder-role">Co-Owner</span>
 <h3>RIDHZ</h3>
-<p>Pengarah komunitas dan penjaga vibe CAO.</p>
+<p>Yang Paling Berkuasa.</p>
 
 <a class="founder-social tiktok-social" href="https://www.tiktok.com/@ridhztempesto" target="_blank" rel="noopener noreferrer" aria-label="Buka TikTok RIDHZ">
-<img src="tiktok-logo.png?v=1" alt="TikTok RIDHZ"/>
+<img src="tiktok-logo.png?v=1" alt="TikTok RIDHZ" decoding="async" width="92" height="92" loading="lazy" fetchpriority="low"/>
 </a></article>
 <article class="glass-card founder-card owner">
 <div class="founder-photo">
-<img alt="Foto Owner" onerror="this.remove()" src="chibiarmy.png"/>
+<img alt="Foto Owner" onerror="this.remove()" src="chibiarmy.png" decoding="async" width="600" height="375" loading="lazy" fetchpriority="low"/>
 <span class="founder-placeholder">+ Add<br/>Image</span>
 </div>
 <span class="founder-role">Owner</span>
 <h3>ARMY</h3>
-<p>Pendiri utama sekaligus penggerak identitas CAO.</p>
+<p>Pendiri Sekaligus Tetua CAO.</p>
 
 <a class="founder-social tiktok-social" href="https://www.tiktok.com/@armyone100" target="_blank" rel="noopener noreferrer" aria-label="Buka TikTok ARMY">
-<img src="tiktok-logo.png?v=1" alt="TikTok ARMY"/>
+<img src="tiktok-logo.png?v=1" alt="TikTok ARMY" decoding="async" width="92" height="92" loading="lazy" fetchpriority="low"/>
 </a></article>
 <article class="glass-card founder-card admin">
 <div class="founder-photo">
-<img alt="Foto Admin" onerror="this.remove()" src="chibicelz.png"/>
+<img alt="Foto Admin" onerror="this.remove()" src="chibicelz.png" decoding="async" width="600" height="375" loading="lazy" fetchpriority="low"/>
 <span class="founder-placeholder">+ Add<br/>Image</span>
 </div>
 <span class="founder-role">Admin</span>
 <h3>CELZ</h3>
-<p>Koordinator admin dan operasional komunitas.</p>
+<p>Leader of Admin.</p>
 
 <a class="founder-social tiktok-social" href="https://www.tiktok.com/@celzpreset" target="_blank" rel="noopener noreferrer" aria-label="Buka TikTok CELZ">
-<img src="tiktok-logo.png?v=1" alt="TikTok CELZ"/>
+<img src="tiktok-logo.png?v=1" alt="TikTok CELZ" decoding="async" width="92" height="92" loading="lazy" fetchpriority="low"/>
 </a></article>
 </div>
 </div>
@@ -4789,77 +4892,77 @@
 <div class="admin-set">
 <article class="glass-card admin-card">
 <div class="admin-photo">
-<img alt="Foto Ridhz" onerror="this.remove()" src="zen1.png"/>
+<img alt="Foto Ridhz" onerror="this.remove()" src="zen1.png" decoding="async" width="108" height="108" loading="lazy" fetchpriority="low"/>
 </div>
 <h3>Zenn</h3>
 <small>Sesepuh ML</small>
 </article>
 <article class="glass-card admin-card">
 <div class="admin-photo">
-<img alt="Foto Xyzoo" onerror="this.remove()" src="xyzoo.png"/>
+<img alt="Foto Xyzoo" onerror="this.remove()" src="xyzoo.png" decoding="async" width="108" height="108" loading="lazy" fetchpriority="low"/>
 </div>
 <h3>Xyzoo</h3>
 <small>Admin Website</small>
 </article>
 <article class="glass-card admin-card">
 <div class="admin-photo">
-<img alt="Foto Creator Team" onerror="this.remove()" src="rey1.png"/>
+<img alt="Foto Creator Team" onerror="this.remove()" src="rey1.png" decoding="async" width="108" height="108" loading="lazy" fetchpriority="low"/>
 </div>
 <h3>Reyy</h3>
 <small>Admin Bot</small>
 </article>
 <article class="glass-card admin-card">
 <div class="admin-photo">
-<img alt="Foto Admin Slot 04" onerror="this.remove()" src="caine1.png"/>
+<img alt="Foto Admin Slot 04" onerror="this.remove()" src="caine1.png" decoding="async" width="108" height="108" loading="lazy" fetchpriority="low"/>
 </div>
 <h3>Caine</h3>
 <small>Admin Live</small>
 </article>
 <article class="glass-card admin-card">
 <div class="admin-photo">
-<img alt="Foto Admin Slot 05" onerror="this.remove()" src="rem.png"/>
+<img alt="Foto Admin Slot 05" onerror="this.remove()" src="rem.png" decoding="async" width="108" height="108" loading="lazy" fetchpriority="low"/>
 </div>
 <h3>Rem</h3>
 <small>Admin Meme</small>
 </article>
 <article class="glass-card admin-card">
 <div class="admin-photo">
-<img alt="Foto Admin Slot 06" onerror="this.remove()" src="naz1.png"/>
+<img alt="Foto Admin Slot 06" onerror="this.remove()" src="naz1.png" decoding="async" width="108" height="108" loading="lazy" fetchpriority="low"/>
 </div>
 <h3>Nazz</h3>
 <small>Admin Meme</small>
 </article>
 <article class="glass-card admin-card">
 <div class="admin-photo">
-<img alt="Foto Admin Slot 07" onerror="this.remove()" src="karumi1.png"/>
+<img alt="Foto Admin Slot 07" onerror="this.remove()" src="karumi1.png" decoding="async" width="108" height="108" loading="lazy" fetchpriority="low"/>
 </div>
 <h3>Karumi</h3>
 <small>Admin Collab</small>
 </article>
 <article class="glass-card admin-card">
 <div class="admin-photo">
-<img alt="Foto Admin Slot 06" onerror="this.remove()" src="nano.png"/>
+<img alt="Foto Admin Slot 06" onerror="this.remove()" src="nano.png" decoding="async" width="108" height="108" loading="lazy" fetchpriority="low"/>
 </div>
 <h3>Nano</h3>
 <small>Admin Collab2</small>
 </article>
 <article class="glass-card admin-card">
 <div class="admin-photo">
-<img alt="Foto Admin Slot 06" onerror="this.remove()" src="kaishi1.png"/>
+<img alt="Foto Admin Slot 06" onerror="this.remove()" src="kaishi1.png" decoding="async" width="108" height="108" loading="lazy" fetchpriority="low"/>
 </div>
 <h3>Kaishi</h3>
 <small>Admin Collab3</small>
 </article>
 <article class="glass-card admin-card">
 <div class="admin-photo">
-<img alt="Foto Admin Slot 06" onerror="this.remove()" src="nixa2.png"/>
+<img alt="Foto Admin Slot 06" onerror="this.remove()" src="nixa2.png" decoding="async" width="108" height="108" loading="lazy" fetchpriority="low"/>
 </div>
 <h3>Nixara</h3>
 <small>Admin Seleksi</small>
 </article>
 <article class="glass-card admin-card">
 <div class="admin-photo">
-<img alt="Foto Admin Slot 06" onerror="this.remove()" src="men1.png"/>
+<img alt="Foto Admin Slot 06" onerror="this.remove()" src="men1.png" decoding="async" width="108" height="108" loading="lazy" fetchpriority="low"/>
 </div>
 <h3>Men</h3>
 <small>Admin Seleksi</small>
@@ -4920,7 +5023,7 @@
 <div class="event-hero-card panel">
 <span class="eyebrow">✦ Event CAO</span>
 <h2 class="event-title">Event Creator Anime One</h2>
-<p class="event-subtitle">Halaman khusus untuk info challenge, collab, giveaway, dan agenda komunitas. Bagian ini bisa kamu update kapan saja tanpa mengubah halaman lain.</p>
+<p class="event-subtitle">Halaman khusus untuk info challenge, collab, giveaway, dan agenda komunitas.</p>
 <div class="buttons">
 <a class="btn btn-primary" href="https://www.tiktok.com/@officialanimeone" target="_blank" rel="noopener noreferrer">Lihat TikTok</a>
 <a class="btn btn-secondary spa-link" href="#absen" data-route="absen">Ke Menu Absen</a>
@@ -4969,7 +5072,7 @@
 <div class="views-hero-card panel">
 <span class="eyebrow">✦ Top Views CAO</span>
 <h2 class="views-title">View Terbanyak</h2>
-<p class="views-subtitle">Ranking Top 1–Top 3 video dengan jumlah view paling tinggi dari hashtag <strong>#creatoranimeone</strong> dan <strong>#caofams</strong>. Untuk sekarang datanya dibuat manual dulu di JavaScript, nanti bisa disambungkan ke API/backend.</p>
+<p class="views-subtitle">Ranking Top 1–Top 3 video dengan jumlah view paling tinggi dari hashtag <strong>#creatoranimeone</strong> dan <strong>#caofams</strong>.
 <div class="views-filter" aria-label="Filter hashtag view terbanyak">
 <button class="views-filter-btn active" type="button" data-view-filter="all">Gabungan</button>
 <button class="views-filter-btn" type="button" data-view-filter="#creatoranimeone">#creatoranimeone</button>
@@ -4980,7 +5083,6 @@
 <div class="top-view-grid" id="topViewGrid" aria-label="Top 1 sampai Top 3 view terbanyak"></div>
 
 <div class="views-note-card">
-<strong>Catatan:</strong> bagian ini sudah dibuat otomatis mengurutkan data dari view terbesar ke terkecil. Kamu cukup ganti daftar video di bagian <strong>caoTopViewVideos</strong> pada script, lalu website akan memilih Top 1–Top 3 sendiri.
 </div>
 </div>
 </section>
@@ -5193,7 +5295,11 @@
         "Reyy",
         "Nixara",
         "Ayase",
-        
+        "Kaishi",
+        "Rem",
+        "Kaz",
+        "Kazuro",
+        "Nazz",
         
             
     ];
@@ -5473,7 +5579,7 @@
 
         return `
             <div class="podium-character has-image" data-initial="${initial}" aria-hidden="true">
-                <img src="${escapeAttr(src)}" alt="" onerror="this.parentElement.classList.remove('has-image'); this.parentElement.classList.add('no-image'); this.remove();">
+                <img src="${escapeAttr(src)}" alt="" width="220" height="220" loading="lazy" decoding="async" fetchpriority="low" onerror="this.parentElement.classList.remove('has-image'); this.parentElement.classList.add('no-image'); this.remove();">
             </div>
         `;
     }
@@ -5485,7 +5591,7 @@
     function getPodiumAvatarMarkup(rank, initial) {
         const src = PODIUM_ASSETS.avatars && PODIUM_ASSETS.avatars[rank] ? String(PODIUM_ASSETS.avatars[rank]) : "";
         if (!src) return `<div class="podium-avatar">${initial}</div>`;
-        return `<div class="podium-avatar has-image"><img src="${escapeAttr(src)}" alt="" onerror="this.parentElement.classList.remove('has-image'); this.parentElement.textContent='${initial}'; this.remove();"></div>`;
+        return `<div class="podium-avatar has-image"><img src="${escapeAttr(src)}" alt="" width="88" height="88" loading="lazy" decoding="async" fetchpriority="low" onerror="this.parentElement.classList.remove('has-image'); this.parentElement.textContent='${initial}'; this.remove();"></div>`;
     }
 
     function renderPodiumItem(item, index) {
@@ -5981,10 +6087,11 @@
     }
 
     function burstSparkles(x, y) {
-        for (let i = 0; i < 14; i++) {
+        if (window.matchMedia("(max-width: 768px)").matches) return;
+        for (let i = 0; i < 8; i++) {
             const dot = document.createElement("span");
-            const angle = (Math.PI * 2 * i) / 14;
-            const distance = 28 + Math.random() * 44;
+            const angle = (Math.PI * 2 * i) / 8;
+            const distance = 24 + Math.random() * 34;
             dot.className = "sparkle-dot";
             dot.style.left = x + "px";
             dot.style.top = y + "px";
@@ -6207,10 +6314,10 @@
             const posterSafe = escapeHTML(poster || "cao-logo.png");
             const url = escapeHTML(video.url || "#");
             const mediaHTML = videoSrc
-                ? `<video class="view-video" autoplay muted loop playsinline preload="metadata" poster="${posterSafe}">
+                ? `<video class="view-video" muted playsinline preload="none" poster="${posterSafe}" width="400" height="400" aria-label="Preview video ${username}">
                         <source src="${videoSrc}" type="video/mp4">
                    </video>`
-                : `<img src="${image}" alt="Thumbnail ${username}" onerror="this.src='cao-logo.png'">`;
+                : `<img src="${image}" alt="Thumbnail ${username}" width="400" height="400" loading="lazy" decoding="async" fetchpriority="low" onerror="this.src='cao-logo.png'">`;
 
             return `
                 <article class="top-view-card rank-${rank}">
@@ -6260,6 +6367,7 @@ Catatan custom TikTok:
    Tetap ingat: HTML/CSS/JS publik tidak bisa 100% anti salin.
 ========================================================= */
 (function () {
+    if (!window.matchMedia("(min-width: 900px)").matches) return;
     const blockedMessage = "Waku Wakuu Mau Ngapain Senpaiii.";
 
     function showProtectionToast() {
