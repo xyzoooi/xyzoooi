@@ -4516,54 +4516,77 @@
             color: #fff;
         }
 
-        @media (max-width: 980px) {
-            .top-view-grid {
-                grid-template-columns: 1fr;
-                max-width: 560px;
-                margin-left: auto;
-                margin-right: auto;
-            }
+@media (max-width: 980px) {
+    #views .container {
+        width: 100%;
+        max-width: 100%;
+    }
 
-            .top-view-card.rank-1,
-            .top-view-card.rank-1:hover {
-                transform: none;
-            }
-        }
+    #views .views-hero-card,
+    #views .views-note-card {
+        width: min(100% - 26px, 1120px);
+        margin-left: auto;
+        margin-right: auto;
+    }
 
-        @media (max-width: 880px) {
-            .mobile-dock {
-                width: min(100% - 24px, 520px);
-            }
-        }
+    #views .top-view-grid {
+        display: flex !important;
+        grid-template-columns: unset !important;
+        gap: 18px !important;
+        max-width: none !important;
+        width: 100%;
+        margin: 28px 0 0 !important;
+        padding: 18px max(13px, calc((100vw - min(350px, 84vw)) / 2)) 28px;
+        overflow-x: auto;
+        overflow-y: visible;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+        -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 7%, #000 93%, transparent 100%);
+    }
 
-        @media (max-width: 540px) {
-            #views {
-                padding: 64px 0;
-            }
+    #views .top-view-grid::-webkit-scrollbar {
+        display: none;
+    }
 
-            .views-hero-card {
-                border-radius: 26px;
-            }
+    #views .top-view-card {
+        flex: 0 0 min(350px, 84vw);
+        scroll-snap-align: center;
+        min-height: 420px;
+    }
 
-            .views-title {
-                letter-spacing: -1.2px;
-            }
+    #views .top-view-card.rank-1,
+    #views .top-view-card.rank-1:hover {
+        transform: none !important;
+    }
+}
 
-            .top-view-card {
-                padding: 18px;
-                border-radius: 24px;
-                min-height: unset;
-            }
+@media (max-width: 540px) {
+    #views .top-view-grid {
+        gap: 14px !important;
+        padding-left: max(13px, calc((100vw - min(330px, 86vw)) / 2));
+        padding-right: max(13px, calc((100vw - min(330px, 86vw)) / 2));
+    }
 
-            .view-stats-row {
-                grid-template-columns: 1fr 1fr;
-            }
+    #views .top-view-card {
+        flex-basis: min(330px, 86vw);
+        padding: 18px;
+        border-radius: 24px;
+    }
 
-            .mobile-dock a {
-                font-size: .65rem;
-                min-height: 48px;
-            }
-        }
+    #views .view-user {
+        gap: 8px;
+    }
+
+    #views .view-user h3 {
+        font-size: 1rem;
+    }
+
+    #views .view-hashtag {
+        font-size: .68rem;
+        padding: 6px 9px;
+    }
+}
 
 </style>
 </head>
