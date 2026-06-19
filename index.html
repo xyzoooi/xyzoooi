@@ -1890,12 +1890,7 @@
 
 
 
-        /* =========================================================
-           BOT ABSEN DALAM 1 HTML
-           - Tanpa login
-           - Cooldown 24 jam per nama
-           - Leaderboard podium top 1-3 + daftar peringkat 4-99
-        ========================================================= */
+        
         #absen {
             padding: 86px 0;
         }
@@ -2870,12 +2865,6 @@
         }
 
 
-        /* =========================================================
-           UPDATE ABSEN V9: GALAXY LEADERBOARD + RANK 4-99 + RESET 16.00 WIB
-           - Podium kiri merah, tengah biru tua, kanan ungu.
-           - Daftar bawah menampilkan peringkat 4 sampai 99.
-           - Badge reset absen ditampilkan jelas.
-        ========================================================= */
         #absen .leaderboard-card {
             position: relative;
             overflow: hidden !important;
@@ -3881,26 +3870,411 @@
     transform: scale(.96);
 }
 
+
+/* UPDATE: CTA Join dibuat single-button agar lebih clean */
+.cta-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.info-copy .cta-actions .btn-primary {
+    min-width: 170px;
+    justify-content: center;
+}
+
+@media (max-width: 540px) {
+    .info-copy .cta-actions {
+        width: 100%;
+    }
+
+    .info-copy .cta-actions .btn-primary {
+        width: 100%;
+    }
+}
+
+
+/* UPDATE: Pagination leaderboard absen, aktif saat data lebih dari 9 nama */
+#absen .absen-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 22px auto 0;
+    padding-top: 6px;
+}
+
+#absen .absen-page-btn,
+#absen .absen-page-dots {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: inline-grid;
+    place-items: center;
+    color: #f8f3ff;
+    font-size: .92rem;
+    font-weight: 900;
+    line-height: 1;
+}
+
+#absen .absen-page-btn {
+    border: 1px solid rgba(233,213,255,.16);
+    background: rgba(255,255,255,.075);
+    cursor: pointer;
+    transition: transform .22s ease, background .22s ease, border-color .22s ease, opacity .22s ease;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+#absen .absen-page-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    background: rgba(255,255,255,.12);
+    border-color: rgba(233,213,255,.28);
+}
+
+#absen .absen-page-btn.active {
+    background: linear-gradient(135deg, #d946ef 0%, #9333ea 55%, #4c1d95 100%);
+    border-color: rgba(255,255,255,.30);
+    box-shadow: 0 14px 28px rgba(147,51,234,.34), inset 0 1px 0 rgba(255,255,255,.18);
+}
+
+#absen .absen-page-btn.nav {
+    font-size: 1.35rem;
+}
+
+#absen .absen-page-btn:disabled {
+    opacity: .38;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#absen .absen-page-dots {
+    width: auto;
+    min-width: 24px;
+    color: rgba(255,255,255,.62);
+}
+
+@media (max-width: 540px) {
+    #absen .absen-pagination {
+        gap: 6px;
+    }
+
+    #absen .absen-page-btn,
+    #absen .absen-page-dots {
+        width: 38px;
+        height: 38px;
+        border-radius: 11px;
+        font-size: .82rem;
+    }
+
+    #absen .absen-page-btn.nav {
+        font-size: 1.2rem;
+    }
+}
+
+
+/* UPDATE: tombol Absen di hero dihapus, sisa Explore CAO dan TikTok */
+.hero .buttons {
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero .buttons .btn {
+    min-width: 190px;
+}
+
+@media (max-width: 540px) {
+    .hero .buttons .btn {
+        min-width: unset;
+        flex: 1 1 140px;
+    }
+}
+
+
+/* FIX ABSEN: elemen wajib JS dikembalikan supaya leaderboard tidak stuck di 'Menyiapkan...' */
+#absen .absen-status.compact {
+    margin-top: 16px;
+    padding: 13px 15px;
+    min-height: unset;
+    font-size: .9rem;
+    border-radius: 18px;
+}
+
+#absen .absen-mini-info-hidden {
+    display: none !important;
+}
+
+
+/* UPDATE: Khusus tampilan PC, leaderboard dipindah ke bawah form absen */
+@media (min-width: 881px) {
+    #absen .absen-layout {
+        grid-template-columns: 1fr !important;
+        max-width: 1100px;
+        margin: 0 auto;
+        gap: 24px !important;
+    }
+
+    #absen .absen-card {
+        width: min(760px, 100%);
+        margin: 0 auto;
+    }
+
+    #absen .leaderboard-card {
+        width: 100%;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    #absen .leaderboard-head {
+        align-items: center;
+    }
+
+    #absen .absen-top-podium {
+        max-width: 880px;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    #absen .absen-rank-list.compact {
+        max-width: 940px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #absen .absen-pagination {
+        max-width: 940px;
+    }
+}
+
+
+        /* =========================================================
+           SINGLE PAGE APP MODE
+           Menu pindah tampilan tanpa lompat/scroll ke section bawah.
+        ========================================================= */
+        html {
+            scroll-behavior: auto !important;
+        }
+
+        .spa-page {
+            display: none;
+            min-height: calc(100vh - 72px);
+            animation: spaFade .26s ease both;
+        }
+
+        .spa-page.active {
+            display: block;
+        }
+
+        .spa-page .hero {
+            min-height: calc(100vh - 72px);
+        }
+
+        .nav-menu a.active,
+        .mobile-dock a.active {
+            color: #fff;
+            background: rgba(255,255,255,.105);
+            border: 1px solid rgba(233,213,255,.14);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+        }
+
+        .brand.active {
+            color: #fff;
+        }
+
+        @keyframes spaFade {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* =========================================================
+           EVENT PAGE
+        ========================================================= */
+        #event {
+            min-height: calc(100vh - 72px);
+            padding: 86px 0;
+        }
+
+        .event-hero-card {
+            padding: clamp(28px, 5vw, 54px);
+            border-radius: 32px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background:
+                radial-gradient(circle at 50% 0%, rgba(192,132,252,.35), transparent 34%),
+                radial-gradient(circle at 12% 18%, rgba(255,255,255,.08), transparent 22%),
+                linear-gradient(180deg, rgba(255,255,255,.10), rgba(255,255,255,.045));
+        }
+
+        .event-hero-card::before {
+            content: "";
+            position: absolute;
+            inset: -2px;
+            background: linear-gradient(115deg, transparent 0%, rgba(255,255,255,.10) 48%, transparent 76%);
+            pointer-events: none;
+        }
+
+        .event-hero-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .event-title {
+            font-size: clamp(2.2rem, 6vw, 4.6rem);
+            line-height: 1;
+            letter-spacing: -2.4px;
+            margin: 14px auto 16px;
+            max-width: 900px;
+            background: linear-gradient(90deg, #ffffff 0%, #f3e8ff 30%, #c084fc 68%, #ffffff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .event-subtitle {
+            max-width: 680px;
+            margin: 0 auto 26px;
+            color: var(--text-muted);
+            line-height: 1.75;
+            font-size: clamp(1rem, 2vw, 1.15rem);
+        }
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-top: 28px;
+        }
+
+        .event-card {
+            min-height: 245px;
+            padding: 26px;
+            border-radius: 26px;
+            background: rgba(255,255,255,.07);
+            border: 1px solid rgba(233,213,255,.13);
+            box-shadow: 0 24px 70px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.07);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-card::before {
+            content: "";
+            position: absolute;
+            inset: -1px;
+            background: radial-gradient(circle at top right, rgba(168,85,247,.24), transparent 38%);
+            pointer-events: none;
+        }
+
+        .event-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .event-icon {
+            width: 54px;
+            height: 54px;
+            border-radius: 18px;
+            display: grid;
+            place-items: center;
+            margin-bottom: 18px;
+            font-size: 1.45rem;
+            background: linear-gradient(135deg, rgba(192,132,252,.28), rgba(76,29,149,.32));
+            border: 1px solid rgba(233,213,255,.16);
+        }
+
+        .event-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            letter-spacing: -.3px;
+        }
+
+        .event-card p {
+            color: var(--text-muted);
+            line-height: 1.65;
+            font-size: .95rem;
+        }
+
+        .event-timeline {
+            margin-top: 22px;
+            display: grid;
+            gap: 12px;
+        }
+
+        .event-step {
+            display: flex;
+            gap: 13px;
+            align-items: center;
+            padding: 14px;
+            border-radius: 18px;
+            background: rgba(255,255,255,.055);
+            border: 1px solid rgba(255,255,255,.08);
+            color: var(--text-muted);
+        }
+
+        .event-step b {
+            width: 34px;
+            height: 34px;
+            flex: 0 0 34px;
+            border-radius: 12px;
+            display: grid;
+            place-items: center;
+            color: #fff;
+            background: rgba(168,85,247,.28);
+        }
+
+        @media (max-width: 880px) {
+            .event-grid {
+                grid-template-columns: 1fr;
+                max-width: 560px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        @media (max-width: 540px) {
+            #event {
+                padding: 64px 0;
+            }
+
+            .event-hero-card {
+                border-radius: 26px;
+            }
+
+            .event-title {
+                letter-spacing: -1.2px;
+            }
+
+            .event-card {
+                padding: 22px;
+                min-height: unset;
+            }
+        }
+
 </style>
 </head>
 <body oncontextmenu="return false">
 <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 <nav class="navbar">
 <div class="container nav-inner">
-<a class="brand" href="#home">
-<span class="brand-mark"><img src="cao-logo.png?v=1" alt="favicon.png"></span>
+<a class="brand spa-link active" href="#home" data-route="home">
+<span class="brand-mark"><img src="cao-logo.png?v=1" alt="Logo CAO"></span>
 <span>Creator Anime One</span>
 </a>
-<div class="nav-menu">
-<a href="#info">Info</a>
-<button class="dock-theme-btn" id="dockThemeBtn" type="button"><span>◐</span><small>Tema</small></button>
-<a href="#generation">Generasi</a>
-<a href="#member">Pendiri</a>
-<a href="#admin">Admin</a>
-<a href="#absen">Absen</a>
+<div class="nav-menu" aria-label="Menu utama">
+<a class="spa-link active" href="#home" data-route="home">Beranda</a>
+<a class="spa-link" href="#team" data-route="team">Pendiri &amp; Admin</a>
+<a class="spa-link" href="#absen" data-route="absen">Absen</a>
+<a class="spa-link" href="#event" data-route="event">Event</a>
 </div>
 </div>
 </nav>
+<div id="page-home" class="spa-page active" data-route="home">
 <main class="hero" id="home">
 <div class="container hero-content">
 <div aria-label="Kartu generasi Creator Anime One" class="cards">
@@ -3921,9 +4295,8 @@
 <h1>Creator Anime One</h1>
 <p>Rumah kreator, editor, dan pecinta anime untuk berkarya bareng, saling support, dan naik level bersama dalam satu marga yang solid.</p>
 <div class="buttons">
-<a class="btn btn-primary" href="#info">Explore CAO</a>
+<a class="btn btn-primary spa-link" href="#home" data-route="home">Explore CAO</a>
 <a class="btn btn-secondary" href="https://www.tiktok.com/@officialanimeone" target="_blank">TikTok</a>
-<a class="btn btn-secondary" href="#absen">Absen</a>
 </div>
 </div>
 </main>
@@ -3941,7 +4314,6 @@
 <div class="buttons" style="justify-content: flex-start;">
 <div class="cta-actions">
     <a class="btn btn-primary" href="https://chat.whatsapp.com/E2Ow1ygwDq1KdPKIqfgD6A?utm_medium=social&utm_source=heylink.me" target="_blank" rel="noopener noreferrer">JOIN</a>
-    <a class="btn btn-secondary" href="#generation">Lihat Gen</a>
 </div>
 </div>
 </div>
@@ -4011,6 +4383,8 @@
 </div>
 </div>
 </section>
+</div>
+<div id="page-team" class="spa-page" data-route="team">
 <section id="member">
 <div class="container">
 <div class="section-head">
@@ -4156,17 +4530,19 @@
 </div>
 </section>
 
+</div>
+<div id="page-absen" class="spa-page" data-route="absen">
 <section id="absen">
 <div class="container">
 <div class="section-head">
 <span class="eyebrow">✦ Bot Absen CAO</span>
 <h2>Bot Absen Member</h2>
-<p>Ketik nama yang sudah disetujui admin, lalu tekan absen. Setiap nama hanya bisa absen 1 kali per periode absen, reset harian pukul 16.00 WIB, masuk ke leaderboard sampai peringkat 99, dan data tetap tersimpan per bulan.</p>
+<p></p>
 </div>
 <div class="absen-layout">
 <article class="panel absen-card" aria-label="Form absen member">
 <h3>Isi Absen</h3>
-<p>Nama harus masuk daftar izin admin agar leaderboard tetap rapi dan aman.</p>
+<p>Gabisa input nama kamu? langsung hubgungin mimin Xyzoo yaa!.</p>
 <div class="absen-form">
 <label class="absen-label" for="absenNama">Nama Member</label>
 <input class="absen-input" id="absenNama" maxlength="32" placeholder="Contoh: Ridhz" autocomplete="off"/>
@@ -4175,8 +4551,8 @@
 <button class="absen-btn secondary" id="btnCekCooldown" type="button">Cek Cooldown</button>
 </div>
 </div>
-<div class="absen-status" id="absenStatus">Masukkan nama yang sudah disetujui admin, lalu klik absen.</div>
-<div class="absen-mini-info">
+<div class="absen-status compact" id="absenStatus">Kontak admin di WhatsApp untuk menambahkan namamu.</div>
+<div class="absen-mini-info absen-mini-info-hidden" aria-hidden="true">
 <div class="absen-stat-box"><b id="totalNamaAbsen">0</b><span>Total nama absen</span></div>
 <div class="absen-stat-box"><b id="totalAbsenMasuk">0</b><span>Total absen masuk</span></div>
 </div>
@@ -4186,7 +4562,7 @@
 <div class="leaderboard-head">
 <div>
 <h3>Leaderboard</h3>
-<p>Top 1–3 tampil sebagai Big three. Peringkat 4–99 tampil di bawahnya.</p>
+<p>Top 1–3 tampil sebagai Big three.</p>
 </div>
 <span class="badge" id="absenModeBadge">Menyiapkan...</span>
 </div>
@@ -4197,15 +4573,64 @@
 </section>
 
 
+</div>
+<div id="page-event" class="spa-page" data-route="event">
+<section id="event">
+<div class="container">
+<div class="event-hero-card panel">
+<span class="eyebrow">✦ Event CAO</span>
+<h2 class="event-title">Event Creator Anime One</h2>
+<p class="event-subtitle">Halaman khusus untuk info challenge, collab, giveaway, dan agenda komunitas. Bagian ini bisa kamu update kapan saja tanpa mengubah halaman lain.</p>
+<div class="buttons">
+<a class="btn btn-primary" href="https://www.tiktok.com/@officialanimeone" target="_blank" rel="noopener noreferrer">Lihat TikTok</a>
+<a class="btn btn-secondary spa-link" href="#absen" data-route="absen">Ke Menu Absen</a>
+</div>
+</div>
+
+<div class="event-grid">
+<article class="event-card">
+<div class="event-icon">🎬</div>
+<span class="badge">Challenge</span>
+<h3>CAO Edit Challenge</h3>
+<p>Event edit anime untuk member yang ingin unjuk karya, latihan konsisten, dan naik bareng komunitas.</p>
+</article>
+<article class="event-card">
+<div class="event-icon">🤝</div>
+<span class="badge">Collab</span>
+<h3>Collab Member</h3>
+<p>Agenda kolaborasi antar member, admin, dan creator agar karya CAO makin ramai dan dikenal.</p>
+</article>
+<article class="event-card">
+<div class="event-icon">🏆</div>
+<span class="badge">Reward</span>
+<h3>Giveaway &amp; Reward</h3>
+<p>Tempat menaruh informasi hadiah, apresiasi member aktif, dan pengumuman pemenang event.</p>
+</article>
+</div>
+
+<div class="panel event-card" style="margin-top: 20px;">
+<span class="badge">Alur Event</span>
+<h3>Timeline Singkat</h3>
+<div class="event-timeline">
+<div class="event-step"><b>1</b><span>Admin membuka info event dan aturan ikutannya.</span></div>
+<div class="event-step"><b>2</b><span>Member daftar, buat karya, lalu kirim sesuai format.</span></div>
+<div class="event-step"><b>3</b><span>Karya diposting sesuai jadwal dan memakai hashtag CAO.</span></div>
+<div class="event-step"><b>4</b><span>Admin mengumumkan highlight, pemenang, atau member terpilih.</span></div>
+</div>
+</div>
+</div>
+</section>
+</div>
+
 <div class="floating-actions" aria-label="Tombol cepat website">
 <button class="float-btn" id="themeCycleBtn" type="button" title="Ganti tema">◐</button>
 <button class="float-btn" id="backToTopBtn" type="button" title="Kembali ke atas">↑</button>
 </div>
 <nav class="mobile-dock" aria-label="Menu cepat mobile">
-<a href="#home"><span>⌂</span>Home</a>
-<a href="#generation"><span>✦</span>Fitur</a>
-<a href="#generation"><span>V</span>Gen</a>
-<a href="#absen"><span>✓</span>Absen</a>
+<a class="spa-link active" href="#home" data-route="home"><span>⌂</span>Home</a>
+<a class="spa-link" href="#team" data-route="team"><span>👑</span>Team</a>
+<a class="spa-link" href="#absen" data-route="absen"><span>✓</span>Absen</a>
+<a class="spa-link" href="#event" data-route="event"><span>✦</span>Event</a>
 </nav>
 
 <footer class="kage-footer">
@@ -4267,6 +4692,7 @@
             }
         }
 
+        window.centerFounderOwner = centerFounderOwner;
         window.addEventListener("load", centerFounderOwner);
         window.addEventListener("resize", () => {
             window.clearTimeout(window.__founderResizeTimer);
@@ -4276,33 +4702,98 @@
 </script>
 
 
+
+<script>
+/* =========================================================
+   SINGLE PAGE APP ROUTER - Creator Anime One
+   Klik menu mengganti tampilan, bukan lompat scroll ke section.
+========================================================= */
+(function () {
+    const pageMap = {
+        home: "home",
+        info: "home",
+        generation: "home",
+        statistik: "home",
+        team: "team",
+        member: "team",
+        admin: "team",
+        absen: "absen",
+        event: "event"
+    };
+
+    const pages = Array.from(document.querySelectorAll(".spa-page"));
+    const routeLinks = Array.from(document.querySelectorAll(".spa-link"));
+
+    function normalizeRoute(value) {
+        const clean = String(value || "").replace(/^#/, "").trim().toLowerCase();
+        return pageMap[clean] || "home";
+    }
+
+    function setActiveLinks(route) {
+        routeLinks.forEach(function (link) {
+            const linkRoute = normalizeRoute(link.dataset.route || link.getAttribute("href"));
+            link.classList.toggle("active", linkRoute === route);
+        });
+    }
+
+    function showPage(route, options = {}) {
+        const safeRoute = normalizeRoute(route);
+        pages.forEach(function (page) {
+            page.classList.toggle("active", page.dataset.route === safeRoute);
+        });
+        setActiveLinks(safeRoute);
+        document.body.dataset.page = safeRoute;
+
+        if (!options.keepScroll) {
+            window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+        }
+
+        if (safeRoute === "team" && typeof window.centerFounderOwner === "function") {
+            window.setTimeout(window.centerFounderOwner, 80);
+        }
+
+        const newHash = "#" + safeRoute;
+        if (options.replace) {
+            history.replaceState({ route: safeRoute }, "", newHash);
+        } else if (location.hash !== newHash) {
+            history.pushState({ route: safeRoute }, "", newHash);
+        }
+    }
+
+    document.addEventListener("click", function (event) {
+        const link = event.target.closest(".spa-link, a[href^='#']");
+        if (!link) return;
+
+        const rawRoute = link.dataset.route || link.getAttribute("href");
+        const route = normalizeRoute(rawRoute);
+        if (!route) return;
+
+        event.preventDefault();
+        showPage(route);
+    });
+
+    window.addEventListener("popstate", function () {
+        showPage(normalizeRoute(location.hash), { replace: true });
+    });
+
+    window.caoShowPage = showPage;
+    showPage(normalizeRoute(location.hash), { replace: true, keepScroll: false });
+})();
+</script>
+
 <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.4/firebase-database-compat.js"></script>
 <script>
-/* =========================================================
-   BOT ABSEN CAO - 1 HTML / GitHub Pages
-   - Bisa global semua user memakai Firebase Realtime Database.
-   - Jika FIREBASE_CONFIG belum diisi, otomatis fallback ke localStorage browser.
-   - Reset absen harian pukul 16.00 WIB per nama.
-   - Reset tampilan setiap bulan lewat pemisahan data per bulan.
-   - Nama wajib masuk daftar izin admin sebelum bisa absen.
-========================================================= */
+
 (function () {
     const STORAGE_KEY = "cao_absen_leaderboard_v6_reset_1600_wib";
     const WIB_OFFSET_MS = 7 * 60 * 60 * 1000;
     const RESET_HOUR_WIB = 16;
     const MAX_LEADERBOARD_RANK = 99;
+    const LEADERBOARD_PAGE_SIZE = 9;
     const FIREBASE_ROOT_PATH = "cao_absen";
 
-    /* =====================================================
-       FIREBASE CONFIG UNTUK LEADERBOARD GLOBAL
-       Cara isi:
-       1. Buat project Firebase.
-       2. Aktifkan Realtime Database.
-       3. Buka Project Settings > Web App.
-       4. Copy firebaseConfig, lalu tempel nilainya di bawah.
-       Jika bagian ini masih kosong, data hanya tersimpan di browser sendiri.
-    ===================================================== */
+ 
     const FIREBASE_CONFIG = {
         apiKey: "AIzaSyAFjfJHRLhvVoVI59MjiFpXm0ig6hfTkw4",
         authDomain: "caoone.firebasestorage.app",
@@ -4313,11 +4804,7 @@
         appId: "1:232440325309:web:55b9afae56e69a8365c3d4"
     };
 
-    /* =====================================================
-       DAFTAR NAMA YANG DIIZINKAN ABSEN
-       Tambahkan nama member di sini, lalu upload ulang index.html.
-       Member hanya bisa absen memakai nama yang ada di daftar ini.
-    ===================================================== */
+    
     const APPROVED_MEMBER_NAMES = [
         "RixCihuyy",
         "Blezx",
@@ -4343,13 +4830,7 @@
             
     ];
 
-    /* =====================================================
-       CUSTOM IMAGE PODIUM
-       Upload file gambar ke folder yang sama dengan index.html.
-       Lebih bagus pakai PNG transparan.
-       Karakter podium akan otomatis berada di belakang card.
-       Kosongkan dengan "" kalau tidak ingin pakai gambar.
-    ===================================================== */
+  
     const PODIUM_ASSETS = {
         characters: {
             1: "podium-top1.png",
@@ -4372,13 +4853,14 @@
     const totalAbsenMasuk = document.getElementById("totalAbsenMasuk");
     const modeBadge = document.getElementById("absenModeBadge");
 
-    if (!inputNama || !btnAbsen || !btnCek || !statusBox || !leaderboardList) return;
+    if (!inputNama || !btnAbsen || !btnCek || !leaderboardList) return;
 
     let firebaseEnabled = false;
     let firebaseDb = null;
     let firebaseRef = null;
     let cachedGlobalData = [];
     let activeMonthKey = getMonthKey();
+    let currentLeaderboardPage = 1;
 
     function getMonthKey(date = new Date()) {
         const year = date.getFullYear();
@@ -4592,7 +5074,8 @@
     }
 
     function setStatus(message, type) {
-        statusBox.className = "absen-status";
+        if (!statusBox) return;
+        statusBox.className = "absen-status compact";
         if (type) statusBox.classList.add(type);
         statusBox.textContent = message;
     }
@@ -4655,46 +5138,64 @@
         `;
     }
 
-    function renderLeaderboard() {
-        const monthKey = firebaseEnabled ? activeMonthKey : readLocalStore().monthKey;
-        const data = getSortedData();
-        const totalCount = data.reduce((sum, item) => sum + Number(item.count || 0), 0);
+    function getPaginationItems(currentPage, totalPages) {
+        const items = [];
 
-        totalNamaAbsen.textContent = data.length;
-        totalAbsenMasuk.textContent = totalCount;
-
-        const leaderboardData = data.slice(0, MAX_LEADERBOARD_RANK);
-        const topThree = leaderboardData.slice(0, 3);
-        const remaining = leaderboardData.slice(3);
-        const resetInfoHTML = `
-            <div class="absen-reset-info">
-                <span>Reset absen harian</span>
-                <strong>16.00 WIB</strong>
-                <small>Reset berikutnya: ${escapeHTML(formatResetDate(getNextResetAt()))}</small>
-            </div>
-        `;
-
-        if (leaderboardData.length === 0) {
-            leaderboardList.innerHTML = resetInfoHTML + `
-                <div class="absen-podium-empty">
-                    Belum ada nama yang absen untuk periode ${escapeHTML(getMonthLabel(monthKey))}. Nama harus masuk daftar izin admin dulu sebelum bisa muncul di leaderboard.
-                </div>
-            `;
-            return;
+        if (totalPages <= 7) {
+            for (let page = 1; page <= totalPages; page++) items.push(page);
+            return items;
         }
 
-        const podiumHTML = topThree.length ? `
-            <div class="absen-rank-subtitle">Podium Top 1–3 • ${escapeHTML(getMonthLabel(monthKey))}</div>
-            <div class="absen-top-podium">
-                ${topThree.map(renderPodiumItem).join("")}
-            </div>
-        ` : "";
+        items.push(1);
 
-        const remainingHTML = remaining.length ? `
-            <div class="absen-rank-subtitle">Peringkat 4–${Math.min(MAX_LEADERBOARD_RANK, leaderboardData.length)}</div>
+        if (currentPage > 3) items.push("dots-left");
+
+        const startPage = Math.max(2, currentPage - 1);
+        const endPage = Math.min(totalPages - 1, currentPage + 1);
+
+        for (let page = startPage; page <= endPage; page++) {
+            items.push(page);
+        }
+
+        if (currentPage < totalPages - 2) items.push("dots-right");
+
+        items.push(totalPages);
+
+        return items;
+    }
+
+    function renderPagination(currentPage, totalPages) {
+        if (totalPages <= 1) return "";
+
+        const items = getPaginationItems(currentPage, totalPages);
+
+        return `
+            <div class="absen-pagination" aria-label="Navigasi halaman leaderboard">
+                <button class="absen-page-btn nav" type="button" data-absen-page="${currentPage - 1}" ${currentPage === 1 ? "disabled" : ""} aria-label="Halaman sebelumnya">‹</button>
+                ${items.map(function (item) {
+                    if (typeof item === "string") {
+                        return `<span class="absen-page-dots">...</span>`;
+                    }
+
+                    return `
+                        <button class="absen-page-btn ${item === currentPage ? "active" : ""}" type="button" data-absen-page="${item}" aria-label="Buka halaman ${item}">
+                            ${item}
+                        </button>
+                    `;
+                }).join("")}
+                <button class="absen-page-btn nav" type="button" data-absen-page="${currentPage + 1}" ${currentPage === totalPages ? "disabled" : ""} aria-label="Halaman berikutnya">›</button>
+            </div>
+        `;
+    }
+
+    function renderRankList(items, startRank, title) {
+        if (!items.length) return "";
+
+        return `
+            <div class="absen-rank-subtitle">${title}</div>
             <div class="absen-rank-list compact">
-                ${remaining.map(function (item, offset) {
-                    const rank = offset + 4;
+                ${items.map(function (item, offset) {
+                    const rank = startRank + offset;
                     return `
                         <div class="absen-rank-item">
                             <div class="absen-rank-left">
@@ -4712,9 +5213,91 @@
                     `;
                 }).join("")}
             </div>
-        ` : "";
+        `;
+    }
 
-        leaderboardList.innerHTML = resetInfoHTML + podiumHTML + remainingHTML;
+    function renderLeaderboard() {
+        const monthKey = firebaseEnabled ? activeMonthKey : readLocalStore().monthKey;
+        const data = getSortedData();
+        const totalCount = data.reduce((sum, item) => sum + Number(item.count || 0), 0);
+
+        if (totalNamaAbsen) totalNamaAbsen.textContent = data.length;
+        if (totalAbsenMasuk) totalAbsenMasuk.textContent = totalCount;
+
+        const leaderboardData = data.slice(0, MAX_LEADERBOARD_RANK);
+        const totalPages = Math.max(1, Math.ceil(leaderboardData.length / LEADERBOARD_PAGE_SIZE));
+
+        if (currentLeaderboardPage > totalPages) currentLeaderboardPage = totalPages;
+        if (currentLeaderboardPage < 1) currentLeaderboardPage = 1;
+
+        const pageStartIndex = (currentLeaderboardPage - 1) * LEADERBOARD_PAGE_SIZE;
+        const pageEndIndex = Math.min(pageStartIndex + LEADERBOARD_PAGE_SIZE, leaderboardData.length);
+        const pageItems = leaderboardData.slice(pageStartIndex, pageEndIndex);
+
+        const resetInfoHTML = `
+            <div class="absen-reset-info">
+                <strong>Top Member Rajin Absen</strong>
+            </div>
+        `;
+
+        if (leaderboardData.length === 0) {
+            leaderboardList.innerHTML = resetInfoHTML + `
+                <div class="absen-podium-empty">
+                    Belum ada nama yang absen untuk periode ${escapeHTML(getMonthLabel(monthKey))}. Nama harus masuk daftar izin admin dulu sebelum bisa muncul di leaderboard.
+                </div>
+            `;
+            return;
+        }
+
+        let contentHTML = "";
+
+        if (currentLeaderboardPage === 1) {
+            const topThree = pageItems.slice(0, 3);
+            const remaining = pageItems.slice(3);
+            const remainingStartRank = 4;
+            const remainingEndRank = Math.min(LEADERBOARD_PAGE_SIZE, leaderboardData.length);
+
+            const podiumHTML = topThree.length ? `
+                <div class="absen-rank-subtitle">Podium Top 1–3 • ${escapeHTML(getMonthLabel(monthKey))}</div>
+                <div class="absen-top-podium">
+                    ${topThree.map(renderPodiumItem).join("")}
+                </div>
+            ` : "";
+
+            const remainingHTML = renderRankList(
+                remaining,
+                remainingStartRank,
+                `Peringkat ${remainingStartRank}–${remainingEndRank}`
+            );
+
+            contentHTML = podiumHTML + remainingHTML;
+        } else {
+            const startRank = pageStartIndex + 1;
+            const endRank = pageEndIndex;
+
+            contentHTML = renderRankList(
+                pageItems,
+                startRank,
+                `Peringkat ${startRank}–${endRank} • ${escapeHTML(getMonthLabel(monthKey))}`
+            );
+        }
+
+        leaderboardList.innerHTML = resetInfoHTML + contentHTML + renderPagination(currentLeaderboardPage, totalPages);
+
+        leaderboardList.querySelectorAll("[data-absen-page]").forEach(function (button) {
+            button.addEventListener("click", function () {
+                const nextPage = Number(button.dataset.absenPage);
+                if (!nextPage || nextPage < 1 || nextPage > totalPages || nextPage === currentLeaderboardPage) return;
+
+                currentLeaderboardPage = nextPage;
+                renderLeaderboard();
+
+                const card = leaderboardList.closest(".leaderboard-card");
+                if (card) {
+                    card.scrollIntoView({ behavior: "smooth", block: "start" });
+                }
+            });
+        });
     }
 
     function getCooldownInfo(name) {
@@ -4769,7 +5352,10 @@
             renderLeaderboard();
         }, function (error) {
             console.error("Firebase read error:", error);
-            setStatus("Firebase belum bisa dibaca. Cek FIREBASE_CONFIG dan rules Realtime Database.", "danger");
+            firebaseEnabled = false;
+            updateModeBadge();
+            renderLeaderboard();
+            setStatus("Firebase belum bisa dibaca. Sementara leaderboard memakai mode browser di perangkat ini.", "warning");
         });
     }
 
@@ -4892,6 +5478,7 @@
                 return;
             }
 
+            currentLeaderboardPage = 1;
             setStatus(`Berhasil! ${approvedName} masuk absen global. Semua user bisa melihat leaderboard terbaru. Reset absen pukul 16.00 WIB.`, "success");
             inputNama.value = "";
         }, false);
@@ -5063,19 +5650,6 @@
             burstSparkles(rect.left + rect.width / 2, rect.top + rect.height / 2);
         });
     }
-
-
-    const dockThemeBtn = document.getElementById("dockThemeBtn");
-    if (dockThemeBtn) {
-        dockThemeBtn.addEventListener("click", function () {
-            const current = localStorage.getItem("cao_theme") || "galaxy";
-            const next = themeOrder[(themeOrder.indexOf(current) + 1) % themeOrder.length];
-            applyTheme(next);
-            const rect = dockThemeBtn.getBoundingClientRect();
-            burstSparkles(rect.left + rect.width / 2, rect.top + rect.height / 2);
-        });
-    }
-
     if (backToTopBtn) {
         backToTopBtn.addEventListener("click", function () {
             window.scrollTo({ top: 0, behavior: "smooth" });
