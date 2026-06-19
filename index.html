@@ -4417,11 +4417,18 @@
             border: 1px solid rgba(255,255,255,.14);
         }
 
-        .view-thumb img {
+        .view-thumb img,
+        .view-thumb video,
+        .view-video {
             width: 100%;
             height: 100%;
             object-fit: cover;
             display: block;
+        }
+
+        .view-video {
+            border-radius: inherit;
+            background: rgba(255,255,255,.06);
         }
 
         .view-user {
@@ -6091,7 +6098,8 @@
             views: 570000,
             likes: 73700,
             url: "https://vt.tiktok.com/ZSQWKD1rb/",
-            image: "creatoranimeonetop2.mp4"
+            image: "cao-logo.png",
+            video: "creatoranimeonetop2.mp4"
         },
         {
             username: "@creator_top1",
@@ -6178,13 +6186,23 @@
             const username = escapeHTML(video.username);
             const hashtag = escapeHTML(video.hashtag);
             const image = escapeHTML(video.image || "cao-logo.png");
+            const rawVideo = String(video.video || "");
+            const fallbackImageAsVideo = !rawVideo && /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(String(video.image || ""));
+            const videoSrc = escapeHTML(rawVideo || (fallbackImageAsVideo ? video.image : ""));
+            const poster = fallbackImageAsVideo ? "cao-logo.png" : image;
+            const posterSafe = escapeHTML(poster || "cao-logo.png");
             const url = escapeHTML(video.url || "#");
+            const mediaHTML = videoSrc
+                ? `<video class="view-video" autoplay muted loop playsinline preload="metadata" poster="${posterSafe}">
+                        <source src="${videoSrc}" type="video/mp4">
+                   </video>`
+                : `<img src="${image}" alt="Thumbnail ${username}" onerror="this.src='cao-logo.png'">`;
 
             return `
                 <article class="top-view-card rank-${rank}">
                     <div class="view-rank-badge">${getRankIcon(rank)}</div>
                     <div class="view-thumb">
-                        <img src="${image}" alt="Thumbnail ${username}" onerror="this.src='cao-logo.png'">
+                        ${mediaHTML}
                     </div>
                     <div class="view-user">
                         <h3>${username}</h3>
